@@ -1,0 +1,26 @@
+@(firstName : String, backend : String, responseType : String, app : String)(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+
+@main("Welcome Consent: Verify address") {	
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<img src="@routes.Assets.at("images/logo-roberto.png")"/>
+        <a href="@routes.ConsentVerifyAddress.index(backend,responseType,app)" class="btn btn-warning btn-sm pull-right">Logout</a>
+        <span class="pull-right">Welcome @firstName!&nbsp;&nbsp;&nbsp;</span>
+    </h3>
+    <div class="btn-group pull-right"></div>
+  </div>
+  <div class="panel-body">
+  	<h2>Congratulations you successfully registered to roberto.ch online shop!</h2>
+  	<p>
+  	Now you can start selling products, have fun...
+    </p>
+   	<img src="@routes.Assets.at("images/ricardo.png")" height="100%"/>
+  </div><!-- panel-heading -->
+</div><!-- panel -->
+
+}

@@ -1,0 +1,1789 @@
+/* Overlays */
+.ui-widget-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.ui-widget-overlay { background: #eeeeee url(ui-bg_flat_0_eeeeee_40x100.png) 50% 50% repeat-x; opacity: .80;filter:Alpha(Opacity=80); }
+.ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #aaaaaa url(ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 0px; -khtml-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }
+
+/* states and images */
+.ui-dialog.scs-pageheader-ui-dialog .ui-icon { display: block; text-indent: -99999px; overflow: hidden; background-repeat: no-repeat; }
+
+/* Interaction Cues */
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-highlight, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-highlight, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-highlight  {border: 1px solid #cccccc; background: #ffffff url(ui-bg_flat_55_ffffff_40x100.png) 50% 50% repeat-x; color: #444444; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-highlight a, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-highlight a, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-highlight a { color: #444444; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-error, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-error, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-error {border: 1px solid #ff0084; background: #ffffff url(ui-bg_flat_55_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-error a, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-error a, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-error a { color: #222222; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-error-text, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-error-text, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-error-text { color: #222222; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-priority-primary, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-priority-primary, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-priority-primary { font-weight: bold; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-priority-secondary, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-priority-secondary, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-priority-secondary { opacity: .7; filter:Alpha(Opacity=70); font-weight: normal; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-disabled, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-state-disabled, .ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-state-disabled { opacity: .35; filter:Alpha(Opacity=35); background-image: none; }
+
+/* states and images */
+.ui-dialog.scs-pageheader-ui-dialog .ui-icon { width: 16px; height: 16px; background-image: url(ui-icons_ff0084_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-widget-content .ui-icon {background-image: url(ui-icons_ff0084_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-widget-header .ui-icon {background-image: url(ui-icons_0073ea_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-default .ui-icon { background-image: url(ui-icons_666666_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-hover .ui-icon, .ui-dialog.scs-pageheader-ui-dialog .ui-state-focus .ui-icon {background-image: url(ui-icons_ffffff_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-active .ui-icon {background-image: url(ui-icons_454545_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-highlight .ui-icon {background-image: url(ui-icons_0073ea_256x240.png); }
+.ui-dialog.scs-pageheader-ui-dialog .ui-state-error .ui-icon, .ui-dialog.scs-pageheader-ui-dialog .ui-state-error-text .ui-icon {background-image: url(ui-icons_ff0084_256x240.png); }
+
+/* Corner radius */
+.ui-dialog.scs-pageheader-ui-dialog .ui-corner-all, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-top, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; -khtml-border-top-left-radius: 2px; border-top-left-radius: 2px; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-corner-all, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-top, .ui-corner-right, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-tr { -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; -khtml-border-top-right-radius: 2px; border-top-right-radius: 2px; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-corner-all, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-bottom, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; -khtml-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-corner-all, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-bottom, .ui-dialog.scs-pageheader-ui-dialog .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; -khtml-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
+
+/* dialog */
+.ui-dialog.scs-pageheader-ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-title { margin: .1em 16px .1em 0; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
+.ui-dialog.scs-pageheader-ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+.ui-draggable.scs-pageheader-ui-dialog .ui-dialog-titlebar { cursor: move; }
+
+/********************************************************************************
+ * Reset
+ ********************************************************************************/
+
+/* this intrusion is necessary, otherwise the header would not display correctly anyway */
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div.scs-pageheader *,
+div.scs-pagefooter * {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+
+div.scs-pageheader img,
+div.scs-pagefooter img {
+    border: 0;
+}
+
+div.scs-pageheader ol,
+div.scs-pageheader ul,
+div.scs-pagefooter ol,
+div.scs-pagefooter ul {
+    list-style: none;
+}
+
+div.scs-pageheader table,
+div.scs-pagefooter table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+div.scs-pageheader a,
+div.scs-pagefooter a {
+    text-decoration: none;
+}
+
+/********************************************************************************
+ * Accessibility
+ ********************************************************************************/ 
+div.scs-pageheader .scs-pageheader-accessibility,
+div.scs-pageheader h1.scs-pageheader-accessibility,
+div.scs-pageheader h2.scs-pageheader-accessibility,
+div.scs-pageheader h3.scs-pageheader-accessibility,
+div.scs-pagefooter .scs-pagefooter-accessibility,
+div.scs-pagefooter h1.scs-pagefooter-accessibility,
+div.scs-pagefooter h2.scs-pagefooter-accessibility,
+div.scs-pagefooter h3.scs-pagefooter-accessibility,
+div.scs-pageheader .accessibility,
+div.scs-pageheader h1.accessibility,
+div.scs-pageheader h2.accessibility,
+div.scs-pageheader h3.accessibility,
+div.scs-pagefooter .accessibility,
+div.scs-pagefooter h1.accessibility,
+div.scs-pagefooter h2.accessibility,
+div.scs-pagefooter h3.accessibility {
+    position: absolute;
+    left: -32768px;
+    top: -32768px;
+}
+
+div.scs-pageheader .skiplinks {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    text-align: center;
+}
+
+div.scs-pageheader .skiplinks a {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    color: white;
+    background: url(bg.png) repeat-x;
+    opacity: 0;
+    filter: Alpha(Opacity = 0);
+}
+
+div.scs-pageheader .skiplinks li:last-child a {
+    -webkit-transition: opacity 0.4s ease-out, top 1s ease-in;
+    -moz-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+
+div.scs-pageheader .skiplinks li:last-child a:focus {
+    -webkit-transition: all 0;
+}
+
+div.scs-pageheader .skiplinks a:focus {
+    top: 0;
+    text-decoration: underline;
+    opacity: 1;
+    filter: Alpha(Opacity = 100);
+}
+
+div.scs-pageheader .skiplinks li:first-child a:focus {
+    -webkit-transition: opacity 0.3s ease-out, top 0.1s ease-out;
+    -moz-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}
+
+/********************************************************************************
+* General Layout
+********************************************************************************/
+div.scs-pageheader,
+div.scs-pagefooter {
+    font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #000;
+}
+
+div.scs-pageheader .pageCenter,
+div.scs-pagefooter .pageCenter {
+    margin: 0 auto;
+    width: 980px;
+    text-align: left;
+}
+
+div.scs-pageheader .clear,
+div.scs-pagefooter .clear {
+    clear: both;
+    font-size: 0;
+    height: 0;
+    line-height: 1px;
+    overflow: hidden;
+}
+
+div.scs-pageheader .positionWrapper,
+div.scs-pagefooter .positionWrapper {
+    position: absolute;
+}
+
+div.scs-pageheader a .linkImageWrapper {
+    font-size: 0 !important;
+    line-height: 0 !important;
+}
+
+div.scs-pageheader a:hover .linkImageWrapper {
+    background-color: #11aaff;
+}
+
+div.scs-pageheader a:hover .linkImageWrapper img {
+    opacity: 0.8;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+    filter: alpha(opacity = 80);
+}
+
+#scs-pageheader-search-form {
+    width: 140px;
+}
+
+#scs-pageheader-search-form input:focus,
+#scs-pagefooter-doormatnav a:focus {
+    outline: none;
+}
+
+/* HEADLINE (CET03)
+----------------------------------------------------------------------------------------------------*/
+
+div.scs-pageheader h2,
+.scs-pageheader-ui-dialog h2 {
+    font: 21px 'TheSaB3', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    color: #666;
+    padding: 0;
+    margin: 31px 0;
+    text-align: left;
+}
+
+/* TOOLBAR (NEH02)
+----------------------------------------------------------------------------------------------------*/
+
+div#scs-pageheader-toolbar {
+    background: url(bg.png) repeat-x;
+}
+
+div#scs-pageheader-toolbar .pageCenter {
+    height: 40px;
+    background: url(bg.png) repeat-x;
+}
+
+/* LOGO
+----------------------------------------------------------------------------------------------------*/
+
+a#scs-pageheader-logo {
+    float: left;
+    margin: 13px 0 13px 4px; /* align logo axis with tab above and text below */
+}
+
+#scs-pageheader-logo .logo,
+#scs-pageheader-logo .logotype {
+    vertical-align: middle;
+}
+
+#scs-pageheader-logo .logo {
+    width: 48px;
+    overflow: hidden;
+    height: 53px;
+    display: inline-block;
+}
+
+*:first-child+html #scs-pageheader-logo .logo,
+* html #scs-pageheader-logo .logo {
+    display: inline;
+    zoom: 1;
+}
+
+#scs-pageheader-logo .logotype {
+    font-family: SwisscomIcons;
+    font-size: 38px;
+    color: #001155;
+    padding-top: 3px;
+}
+
+.scs-html-landingpage .scs-pageheader-themeDark #scs-pageheader-logo .logotype, 
+.scs-pageheader-themeWhite #scs-pageheader-logo .logotype {
+    color: white;
+}
+
+#scs-pagefooter-contentWrapper {
+    background: #f5f5f5 url(footer/footer-top.png) repeat-x;
+}
+
+/* CORPORATE FOOTER (NEF3)
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pagefooter-metanav {
+    padding: 13px 20px 0;
+    height: 27px;
+    text-align: right;
+    font-size: 11px;
+    color: #666;
+}
+
+#scs-pagefooter-metanav ul {
+    float: left;
+}
+
+#scs-pagefooter-metanav ul li {
+    float: left;
+    margin-left: 20px;
+}
+
+#scs-pagefooter-metanav ul li:first-child {
+    margin-left: 0;
+}
+
+#scs-pagefooter-metanav ul li a {
+    font-size: 11px;
+    color: #666;
+    text-decoration: none;
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif /*bugfix SAM*/
+}
+
+#scs-pagefooter-metanav span {
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif /*bugfix SAM*/
+}
+
+#scs-pagefooter-metanav ul li a:focus,
+#scs-pagefooter-metanav ul li a:hover {
+    color: #2d90ec;
+}
+
+/* BUTTONS (GEL01)
+----------------------------------------------------------------------------------------------------*/
+
+
+div.scs-pageheader .primary-button,
+div.scs-pageheader .primary-button:link,
+div.scs-pageheader .primary-button:visited,
+.scs-pageheader-ui-dialog .primary-button,
+.scs-pageheader-ui-dialog .primary-button:link,
+.scs-pageheader-ui-dialog .primary-button:visited {
+    vertical-align: top;
+    position: relative;
+    font-weight: normal;
+    font-size: 13px;
+    cursor: pointer;
+    color: white;
+    margin: 0 10px 10px 0;
+    padding: 4px 12px;
+    text-decoration: none;
+    text-shadow: #006FD3 1px 1px 1px;
+    border: none;
+    /* gradient */
+    background: #41b7fd; /*fallback for IE6 or worse*/
+    background: -webkit-gradient(linear, center top, center bottom, from(#41b7fd) to(#0165d4)); /*old webkit*/
+    background: -webkit-linear-gradient(top, #41b7fd, #0165d4); /*new webkit*/
+    background: -moz-linear-gradient(top, #41b7fd, #0165d4); /*gecko*/
+    background: -ms-linear-gradient(top, #41b7fd, #0165d4); /*IE10*/
+    background: -o-linear-gradient(top, #41b7fd, #0165d4); /*opera 11.10+*/
+    background: linear-gradient(top, #41b7fd, #0165d4); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(top, #41b7fd, #0165d4); /*PIE for IE7 and IE8*/
+    /* box-shadow */
+    -webkit-box-shadow: #d9d9d9 1px 1px 0;
+    -moz-box-shadow: #d9d9d9 1px 1px 0;
+    box-shadow: #d9d9d9 1px 1px 0;
+    /* border-radius */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+div.scs-pageheader .primary-button:hover,
+.scs-pageheader-ui-dialog .primary-button:hover {
+    background: #1f8be7;
+    color: #FFFFFF !important; /*SAM Bugfix style-Kollison*/
+    -pie-background: #1f8be7; /*PIE for IE7 and IE8*/
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+div.scs-pageheader .primary-button:active,
+.scs-pageheader-ui-dialog .primary-button:active {
+    outline: none; /* get rid of IE's dotted line */
+    /* gradient */
+    background: #1b82da; /*fallback for IE6 or worse*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#1776c8), to(#1b82da)); /*old webkit*/
+    background: -webkit-linear-gradient(top, #1776c8, #1b82da); /*new webkit*/
+    background: -moz-linear-gradient(top, #1776c8, #1b82da); /*gecko*/
+    background: -ms-linear-gradient(top, #1776c8, #1b82da); /*IE10*/
+    background: -o-linear-gradient(top, #1776c8, #1b82da); /*opera 11.10+*/
+    background: linear-gradient(top, #1776c8, #1b82da); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(top, #1776c8, #1b82da); /*PIE for IE7 and IE8*/
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+div.scs-pageheader a.primary-button:link,
+div.scs-pageheader span.primary-button,
+.scs-pageheader-ui-dialog a.primary-button:link,
+.scs-pageheader-ui-dialog span.primary-button {
+    padding: 2px 12px;
+    display: inline-block;
+    vertical-align: top !important;
+}
+
+div.scs-pageheader span.primary-button a,
+.scs-pageheader-ui-dialog span.primary-button a {
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+div.scs-pageheader span.primary-button a:hover,
+.scs-pageheader-ui-dialog span.primary-button a:hover {
+    text-decoration: none;
+}
+
+/* Secondary button, for example "More options" */
+div.scs-pageheader .secondary-button,
+div.scs-pageheader .secondary-button:link,
+div.scs-pageheader .secondary-button:visited,
+.scs-pageheader-ui-dialog .secondary-button,
+.scs-pageheader-ui-dialog .secondary-button:link,
+.scs-pageheader-ui-dialog .secondary-button:visited {
+    vertical-align: top;
+    position: relative;
+    font-weight: normal;
+    font-size: 13px;
+    cursor: pointer;
+    color: #2d90ec;
+    margin: 0 10px 10px 0;
+    padding: 3px 11px; /* plus border */
+    text-decoration: none;
+    text-shadow: #d4d4d4 1px 1px 1px;
+    border: 1px solid #e7e7e7;
+    /* gradient */
+    background: #f5f5f5; /*fallback for IE6 or worse*/
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(#eaeaea)); /*old webkit*/
+    background: -webkit-linear-gradient(top, white, #eaeaea); /*new webkit*/
+    background: -moz-linear-gradient(top, white, #eaeaea); /*gecko*/
+    background: -ms-linear-gradient(top, white, #eaeaea); /*IE10*/
+    background: -o-linear-gradient(top, white, #eaeaea); /*opera 11.10+*/
+    background: linear-gradient(top, white, #eaeaea); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(top, white, #eaeaea); /*PIE for IE7 and IE8*/
+    /* box-shadow */
+    -webkit-box-shadow: #d9d9d9 0 1px 0;
+    -moz-box-shadow: #d9d9d9 0 1px 0;
+    box-shadow: #d9d9d9 0 1px 0;
+    /* border-radius */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+div.scs-pageheader .secondary-button:hover,
+.scs-pageheader-ui-dialog .secondary-button:hover {
+    /* gradient */
+    background: #eaeaea; /*fallback for IE6 or worse*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#eaeaea), to(#f0f0f0)); /*old webkit*/
+    background: -webkit-linear-gradient(top, #eaeaea, #f0f0f0); /*new webkit*/
+    background: -moz-linear-gradient(top, #eaeaea, #f0f0f0); /*gecko*/
+    background: -ms-linear-gradient(top, #eaeaea, #f0f0f0); /*IE10*/
+    background: -o-linear-gradient(top, #eaeaea, #f0f0f0); /*opera 11.10+*/
+    background: linear-gradient(top, #eaeaea, #f0f0f0); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(top, #eaeaea, #f0f0f0); /*PIE for IE7 and IE8*/
+}
+
+div.scs-pageheader .secondary-button:active,
+.scs-pageheader-ui-dialog .secondary-button:active {
+    outline: none; /* get rid of IE's dotted line */
+    /* gradient */
+    background: #dcdcdc; /*fallback for IE6 or worse*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#dcdcdc), to(#ededed)); /*old webkit*/
+    background: -webkit-linear-gradient(top, #dcdcdc, #ededed); /*new webkit*/
+    background: -moz-linear-gradient(top, #dcdcdc, #ededed); /*gecko*/
+    background: -ms-linear-gradient(top, #dcdcdc, #ededed); /*IE10*/
+    background: -o-linear-gradient(top, #dcdcdc, #ededed); /*opera 11.10+*/
+    background: linear-gradient(top, #dcdcdc, #ededed); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(top, #dcdcdc, #ededed); /*PIE for IE7 and IE8*/
+}
+
+div.scs-pageheader a.secondary-button:link,
+div.scs-pageheader span.secondary-button,
+.scs-pageheader-ui-dialog a.secondary-button:link,
+.scs-pageheader-ui-dialog span.secondary-button {
+    padding: 4px 11px; /* plus border */
+    display: inline-block;
+    vertical-align: top !important;
+}
+
+div.scs-pageheader span.secondary-button a:hover,
+.scs-pageheader-ui-dialog span.secondary-button a:hover {
+    text-decoration: none;
+}
+
+.ui-widget-overlay {
+    background: #000 url(ui-bg_flat_0_000000_40x100.png) 50% 50% repeat-x;
+    /* opacity */
+    opacity: .60; /* Standard: FF gt 1.5, Opera, Safari */
+    filter: alpha(opacity = 60); /* IE lt 8 */
+    -ms-filter: "alpha(opacity=60)"; /* IE 8 */
+    -khtml-opacity: .60; /* Safari 1.x */
+    -moz-opacity: .60; /* FF lt 1.5, Netscape */
+}
+
+.ui-dialog.scs-pageheader-ui-dialog {
+    font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    color: #444;
+    padding: 2px 25px;
+    min-width: 260px; /* 300 without padding*/
+    max-width: 400px; /* 460 without padding*/
+    background-color: #fff;
+    /* box-shadow */
+    -webkit-box-shadow: #222 0 0 5px;
+    -moz-box-shadow: #222 0 0 5px;
+    box-shadow: #222 0 0 5px;
+    /* border-radius */
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    text-align: left;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar {
+    padding: 11px 3px 11px 0;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar .ui-dialog-title {
+    color: #001155;
+    font-size: 17px;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar .ui-dialog-titlebar-close {
+    top: 4px;
+    right: -11px;
+    margin: 0;
+    padding: 0;
+    width: 21px;
+    height: 21px;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar a.ui-dialog-titlebar-close .ui-icon {
+    width: 21px;
+    height: 21px;
+    background: url(ui-dialog-close.png) 0 0 no-repeat;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-titlebar a.ui-dialog-titlebar-close:hover .ui-icon {
+    background-position: 0 -21px;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-content {
+    padding: 0 0 18px 0;
+    font-size: 15px;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-content p {
+    margin: 0 0 10px 0;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane {
+    margin: 0;
+    padding: 16px 0 10px 0;
+    border-top: 1px solid #d7d7d7;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+    position: relative;
+    left: 10px;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog .ui-dialog-buttonpane button {
+    margin: 0 10px 10px 0;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog.error .ui-dialog-titlebar .ui-dialog-title,
+.ui-dialog.scs-pageheader-ui-dialog.error .ui-dialog-content,
+.ui-dialog.scs-pageheader-ui-dialog.error .ui-dialog-content * {
+    color: #dd1122 !important;
+}
+
+.ui-dialog.scs-pageheader-ui-dialog h3 {
+    font: 17px 'TheSaB3', 'Trebuchet MS', Arial, Helvetica, sans-serif; /* 18 */
+    color: #666;
+    padding: 0;
+    margin: 14px 0 4px 0;
+    text-align: left;
+}
+
+/* CFU-TOGGLE (NEH01)
+-------------------------------------------------------------------------------------*/
+
+ul#scs-pageheader-branchnav {
+    float: left;
+    margin-left: 20px;
+    height: 40px;
+    overflow: hidden;
+}
+
+ul#scs-pageheader-branchnav li {
+    float: left;
+    padding: 4px 0 0 2px;
+    background: url(toolbar/devider.png) no-repeat 0 1px;
+}
+
+ul#scs-pageheader-branchnav li:first-child {
+    /* background-image: none; */
+}
+
+html.msIeLt7 ul#scs-pageheader-branchnav,
+html.msIe7 ul#scs-pageheader-branchnav,
+html.msIe8 ul#scs-pageheader-branchnav {
+    position: relative;
+    top: 1px;
+}
+
+ul#scs-pageheader-branchnav li a {
+    display: block;
+    position: relative;
+    z-index: 1;
+    padding: 8px 17px 0 17px;
+    height: 28px; font-size: 13px; /*bugfix*/
+    color: #fff !important;
+    text-decoration: none; font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /* Bugfix SAM */ 
+}
+
+ul#scs-pageheader-branchnav li a:hover {
+    background: url(level0-bg.png) repeat-x 0 bottom;
+}
+
+ul#scs-pageheader-branchnav li a:focus {
+    text-decoration: underline;
+}
+
+ul#scs-pageheader-branchnav li.active a,
+ul#scs-pageheader-branchnav li.active a:hover {
+    z-index: 2;
+    left: 2px;
+    margin-left: -4px;
+    padding-left: 19px;
+    padding-right: 19px;
+    min-height: 29px;
+    /* border-radius */
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background-color: #fff;
+    background-image: none;
+    color: #2d90ec;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-branchnav li.active a,
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-branchnav li.active a:hover,
+div.scs-pageheader-themeWhite ul#scs-pageheader-branchnav li.active a,
+div.scs-pageheader-themeWhite ul#scs-pageheader-branchnav li.active a:hover {
+    background-color: #2b85c8;
+    color: #fff;
+}
+
+/* TOOLBAR (NEH02)
+----------------------------------------------------------------------------------------------------*/
+
+ul#scs-pageheader-toolsnav {
+    float: right;
+}
+
+ul#scs-pageheader-toolsnav li {
+    float: left;
+    padding: 4px 0 0 2px;
+    background: url(toolbar/devider.png) no-repeat 0 1px;
+}
+ul#scs-pageheader-toolsnav li:first-child {
+    padding-left: 0;
+    background-image: none;
+}
+
+ul#scs-pageheader-toolsnav li a {
+    display: block;
+    position: relative;
+    z-index: 1;
+    padding: 2px 9px 0 9px;
+    min-width: 32px;
+    height: 34px;
+    overflow: hidden;
+    text-align: center;
+    color: #fff;
+    font-size: 10px;
+    text-decoration: none;
+    white-space: nowrap;
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+}
+
+ul#scs-pageheader-toolsnav li a:focus {
+    text-decoration: underline;
+}
+
+ul#scs-pageheader-toolsnav li a:hover {
+    background: url(level0-bg.png) repeat-x 0 bottom;
+}
+
+ul#scs-pageheader-toolsnav li a img {
+    width: 14px;
+    height: 14px;
+}
+
+ul#scs-pageheader-toolsnav li a span {
+    display: block;
+    margin-top: 2px;
+	color: #fff; /*bugfix SAM*/
+    font-size: 10px; /*bugfix SAM*/
+	font-family: "TheSaB5", Arial, Helvetica, Sans-Serif; /*bugfix SAM*/
+}
+
+ul#scs-pageheader-toolsnav li.active a,
+ul#scs-pageheader-toolsnav li.active a:hover{
+    z-index: 2;
+    left: 2px;
+    margin-left: -4px;
+    padding-left: 11px;
+    padding-right: 11px;
+    /* border-radius */
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background-color: #fff;
+    background-image: none;
+    /* color: #2d90ec; Bugfix SAM*/
+}
+
+ul#scs-pageheader-toolsnav li.active a span,  /*bugfix SAM*/
+ul#scs-pageheader-toolsnav li.active a:hover span {
+ color: #2d90ec;
+}
+
+/* USER BOX
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pageheader-userbox {
+ 	float: right;
+    padding: 4px 0 0 3px;
+}
+
+#scs-pageheader-userbox-button {
+    display: block;
+    width: 146px;
+    height: 36px;
+    overflow: hidden;
+    background: url(userbox.png) no-repeat 0 -72px;
+    color: #fff;
+    font-size: 13px;
+    text-decoration: none;
+    padding-right: 28px;
+    text-align: right;
+    position: relative;
+}
+
+#scs-pageheader-userbox-button.login {
+    background-position: 0 0;
+    text-align: center;
+}
+
+#scs-pageheader-userbox-button.login:hover {
+    background-position: 0 -36px;
+}
+
+#scs-pageheader-userbox-button:hover {
+    background-position: 0 -108px;
+}
+
+#scs-pageheader-userbox-button:focus {
+    text-decoration: underline;
+}
+
+#scs-pageheader-userbox-button a,
+#scs-pageheader-userbox-button a:hover {
+    color: #fff;
+}
+
+/*.isActive #scs-pageheader-userbox-button span.text ,
+.isActive #scs-pageheader-userbox-button:hover{
+    background-position: 0 -144px;
+    color: #102b6a;
+}bufix SAM*/
+
+.isActive #scs-pageheader-userbox-button, .isActive #scs-pageheader-userbox-button span.text, .isActive #scs-pageheader-userbox-button:hover {
+    background-position: 0 -144px;
+    color: #102b6a;
+}
+
+#scs-pageheader-userbox-button span.text {
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+    display: inline;
+    position: absolute;
+    top: 8px;
+	left: 12px;
+    right: 28px;
+	color: #fff; /*bugfix SAM*/
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	font-size: 13px;
+	overflow: hidden;
+}
+
+#scs-pageheader-userbox-button.login span.text {
+    padding-left: 26px;
+}
+
+/* USER BOX - MENU
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pageheader-userbox-menu {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    padding: 0 10px 5px;
+    width: 152px;
+    border: 1px solid #F4F4F4;
+    border-top: none;
+    background-color: #fff;
+    /* box-shadow */
+    -moz-box-shadow: 0 3px 6px #D1D1D1;
+    -webkit-box-shadow: 0 3px 6px #D1D1D1;
+    box-shadow: 0 3px 6px #D1D1D1;
+    text-align: right;
+}
+
+/* No Shadow on IE */
+
+html.msIe7 #scs-pageheader-userbox-menu,
+html.msIeLt7 #scs-pageheader-userbox-menu {
+    border-color: #acacac;
+}
+
+.isActive #scs-pageheader-userbox-menu {
+    display: block;
+}
+
+#scs-pageheader-userbox-menu > ul.accountlinks {
+    display: block;
+    margin: 12px 0 0;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+#scs-pageheader-userbox-menu > ul.accountlinks > li {
+    padding: 0 17px 4px 0px;/*bugfix*/
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+	font-size: 13px;/*bugfix SAM*/
+}
+
+#scs-pageheader-userbox-menu > ul.accountlinks > li a {
+    color: #001155;
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+	font-size: 13px;/*bugfix SAM*/
+}
+
+#scs-pageheader-userbox-menu > ul.accountlinks > li a:hover {
+    color: #2D90EC;
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+	font-size: 13px;/*bugfix SAM*/
+}
+
+#scs-pageheader-userbox-menu > .primary-button {
+    margin-top: 12px;
+    margin-right: 16px;
+}
+
+#scs-pageheader-userbox-menu > .footnote {
+    margin: 7px 17px 13px;
+    float: right;
+}
+
+
+/* META-NAVIGATION (NEH03)
+----------------------------------------------------------------------------------------------------*/
+
+div.scs-pageheader div.metanav {
+    float: right;
+	z-index: 998;
+}
+
+ul#scs-pageheader-metanav {
+    position: relative;
+    z-index: 3;
+    margin-top: 12px;
+    color: #015;
+}
+
+ul#scs-pageheader-metanav > li {
+    float: left;
+    padding: 0 12px 0 13px;
+    height: 15px;
+    background: url(meta-devider.png) no-repeat;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li, 
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li {
+    background-image: url(meta-devider-white.png);
+}
+
+ul#scs-pageheader-metanav img {
+    margin-right: 4px;
+    vertical-align: -2px;
+}
+
+ul#scs-pageheader-metanav > li:first-child,
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li:first-child,
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li:first-child {
+    padding-left: 0;
+    background-image: none;
+}
+
+ul#scs-pageheader-metanav > li:last-child {
+    padding-right: 0;
+}
+
+ul#scs-pageheader-metanav > li.last-child {
+    /* separate because ie8 ignores complete statement if a :last-child selector is part of it */
+    padding-right: 0;
+}
+
+ul#scs-pageheader-metanav > li > a {
+	font-family: "TheSaB5", Arial, Helvetica, Sans-Serif; /*bugfix SAM*/
+    display: block;
+    margin-top: -1px;
+    color: #001155;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+ul#scs-pageheader-metanav > li > a > .activeImage {
+    display: none;
+}
+ul#scs-pageheader-metanav > li > a > .normalImage {
+    display: inline;
+}
+ul#scs-pageheader-metanav > li > a:hover > .activeImage {
+    display: inline;
+}
+ul#scs-pageheader-metanav > li > a:hover > .normalImage {
+    display: none;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li,
+div.scs-pageheader-themeWhite li {
+    color: #fff;	
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li,
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li {
+    color: #fff;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li, /* also apply style if only one language (no link) is present on page */
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li > a,
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li, /* also apply style if only one language (no link) is present on page */
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li > a {
+    color: #fff;
+}
+
+ul#scs-pageheader-metanav > li > a:focus,
+ul#scs-pageheader-metanav > li > a:hover,
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li > a:focus,
+.scs-html-landingpage div.scs-pageheader-themeDark ul#scs-pageheader-metanav > li > a:hover, 
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li > a:focus,
+div.scs-pageheader-themeWhite ul#scs-pageheader-metanav > li > a:hover {
+    color: #2d90ec;
+}
+
+/* LANGUAGE SELECTOR in META-NAVIGATION (NEH03)
+-------------------------------------------------------------------------------------*/
+
+li#scs-pageheader-language-switch {
+    position: relative;
+    z-index: 4;
+    padding-left: 13px !important;
+}
+
+li#scs-pageheader-language-switch a.active {
+    position: relative;
+    z-index: 6;
+    top: -1px;
+    background: url(meta-arrow-down.png) no-repeat 25px 6px;
+}
+
+li#scs-pageheader-language-switch a.active:hover {
+    background-image: url(meta-arrow-down-hover.png);
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch a.active,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch a.active {
+    background-image: url(meta-arrow-down-white.png);
+}
+
+li#scs-pageheader-language-switch a,
+li#scs-pageheader-language-switch span {
+    padding-right: 26px;
+    color: #001155;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    white-space: nowrap;
+	font-family: 'TheSaB5', 'Trebuchet MS', Arial, Helvetica, sans-serif; /*bugfix SAM*/
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch a,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch a {
+    color: #fff;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch.open a, 
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch.open a {
+    color: #001155;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch a:focus,
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch a:hover,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch a:focus,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch a:hover,
+li#scs-pageheader-language-switch a:focus,
+li#scs-pageheader-language-switch a:hover {
+    color: #2d90ec;
+}
+
+li#scs-pageheader-language-switch ul {
+    display: none;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch.open a.active,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch.open a.active,
+li#scs-pageheader-language-switch.open a.active {
+    background-image: url(meta-arrow-up.png);
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark li#scs-pageheader-language-switch.open a.active:hover,
+div.scs-pageheader-themeWhite li#scs-pageheader-language-switch.open a.active:hover,
+li#scs-pageheader-language-switch.open a.active:hover {
+    background-image: url(meta-arrow-up-hover.png);
+}
+
+li#scs-pageheader-language-switch.open ul {
+    display: block;
+    position: absolute;
+    z-index: 5;
+    top: -5px;
+    left: 2px;
+    border: 1px solid #f4f4f4;
+    /* border-radius */
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: #d1d1d1 0 3px 6px;
+    -moz-box-shadow: #d1d1d1 0 3px 6px;
+    box-shadow: #d1d1d1 0 3px 6px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background-color: #fff;
+}
+
+li#scs-pageheader-language-switch.open ul li {
+    padding: 8px 0 0 10px;
+}
+
+li#scs-pageheader-language-switch.open ul li:first-child {
+    padding-top: 28px;
+}
+
+li#scs-pageheader-language-switch.open ul li:last-child {
+    padding-bottom: 6px;
+}
+
+li#scs-pageheader-language-switch.open ul li.last-child {
+    /* separate because ie8 ignores complete statement if a :last-child selector is part of it */
+    padding-bottom: 6px;
+}
+
+li#scs-pageheader-language-switch.open ul li a {
+    text-align: right;
+}
+
+/* META NAVIGATION :: JUNCTION SWITCH, for example BUSINESS AREA SELECTOR
+-------------------------------------------------------------------------------------*/
+
+#scs-pageheader-junction-switch {
+    position: relative;
+}
+
+#scs-pageheader-junction-switch-selector {
+    border: 1px solid transparent;
+    display: inline-block;
+    padding: 3px 10px 3px 10px;
+    margin: -3px -10px -3px 0;
+}
+
+#scs-pageheader-junction-switch-selector a.active {
+    color: #015;
+    padding-right: 0;
+}
+
+#scs-pageheader-junction-switch-selector a.active .scs-meta-arrow {
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px 0 0 9px;
+    background: url(meta-arrow-down.png) no-repeat 0 0;
+    width: 7px;
+    height: 4px; /* meta-arrow-down */
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark #scs-pageheader-junction-switch-selector a.active .scs-meta-arrow,
+div.scs-pageheader-themeWhite #scs-pageheader-junction-switch-selector a.active .scs-meta-arrow {
+    background-image: url(meta-arrow-down-white.png);
+}
+
+#scs-pageheader-junction-switch-dropdown a,
+#scs-pageheader-junction-switch-dropdown {
+    color: #015;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#scs-pageheader-junction-switch-selector a.active,
+#scs-pageheader-junction-switch-dropdown.open ul,
+#scs-pageheader-junction-switch-dropdown {
+    display: inline-block;
+}
+
+#scs-pageheader-junction-switch-selector.open a.active .scs-meta-arrow {
+    background: url(meta-arrow-up.png) no-repeat 0 0;
+}
+
+.scs-html-landingpage div.scs-pageheader-themeDark #scs-pageheader-junction-switch-selector.open a.active .scs-meta-arrow,
+div.scs-pageheader-themeWhite #scs-pageheader-junction-switch-selector.open a.active .scs-meta-arrow {
+    background-image: url(meta-arrow-up-white.png);
+}
+
+#scs-pageheader-junction-switch-selector.open {
+    background-color: white;
+    border: 1px solid #f4f4f4;
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-junction-switch-dropdown.open ul {
+    display: block;
+}
+
+#scs-pageheader-junction-switch-dropdown.open ul li {
+    padding: 8px 26px 0 10px;
+    white-space: nowrap;
+    text-align: right;
+}
+
+li#scs-pageheader-junction-switch-selector {
+    position: relative;
+    z-index: 24;
+}
+
+li#scs-pageheader-junction-switch-selector a.active {
+    position: relative;
+    z-index: 6;
+}
+
+li#scs-pageheader-junction-switch-selector a {
+    padding-right: 26px;
+    color: #015;
+    font-size: 13px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+#scs-pageheader-junction-switch-selector a:focus,
+#scs-pageheader-junction-switch-selector a:hover,
+#scs-pageheader-junction-switch-dropdown li:hover {
+    color: #2d90ec;
+}
+
+#scs-pageheader-junction-switch-dropdown {
+    display: none;
+}
+
+#scs-pageheader-junction-switch-dropdown.open {
+    background-color: white;
+    display: inline-block;
+    position: absolute;
+    z-index: 5;
+    top: -5px;
+    left: 2px;
+    border: 1px solid #f4f4f4;
+    /* border-radius */
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: #d1d1d1 0 2px 4px;
+    -moz-box-shadow: #d1d1d1 0 2px 4px;
+    box-shadow: #d1d1d1 0 2px 4px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-junction-switch-dropdown.open {
+    top: 18px;
+    right: 2px;
+    left: auto;
+    z-index: 50;
+    width: 200px;
+    -moz-border-radius: 1px 0 0 0;
+    -webkit-border-radius: 1px 0 0 0;
+    border-radius: 1px 0 0 0;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-junction-switch-selector.open ul {
+    padding: 0 0 10px 0;
+}
+
+li#scs-pageheader-junction-switch-selector.open ul li {
+    padding: 8px 0 0 10px;
+}
+
+li#scs-pageheader-junction-switch-selector.open ul li:first-child {
+    padding-top: 28px;
+}
+
+li#scs-pageheader-junction-switch-selector.open ul li a {
+    text-align: right;
+}
+
+
+/* HORIZONTAL NAVIGATION (NEN1)
+-------------------------------------------------------------------------------------*/
+
+ul#scs-pageheader-topnav {
+    clear: both;
+    display: block;
+    /* necessary for ie7-8 */
+    position: relative;
+    z-index: 1;
+    margin-left: -3px;
+    height: 44px;
+    background: url(bg.png) repeat-x 0 0;
+}
+ul#scs-pageheader-topnav.scs-empty {
+    height: 1px;
+    background: none;
+    border-bottom: 1px solid #ddd;
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: -10px;
+    width: 940px;
+}
+
+ul#scs-pageheader-topnav > li {
+    float: left;
+    padding: 4px 0 0 2px;
+    line-height: 1; /* for consistency on mac and windows */
+    background: url(level1-devider.png) no-repeat 0 0;
+}
+
+ul#scs-pageheader-topnav > li:first-child {
+    margin-left: 4px;
+    padding-left: 0;
+    background-image: none;
+}
+
+ul#scs-pageheader-topnav > li > a {
+    display: block;
+    /* necessary for ie7-8 */
+    position: relative;
+    z-index: 2;
+    padding: 8px 17px 0;
+    height: 28px;
+    color: #001155;
+    font-size: 15px;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+ul#scs-pageheader-topnav > li > a:focus,
+ul#scs-pageheader-topnav > li > a:hover {
+    color: #2d90ec;
+}
+
+ul#scs-pageheader-topnav > li.active > a {
+    margin-top: -2px;
+    padding-top: 10px;
+    background: url(bg.png) repeat-x;
+    color: #2d90ec;
+}
+
+ul#scs-pageheader-topnav > li.active:first-child > a {
+    /* border-radius */
+    -moz-border-radius: 6px 0 0 6px;
+    -webkit-border-radius: 6px 0 0 6px;
+    border-radius: 6px 0 0 6px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+ul#scs-pageheader-topnav > li.bigDevider {
+    background-position: 0 -36px;
+}
+
+ul#scs-pageheader-topnav.megaDdVisible {
+    background-position: 0 -44px;
+}
+
+ul#scs-pageheader-topnav > li.open > a {
+    left: 2px;
+    z-index: 3;
+    margin-top: -4px;
+    margin-left: -4px;
+    padding: 11px 18px 0 18px;
+    border: 1px solid #dadada;
+    /* border-radius and box-shadow */
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+    -webkit-box-shadow: #d6d6d6 0 2px 4px;
+    -moz-box-shadow: #d6d6d6 0 2px 4px;
+    box-shadow: #d6d6d6 0 2px 4px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background-color: #fff;
+    color: #2d90ec;
+}
+
+ul#scs-pageheader-topnav > li:first-child > a.open {
+    left: 3px;
+    padding-left: 17px;
+    padding-right: 19px;
+}
+
+/* SEARCH BAR (NEN2)
+-------------------------------------------------------------------------------------*/
+
+#scs-pageheader-search {
+    position: absolute;
+    z-index: 2;
+    margin-top: -36px;
+    margin-left: 820px;
+    white-space: nowrap;
+}
+
+#scs-pageheader-search-field {
+    float: left;
+    width: 109px; /* 112-3 */
+    padding-left: 3px;
+    height: 23px;
+    border: none;
+    background: url(bg.png) no-repeat;
+}
+
+#scs-pageheader-search-field.scs-standalone {
+    width: 97px;
+    height: 16px;
+    font-weight: normal;
+    font-size: 13px;
+    color: #001D51;
+    background: #f5f5f5;
+    padding: 2px 7px 3px 7px;
+    border: 1px solid #F1F1F1;
+    border-right: none;
+    -webkit-box-shadow: #ccc -1px -1px 0;
+    -moz-box-shadow: #ccc -1px -1px 0;
+    box-shadow: #ccc -1px -1px 0;
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-search-button {
+    cursor: pointer;
+    float: left;
+    width: 28px;
+    height: 24px;
+    border: none;
+    background: url(bg.png) 0 0 no-repeat;
+}
+
+#scs-pageheader-search-field:focus ~ #scs-pageheader-search-button,
+#scs-pageheader-search-button:hover {
+    background-image: url(search-button-bg-active.png);
+}
+
+/* MEGA-DROP-DOWN (NEN3)
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pageheader-megadropdown-wrapper {
+    z-index: 1001; /* filterMenuList from ecommerce has z-index set to 1000 */
+}
+
+#scs-pageheader-megadropdown {
+    display: none;
+    clear: both;
+    position: absolute;
+    z-index: 900;
+    top: -5px;
+    width: 978px;
+    overflow: hidden;
+    border: 1px solid #dddcdd;
+    border-top-width: 0;
+    /* box-shadow */
+    -webkit-box-shadow: #d6d6d6 0 2px 4px;
+    -moz-box-shadow: #d6d6d6 0 2px 4px;
+    box-shadow: #d6d6d6 0 2px 4px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background-color: #fff;
+}
+
+#scs-pageheader-megadropdown .section ul li {
+    margin-left: 0;
+    text-indent: 0;
+}
+
+#scs-pageheader-megadropdown-loader {
+    display: none;
+    height: 88px;
+    background: url(mega-loader.gif) no-repeat center center;
+}
+
+#scs-pageheader-megadropdown .mdd-content {
+    display: none;
+    height: 321px;
+    overflow: hidden;
+}
+
+/* CONTENT of MEGA-DROP-DOWN (NEN3)
+-------------------------------------------------------------------------------------*/
+
+#scs-pageheader-megadropdown .mdd-content .section {
+    float: left;
+    margin: 17px 0 19px 20px;
+    width: 140px;
+    overflow: hidden;
+    font-size: 13px;
+    color: #333;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section:first-child {
+    margin-left: 19px;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section a,
+#scs-pageheader-megadropdown .mdd-content .section a * {
+    font-size: 13px;
+    color: #001155;
+    text-decoration: none;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section a:focus,
+#scs-pageheader-megadropdown .mdd-content .section a:focus *,
+#scs-pageheader-megadropdown .mdd-content .section a:hover,
+#scs-pageheader-megadropdown .mdd-content .section a:hover * {
+    color: #2d90ec;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section .title {
+    display: block;
+    margin: 15px 0 12px;
+    font-size: 15px;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section ul {
+    list-style: none;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section li {
+    margin-top: 8px;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section li:first-child {
+    margin-top: 0;
+}
+
+#scs-pageheader-megadropdown .mdd-content .section li:before {
+    content: normal;
+}
+
+/* SUPPORT-BOX in MEGA-DROP-DOWN
+-------------------------------------------------------------------------------------*/
+
+#scs-pageheader-megadropdown .scs-supportbox {
+    float: right;
+    margin-left: 40px;
+    padding: 17px 10px 0 20px;
+    width: 268px;
+    height: 304px;
+    overflow: hidden;
+    background: url(bg.png) no-repeat;
+}
+
+#scs-pageheader-megadropdown .scs-supportbox .help {
+    position: absolute;
+    margin-left: -40px;
+    width: 20px;
+    height: 80px;
+    /* border-radius */
+    -moz-border-radius: 5px 0 0 5px;
+    -webkit-border-radius: 5px 0 0 5px;
+    border-radius: 5px 0 0 5px;
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+    background: #D80825 url(supportbox/help-en.png) no-repeat center center;
+}
+
+#scs-pageheader-megadropdown .scs-supportbox .help.de {
+    background-image: url(supportbox/help-de.png);
+}
+
+#scs-pageheader-megadropdown .scs-supportbox .help.fr {
+    background-image: url(supportbox/help-fr.png);
+}
+
+#scs-pageheader-megadropdown .scs-supportbox .help.it {
+    background-image: url(supportbox/help-it.png);
+}
+
+#scs-pageheader-megadropdown .scs-supportbox div.title {
+    padding-bottom: 4px;
+}
+
+#scs-pageheader-megadropdown .scs-supportbox div.title a {
+    color: #001155;
+    font-size: 15px;
+}
+
+#scs-pageheader-megadropdown .scs-supportbox div.title a:hover {
+    color: #007feb;
+}
+
+
+/* CRISIS TOOL
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pageheader-crisis {
+    display: none;
+    z-index: 1000;
+    height: 40px;
+    overflow: hidden;
+    /* gradient */
+    background: #11AAFF; /*fallback for non-CSS3 browsers*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#11AAFF) to(#001155)); /*old webkit*/
+    background: -webkit-linear-gradient(left, #11AAFF, #001155); /*new webkit*/
+    background: -moz-linear-gradient(left, #11AAFF, #001155); /*gecko*/
+    background: -ms-linear-gradient(left, #11AAFF, #001155); /*IE10*/
+    background: -o-linear-gradient(left, #11AAFF, #001155); /*opera 11.10+*/
+    background: linear-gradient(left, #11AAFF, #001155); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(left, #11AAFF, #001155); /*PIE*/
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-crisis.urgent {
+    /* gradient */
+    background: #DD1122; /*fallback for non-CSS3 browsers*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#DD1122) to(#9b0003)); /*old webkit*/
+    background: -webkit-linear-gradient(left, #DD1122, #9b0003); /*new webkit*/
+    background: -moz-linear-gradient(left, #DD1122, #9b0003); /*gecko*/
+    background: -ms-linear-gradient(left, #DD1122, #9b0003); /*IE10*/
+    background: -o-linear-gradient(left, #DD1122, #9b0003); /*opera 11.10+*/
+    background: linear-gradient(left, #DD1122, #9b0003); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(left, #DD1122, #9b0003); /*PIE*/
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-crisis.low {
+    /* gradient */
+    background: #dadada; /*fallback for non-CSS3 browsers*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#dadada) to(#bbb)); /*old webkit*/
+    background: -webkit-linear-gradient(left, #dadada, #bbb); /*new webkit*/
+    background: -moz-linear-gradient(left, #dadada, #bbb); /*gecko*/
+    background: -ms-linear-gradient(left, #dadada, #bbb); /*IE10*/
+    background: -o-linear-gradient(left, #dadada, #bbb); /*opera 11.10+*/
+    background: linear-gradient(left, #dadada, #bbb); /*future CSS3 browsers*/
+    -pie-background: linear-gradient(left, #dadada, #bbb); /*PIE*/
+    behavior: url(../css/PIE.htc); /* url is relative to the html doc and not to the css */
+}
+
+#scs-pageheader-crisis .pageCenter > * {
+    float: left;
+    color: #fff;
+    text-decoration: none;
+}
+
+#scs-pageheader-crisis.low .pageCenter > * {
+    color: #555;
+}
+
+#scs-pageheader-crisis .pageCenter > a:focus,
+#scs-pageheader-crisis .pageCenter > a:hover {
+    color: #bbb;
+}
+
+#scs-pageheader-crisis.low .pageCenter > a:focus,
+#scs-pageheader-crisis.low .pageCenter > a:hover {
+    color: #888;
+}
+
+#scs-pageheader-crisis-warning {
+    padding: 7px 0 0 49px;
+    width: 100px;
+    height: 33px;
+    overflow: hidden;
+    background: url(crisis/info.png) no-repeat 6px 9px;
+    font-size: 17px;
+}
+
+#scs-pageheader-crisis.low #scs-pageheader-crisis-warning {
+    background-image: url(crisis/info-grey.png);
+}
+
+#scs-pageheader-crisis-text {
+    padding-top: 3px;
+    width: 560px;
+}
+
+#scs-pageheader-crisis-text.singleLine {
+    padding-top: 11px;
+}
+
+#scs-pageheader-crisis-link {
+    display: none;
+    margin-left: 15px;
+    padding-top: 11px;
+    white-space: nowrap;
+}
+
+#scs-pageheader-crisis-close {
+    float: right !important;
+    padding: 11px 25px 0 0;
+    height: 29px;
+    background: url(crisis/close.png) no-repeat right 12px;
+}
+
+#scs-pageheader-crisis.low #scs-pageheader-crisis-close {
+    background-image: url(crisis/close-grey.png);
+}
+
+/* BREADCRUMBS (NEF1)
+----------------------------------------------------------------------------------------------------*/
+
+ul#scs-pagefooter-breadcrumbs {
+    display: block;
+    height: 28px;
+    overflow: hidden;
+}
+
+ul#scs-pagefooter-breadcrumbs li /*prüfen*/{
+    float: left;
+    padding-left: 32px;
+    background: url(breadcrumb/breadcrumb-devider.png) no-repeat 13px 0;
+}
+
+ul#scs-pagefooter-breadcrumbs li.prefix {
+    padding-left: 19px;
+    width: 151px;
+    background-image: none;
+    color: #666;
+}
+ul#scs-pagefooter-breadcrumbs li.first-item {
+    padding-left: 10px;
+    background-image: none;
+}
+
+ul#scs-pagefooter-breadcrumbs li a {
+    font-size: 13px;
+    color: #001155;
+    text-decoration: none;
+}
+
+ul#scs-pagefooter-breadcrumbs li a:focus,
+ul#scs-pagefooter-breadcrumbs li a:hover,
+ul#scs-pagefooter-breadcrumbs li a.current {
+    color: #2d90ec;
+}
+
+/* DOORMAT FOOTER (NEF2)
+----------------------------------------------------------------------------------------------------*/
+
+#scs-pagefooter-doormatnav-wrapper {
+    padding: 16px 0 8px 19px;
+}
+
+#scs-pagefooter-doormatnav {
+    padding: 6px 0 21px;
+}
+
+/* BRANCHES in DOORMAT FOOTER (NEF2)
+-------------------------------------------------------------------------------------*/
+
+#scs-pagefooter-doormatnav > ul > li {
+    float: left;
+    padding-left: 20px;
+    width: 140px;
+}
+
+#scs-pagefooter-doormatnav > ul > li:first-child {
+    padding-left: 0;
+}
+
+#scs-pagefooter-doormatnav > ul > li > a,
+#scs-pagefooter-doormatnav > ul > li > span {
+    font-size: 15px;
+    color: #666;
+    text-decoration: none;
+}
+
+#scs-pagefooter-doormatnav > ul > li > a:focus,
+#scs-pagefooter-doormatnav > ul > li > a:hover {
+    color: #2d90ec;
+}
+
+/* NAVIGATION in DOORMAT FOOTER (NEF2)
+-------------------------------------------------------------------------------------*/
+
+#scs-pagefooter-doormatnav ul ul {
+    margin-top: 3px;
+}
+
+#scs-pagefooter-doormatnav ul ul li {
+    padding-top: 9px;
+}
+
+#scs-pagefooter-doormatnav ul ul li a {
+    font-size: 11px;
+    color: #555555;
+    text-decoration: none;
+}
+
+#scs-pagefooter-doormatnav ul ul li a:focus,
+#scs-pagefooter-doormatnav ul ul li a:hover {
+    color: #2d90ec;
+}
+
+#scs-pagefooter-doormatnav .socialmedia {
+    font-size: 11px;
+    color: #555555;
+    margin-top: 36px;
+}
+
+#scs-pagefooter-doormatnav .socialmedia ul {
+    margin-top: 0;
+    list-style: none;
+}
+
+#scs-pagefooter-doormatnav .socialmedia ul li {
+    float: left;
+    margin-right: 8px;
+    padding-top: 1px;
+}
+
+#scs-pagefooter-doormatnav .socialmedia ul li a {
+    display: block;
+    width: 20px;
+    height: 20px;
+    background: url(footer/social-media.png) no-repeat;
+}
+
+#scs-pagefooter-doormatnav-socialmedia-twitter {
+    background-position: 0 -20px !important;
+}
+
+#scs-pagefooter-doormatnav-socialmedia-youtube {
+    background-position: 0 -40px !important;
+}
+
+#scs-pagefooter-doormatnav li.showall {
+    margin-top: 30px;
+}
+
+#scs-going-live-tooltip {
+    width: 164px;
+    height: 97px;
+    padding: 25px;
+    padding-top: 35px;
+    padding-bottom: 26px;
+    background-image: url(callout.png);
+    background-repeat: no-repeat;
+    position: absolute;
+    z-index: 10000;
+}
+
+#scs-going-live-tooltip > * {
+    color: white;
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 12px;
+
+}
+#scs-going-live-tooltip .dismiss {
+    cursor: pointer;
+}
+#scs-going-live-tooltip .dismiss:before {
+    content: '> ';
+}
+#scs-going-live-tooltip .dismiss:hover {
+    text-decoration: underline;
+}

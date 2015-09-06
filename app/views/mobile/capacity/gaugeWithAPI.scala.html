@@ -1,0 +1,250 @@
+@(capacityForm: Form[CapacityInfo], error: Option[String])(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+@import play.api.Play
+
+@if(error.isDefined) {
+    @main("An error occured...") {
+    <div class="alert alert-dismissable alert-danger">
+        Error: {@error.get}
+    </div>}
+} else {
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+        <meta http-equiv="refresh" content="6; url=@routes.MobileCapacity.withAPI" />
+        <title>Speed test in progress...</title>
+            <!-- START for gauche mechanism //-->
+        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.js"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/gauge.js")"></script>
+        <script>
+
+        var gauges = [];
+
+        function createGauge(name, label, min, max)
+        {
+            var config =
+            {
+                size: 240,
+                label: label,
+                min: undefined != min ? min : 0,
+                max: undefined != max ? max : 100,
+                minorTicks: 5,
+                currentValue: 0
+            }
+
+            var range = config.max - config.min;
+            config.redZones = [{ from: config.min + range*0, to: config.min + range*0.55 }];
+            config.yellowZones = [{ from: config.min + range*0.55, to: config.min + range*0.75 }];
+            config.greenZones = [{ from: config.min + range*0.75, to: config.max }];
+
+            gauges[name] = new Gauge(name + "GaugeContainer", config);
+            gauges[name].render();
+        }
+
+        function createGauges()
+        {
+            createGauge("download", "Down Mbit/s",0,15);
+            createGauge("upload", "Up Mbit/s",0,2);
+        }
+
+        function updateGauges()
+        {
+            for (var key in gauges)
+            {
+                if(key=="download") {
+                    var range = gauges[key].config.max - gauges[key].config.min;
+                    var value = gauges[key].config.currentValue + range/1000 + addRandomValue(gauges[key],range);
+                    if (value + 1.8 > gauges[key].config.max) value = gauges[key].config.max - 1.8;
+                    else if (value < gauges[key].config.min) value = gauges[key].config.min;
+                    gauges[key].config.currentValue = value;
+                    gauges[key].redraw(value);
+                } else if(key=="upload") {
+                    var range = gauges[key].config.max - gauges[key].config.min;
+                    var value = gauges[key].config.currentValue + range/1000 + addRandomValue(gauges[key],range);
+                    if (value + 0.15 > gauges[key].config.max) value = gauges[key].config.max - 0.15;
+                    else if (value < gauges[key].config.min) value = gauges[key].config.min;
+                    gauges[key].config.currentValue = value;
+                    gauges[key].redraw(value);
+                }
+            }
+        }
+
+        function addRandomValue(gauge, range)
+        {
+            var value = range/100 * Math.random();
+            if (Math.random() < 0.40) value = -value;
+            return value;
+        }
+
+        function initialize()
+        {
+            createGauges();
+            setInterval(updateGauges, 10);
+        }
+
+    </script>
+    <!-- END for gauche mechanism //-->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
+    <script src="@routes.Assets.at("javascripts/jquery-2.1.0.min.js")"></script>
+    <script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/jso.js")"></script>
+    <!-- Get by URL query -->
+    @defining(request.session.get("theme").getOrElse("null")) { theme =>
+        @if(theme.equalsIgnoreCase("demapi") || theme.equalsIgnoreCase("darky") || theme.equalsIgnoreCase("united") || theme.equalsIgnoreCase("cyborg")) {
+            <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/libs/bootstrap-" + theme + "-theme.min.css")">
+        } else {
+            <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/libs/bootstrap-demapi-theme.min.css")">
+        }
+    }
+
+    </head>
+
+    <body onload="initialize()">
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="@routes.Application.index()">
+                        <img src="@routes.Assets.at("images/swisscom_demoapi_banner_transp.png")" height="20em"/>
+                    </a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="@routes.Application.messaging" class="dropdown-toggle" data-toggle="dropdown">@Messages.get("section.messaging") <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.SmsSender.form">@Messages.get("section.messaging.sms")</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="@routes.Application.mobile" class="dropdown-toggle" data-toggle="dropdown">@Messages.get("section.mobile") <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.MobileCapacity.form">@Messages.get("section.mobile.capacity")</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="@routes.Application.consent("int")" class="dropdown-toggle" data-toggle="dropdown">@Messages.get("section.consent")
+                                test<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.ConsentVerifyAddress.index("mock", "", "manual")">@Messages.get("section.consent.verifyaddress")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "code", "manual")">@Messages.get("section.consent.verifyaddress.manual.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "code", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "token", "manual")">@Messages.get("section.consent.verifyaddress.manual.implicit")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "token", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.implicit")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "code", "manual40")">@Messages.get("section.consent.verifyaddress.manual40.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("int", "code", "automatic40")">@Messages.get("section.consent.verifyaddress.automatic40.authcode")</a></li>
+                                <li><a href="@routes.ConsentPayment.login("int")">@Messages.get("section.consent.payment")</a></li>
+                                <li><a href="@routes.PaymentV2.index("int")">@Messages.get("section.consent.paymentv2")</a></li>
+                                <li><a href="@routes.Online3rdParty.index("int")">@Messages.get("section.consent.Online3rdParty")</a></li>
+                                <li><a href="@routes.Calling.index("int")">@Messages.get("section.consent.Call")</a></li>
+                                <li><a href="@routes.PaymentsFlowPartnerAgent.index("int")">@Messages.get("section.consent.PaymentsFlowPartnerAgent")</a></li>
+                                <li><a href="@routes.PaymentsFlowSelfcare.index("int")">@Messages.get("section.consent.PaymentsFlowSelfcare")</a></li>
+                                <li><a href="@routes.ConsentToken.index("int")">@Messages.get("section.consent.verifytokencreation")</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="@routes.Application.consent("ext")" class="dropdown-toggle" data-toggle="dropdown">@Messages.get("section.consent")
+                                prod<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "code", "manual")">@Messages.get("section.consent.verifyaddress.manual.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "code", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "token", "manual")">@Messages.get("section.consent.verifyaddress.manual.implicit")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "token", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.implicit")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "code", "manual40")">@Messages.get("section.consent.verifyaddress.manual40.authcode")</a></li>
+                                <li><a href="@routes.ConsentVerifyAddress.index("ext", "code", "automatic40")">@Messages.get("section.consent.verifyaddress.automatic40.authcode")</a></li>
+                                <li><a href="@routes.ConsentPayment.login("ext")">@Messages.get("section.consent.payment")</a></li>
+                                <li><a href="@routes.PaymentV2.index("ext")">@Messages.get("section.consent.paymentv2")</a></li>
+                                <li><a href="@routes.Online3rdParty.index("ext")">@Messages.get("section.consent.Online3rdParty")</a></li>
+                                <li><a href="@routes.Calling.index("ext")">@Messages.get("section.consent.Call")</a></li>
+                                <li><a href="@routes.PaymentsFlowPartnerAgent.index("ext")">@Messages.get("section.consent.PaymentsFlowPartnerAgent")</a></li>
+                                <li><a href="@routes.PaymentsFlowSelfcare.index("ext")">@Messages.get("section.consent.PaymentsFlowSelfcare")</a></li>
+                                <li><a href="@routes.ConsentToken.index("ext")">@Messages.get("section.consent.verifytokencreation")</a></li>
+                            </ul>
+                        </li>
+                        @if(request.host.equalsIgnoreCase("localhost:9000") || request.host.equalsIgnoreCase("127.0.0.1:9000")) {
+                            <li class="dropdown">
+                                <a href="@routes.Application.consent("local")" class="dropdown-toggle" data-toggle="dropdown">@Messages.get("section.consent")
+                                    local<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="@routes.ConsentVerifyAddress.index("mock", "", "manual")">@Messages.get("section.consent.verifyaddress")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "code", "manual")">@Messages.get("section.consent.verifyaddress.manual.authcode")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "code", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.authcode")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "token", "manual")">@Messages.get("section.consent.verifyaddress.manual.implicit")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "token", "automatic")">@Messages.get("section.consent.verifyaddress.automatic.implicit")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "code", "manual40")">@Messages.get("section.consent.verifyaddress.manual40.authcode")</a></li>
+                                    <li><a href="@routes.ConsentVerifyAddress.index("local", "code", "automatic40")">@Messages.get("section.consent.verifyaddress.automatic40.authcode")</a></li>
+                                    <li><a href="@routes.ConsentPayment.login("local")">@Messages.get("section.consent.payment")</a></li>
+                                    <li><a href="@routes.PaymentV2.index("local")">@Messages.get("section.consent.paymentv2")</a></li>
+                                    <li><a href="@routes.Online3rdParty.index("local")">@Messages.get("section.consent.Online3rdParty")</a></li>
+                                    <li><a href="@routes.Calling.index("local")">@Messages.get("section.consent.Call")</a></li>
+                                    <li><a href="@routes.PaymentsFlowPartnerAgent.index("local")">@Messages.get("section.consent.PaymentsFlowPartnerAgent")</a></li>
+                                    <li><a href="@routes.PaymentsFlowSelfcare.index("local")">@Messages.get("section.consent.PaymentsFlowSelfcare")</a></li>
+                                    <li><a href="@routes.ConsentToken.index("local")">@Messages.get("section.consent.verifytokencreation")</a></li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav nav-pills pull-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Theme<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@routes.Application.theme("default")">default</a></li>
+                                <li><a href="@routes.Application.theme("darky")">darky</a></li>
+                                <li><a href="@routes.Application.theme("united")">united</a></li>
+                                <li><a href="@routes.Application.theme("cyborg")">cyborg</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div><!--/.container -->
+        </div><!-- div navigation -->
+
+        <div class="container">
+
+            <img src="@routes.Assets.at("images/speedtest.png")" width="150" />
+            <br>
+            <br>
+
+            <span id="downloadGaugeContainer"></span>
+            <span id="uploadGaugeContainer"></span>
+            <br>
+            <br>
+
+            <p>
+                <h4>This is the result WITH the Mobile Network Information API</h4>
+            </p>
+
+            <table class="table table-bordered">
+                <tr><td colspan="3"><b>Swisscom</b></td></tr>
+                <tr bgcolor=@capacityForm("color").value><td width="33%">Download Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("downloadRate").value</td><td><b>@capacityForm("downloadRatio").value%</b> of expected Speed</td></tr>
+                <tr bgcolor=@capacityForm("color").value><td width="33%">Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("uploadRate").value</td><td><b>@capacityForm("uploadRatio").value%</b> of expected Speed</td></tr>
+            </table>
+
+            <p>
+                <h4>This is what was expected from your subscription</h4>
+            </p>
+
+            <table class="table table-bordered">
+                <tr><td width="33%">Download Speed (MBit/s)<br>Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("expectedDownload").value<br>@capacityForm("expectedUpload").value</td><td>Throttling Status: <b>@capacityForm("throttling").value</b></td></tr>
+            </table>
+
+        </div>
+
+    </body>
+
+</html>
+
+}

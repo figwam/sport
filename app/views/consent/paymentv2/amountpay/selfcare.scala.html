@@ -1,0 +1,48 @@
+@*
+* Beginning and end of payment and refund flows.
+*
+* @param backend Backend to be used
+* @param redirectUri Redirection url after authentication
+* @param clientId Received as a result of authentication
+* @param requestBody Request body - JSON
+* @param responseBody Response body - JSON
+* @param errorInfo Eventual error text from authentication
+* @param flow Flow name: transactions/payselfcare/refundselfcare
+*@
+
+@(backend: String, redirectUri : String, clientId : String, requestBody : Option[String], responseBody : Option[String], errorInfo : Option[String], flow: String)(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Welcome to "+Messages.get("section.consent.paymentv2.amountpay.selfcare")+" Apis") {
+    <div class="container">
+        <p>
+            <a href="@{Play.current.configuration.getString(backend + ".consent_endpoint")}?response_type=code&redirect_uri=@helper.urlEncode(redirectUri)&client_id=@helper.urlEncode(clientId)&lang=en">Perform transaction (@flow)</a>
+        </p>
+        <p>
+            @if(requestBody.nonEmpty || responseBody.nonEmpty || errorInfo.nonEmpty) {
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Request</h3>
+                        </div>
+                        <div class="panel-body">
+                            <code><pre>@{requestBody}</pre></code>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Response / Error</h3>
+                        </div>
+                        <div class="panel-body">
+                            <code><pre>@{responseBody}@{errorInfo}</pre></code>
+                        </div>
+                    </div>
+                </div>
+            }
+        </p>
+    </div>
+}

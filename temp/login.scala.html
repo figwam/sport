@@ -1,0 +1,69 @@
+@(form: Form[(String,String)])(implicit flash: Flash)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Demapi</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
+		<link rel="stylesheet"  href="@routes.Assets.at("stylesheets/themes/default/jquery.mobile-1.4.2.min.css")">
+		<script src="@routes.Assets.at("javascripts/jqm-1.4.2/jquery-1.11.0.js")"></script>
+		<script src="@routes.Assets.at("javascripts/jqm-1.4.2/jqm-index.js")"></script>
+		<script src="@routes.Assets.at("javascripts/jqm-1.4.2/jquery.mobile-1.4.2.min.js")"></script>
+        <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/login.css")">
+    </head>
+    <body>
+        
+        <header>
+            <a href="@routes.Application.index"><span>Home</span></a>
+        </header>
+        
+        @helper.form(routes.Application.authenticate) {
+            
+            <h1>Sign in</h1>
+            
+            @form.globalError.map { error =>
+                <p class="error">
+                    @error.message
+                </p>
+            }
+            
+            @flash.get("success").map { message =>
+                <p class="success">
+                    @message
+                </p>
+            }
+            <p>
+                <input type="username" name="username" placeholder="username" id="username" value="@form("username").value">
+            </p>
+            <p>
+                <input type="password" name="password" id="password" placeholder="Password">
+            </p>
+            <p>
+                <button id="loginbutton" type="submit" >Login</button>
+            </p>
+            <br/>
+            <p>
+            No Account? Do <a href="#">Register Now</a>
+            or 
+            </p>
+            <p>
+                <!-- 
+                <a href="http://localhost-nevis/registration/online/app/Consent?scopes=read-fullprofile&redirect_uri=http%3A%2F%2Flocalhost%3A9000%2FauthenticateSwisscom&client_id%3DQGOa8tlnCIMztifA4ZlfD2DYmHAyLUMK" class="scm-ui-btn-primary">Login with Swisscom Account</a>
+            	 -->
+            	 <a href="@routes.SSOMock.index" class="scm-ui-btn-primary">Login with Swisscom Account</a>
+            </p>
+            
+        }
+        <!-- 
+        <p class="note">
+            Try <em>alex@@sample.com</em> with <em>secret</em> as password.
+        </p>
+         -->
+            
+    </body>
+</html>
+    
+
+

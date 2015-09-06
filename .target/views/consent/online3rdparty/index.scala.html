@@ -1,0 +1,45 @@
+@(backend : String, redirectUri : String, clientId : String, error : Option[String])(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Online Third Party: Start") {
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<img src="@routes.Assets.at("images/3rdparty_logo.png")"/>
+    </h3>
+    <div class="btn-group pull-right"></div>
+  </div>
+  <div class="panel-body">
+  	<h2>Welcome to the Third Party online shop</h2>
+
+    <h4>
+      Your shopping cart:
+    </h4>
+
+    @if(error.isDefined) {
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          Error: @error.get
+        </div>
+    }
+    
+    <p>
+    Selected phone: 
+    </p>
+    <p>
+    <img src="@routes.Assets.at("images/nokia_5110.png")"/>
+    </p>
+    <p>
+    Renew your contract with Swisscom:
+    </p>
+    <p>
+    <a href="@{Play.current.configuration.getString(backend + ".consent_endpoint")}?response_type=code&redirect_uri=@helper.urlEncode(redirectUri)&client_id=@helper.urlEncode(clientId)&lang=en"><img class="swisscom-login-button" src="/assets/images/login_swisscom_l.png"/></a>
+    </p>
+  </div><!-- panel-heading -->
+</div><!-- panel -->
+
+}

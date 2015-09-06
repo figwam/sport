@@ -1,0 +1,49 @@
+@(capacityForm: Form[CapacityInfo])(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Welcome to Mobile Apis") {
+	
+	<img src="@routes.Assets.at("images/speedtest.png")" width="150" />
+	<br>
+	<br>
+	<img src="@routes.Assets.at("images/4z60_und_1z15.png")" width="420" />
+	<br>
+	<br>
+
+    <p>
+    	<h4>This is the result WITHOUT the Mobile Network Information API</h4>
+    </p>
+    
+    <table class="table table-bordered">
+    	<tr><td colspan="3"><b>Swisscom</b></td></tr>
+    	<tr bgcolor=@capacityForm("color").value><td width="33%">Download Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("downloadRate").value</td><td><b>@capacityForm("downloadRatio").value%</b> of expected Speed</td></tr>
+    	<tr bgcolor=@capacityForm("color").value><td width="33%">Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("uploadRate").value</td><td><b>@capacityForm("uploadRatio").value%</b> of expected Speed</td></tr>
+    </table>
+    
+    <p>
+    	<h4>This is what was expected with 4G</h4>
+    </p>
+    
+   	<table class="table table-bordered">
+    	<tr><td width="33%">Download Speed (MBit/s)<br>Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">@capacityForm("expectedDownload").value<br>@capacityForm("expectedUpload").value</td><td><a class="btn btn-primary" href="@routes.MobileCapacity.withoutAPI" role="button">Send trouble ticket to <b>Swisscom</b></a></td></tr>
+    </table>
+    
+    <p>
+    	<h4>This is what the competitors had</h4>
+    </p>
+    
+   	<table class="table table-bordered">
+    	<tr bgcolor="#CCFFCC"><td colspan="3"><b>Rank 1: Sunset</b></td></tr>
+    	<tr bgcolor="#CCFFCC"><td width="33%">Download Speed (MBit/s)<br>Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">45.34<br>8.23</td><td><a class="btn btn-primary" href="@routes.MobileCapacity.withoutAPI" role="button">Switch to <b>Sunset</b></a></td></tr>
+    	<tr bgcolor="#FFC68D"><td colspan="3"><b>Rank 2: Pepper</b></td></tr>
+    	<tr bgcolor="#FFC68D"><td width="33%">Download Speed (MBit/s)<br>Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">44.62<br>7.24</td><td><a class="btn btn-primary" href="@routes.MobileCapacity.withoutAPI" role="button">Switch to <b>Pepper</b></a></td></tr>
+		<tr bgcolor="#FF704D"><td colspan="3"><b>Rank 3: Swisscom</b></td></tr>
+    	<tr bgcolor="#FF704D"><td width="33%">Download Speed (MBit/s)<br>Upload Speed (MBit/s)</td><td width="33%" style="text-align:right">14.95<br>5.70</td><td><a class="btn btn-primary" href="@routes.MobileCapacity.withoutAPI" role="button">Cancel <b>Swisscom</b> subscription</a></td></tr>
+    </table>
+
+    <a class="btn btn-primary" href="@routes.MobileCapacity.form" role="button">Back</a>
+
+}

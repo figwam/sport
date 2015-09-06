@@ -1,0 +1,26 @@
+@(backend : String, redirectUri : String, clientId : String, error : Option[String])(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Voip Click to Call Flow: Start") {
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<img src="@routes.Assets.at("images/rousseau.png")"/>
+    </h3>
+    <div class="btn-group pull-right"></div>
+  </div>
+  <div class="panel-body">
+  	<h2>Welcome to Voip Click to Call Flow</h2>
+
+
+    <p>
+    <a href="@{Play.current.configuration.getString(backend + ".call_endpoint")}?response_type=token&redirect_uri=@helper.urlEncode(redirectUri)&client_id=@helper.urlEncode(clientId)&lang=en"><img class="swisscom-login-button" src="/assets/images/login_swisscom_l.png"/></a>
+    </p>
+  </div><!-- panel-heading -->
+</div><!-- panel -->
+
+}

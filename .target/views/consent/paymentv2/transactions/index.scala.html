@@ -1,0 +1,21 @@
+@(backend: String)(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import play.i18n.Messages
+
+@main("Welcome to "+Messages.get("section.consent.paymentv2.transactions")+" Apis") {
+    <div class="container">
+            <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-4">
+                <h2>@Messages.get("section.consent.paymentv2.transactions.selfcare")</h2>
+                <p>@Messages.get("section.consent.paymentv2.transactions.selfcare.desc")</p>
+                <p><a class="btn btn-default" href="@routes.PaymentV2.transactionsselfcare(backend)" role="button">@Messages.get("button.explore") &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>@Messages.get("section.consent.paymentv2.transactions.partneragent")</h2>
+                <p>@Messages.get("section.consent.paymentv2.transactions.partneragent.desc")</p>
+                <p><a class="btn btn-default" href="@routes.PaymentV2.transactionspartneragent(backend)" role="button">@Messages.get("button.explore") &raquo;</a></p>
+            </div>
+        </div>
+    </div>
+}

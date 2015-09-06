@@ -1,0 +1,523 @@
+/* Header */
+.scm-cp .scm-header {
+	background: #fff;
+	border-bottom-color: #eee;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#193E84),
+		to(#051861)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(#193E84, #051861);
+	/* Chrome 10+, Saf5.1+ */
+	background-image: -moz-linear-gradient(#193E84, #051861); /* FF3.6 */
+	background-image: -ms-linear-gradient(#193E84, #051861); /* IE10 */
+	background-image: -o-linear-gradient(#193E84, #051861);
+	/* Opera 11.10+ */
+	background-image: linear-gradient(#193E84, #051861);
+}
+
+.scm-cp .scm-header h2 img {
+	display: block;
+	width: 140px;
+	height: auto;
+}
+
+.scm-cp .scm-header h2>img {
+	display: inline-block;
+}
+
+.scm-cp .scm-header .ui-btn {
+	width: 2em;
+	height: 2em;
+	background: none;
+	border: 0;
+	top: 50%;
+	margin-top: -1em;
+	-webkit-border-radius: .3125em;
+	border-radius: .3125em;
+	opacity: .4;
+	filter: Alpha(Opacity = 40);
+}
+
+.scm-cp .scm-header .ui-btn-profile {
+	width: auto;
+	height: auto;
+	top: 50%;
+	filter: Alpha(Opacity = 40);
+    border: 0 none;
+    border-radius: 0.3125em 0.3125em 0.3125em 0.3125em;
+    height: 1.5em;
+    margin-top: -1em;
+    opacity: 1;
+    top: 50%;
+	font-weight: normal !important;
+	cursor: pointer;
+	color: white !important;
+	text-decoration: none !important;
+	border: medium none;
+	border-radius: 5px;
+	/* gradient */
+	background: #41b7fd; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, center top, center bottom, from(#41b7fd)
+		to(#0165d4)); /*old webkit*/
+	background: -webkit-linear-gradient(top, #41b7fd, #0165d4);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, #41b7fd, #0165d4); /*gecko*/
+	background: -ms-linear-gradient(top, #41b7fd, #0165d4); /*IE10*/
+	background: -o-linear-gradient(top, #41b7fd, #0165d4); /*opera 11.10+*/
+	background: linear-gradient(top, #41b7fd, #0165d4);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, #41b7fd, #0165d4);
+	/*PIE for IE7 and IE8*/
+}
+
+.scm-ui-icon-mail:before {
+	content: "";
+	background-color: rgba(0, 0, 0, 0.3);
+	background-position: center center;
+	background-repeat: no-repeat;
+	border-radius: 1em;
+	padding: 0.2em 0.7em;
+	background-image:
+		url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20style%3D%22fill%3A%23FFFFFF%3B%22%20d%3D%22M0%2C3.75V12h14V3.75L7%2C9L0%2C3.75z%20M14%2C2H0l7%2C5L14%2C2z%22%2F%3E%3C%2Fsvg%3E');
+}
+
+.scm-ui-icon-user:before {
+	content: "";
+	background-color: rgba(0, 0, 0, 0.3);
+	background-position: center center;
+	background-repeat: no-repeat;
+	border-radius: 1em;
+	padding: 0.2em 0.7em;
+	background-image:
+		url('data:image/svg+xml;charset=US-ASCII,%3C%3Fxml%20version%3D%221.0%22%20encoding%3D%22iso-8859-1%22%3F%3E%3C!DOCTYPE%20svg%20PUBLIC%20%22-%2F%2FW3C%2F%2FDTD%20SVG%201.1%2F%2FEN%22%20%22http%3A%2F%2Fwww.w3.org%2FGraphics%2FSVG%2F1.1%2FDTD%2Fsvg11.dtd%22%3E%3Csvg%20version%3D%221.1%22%20id%3D%22Layer_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%20%20width%3D%2214px%22%20height%3D%2214px%22%20viewBox%3D%220%200%2014%2014%22%20style%3D%22enable-background%3Anew%200%200%2014%2014%3B%22%20xml%3Aspace%3D%22preserve%22%3E%3Cpath%20fill%3D%22%23FFF%22%20d%3D%22M8.851%2C10.101c-0.18-0.399-0.2-0.763-0.153-1.104C9.383%2C8.49%2C9.738%2C7.621%2C9.891%2C6.465C10.493%2C6.355%2C10.5%2C5.967%2C10.5%2C5.5%20c0-0.437-0.008-0.804-0.502-0.94C9.999%2C4.539%2C10%2C4.521%2C10%2C4.5c0-2.103-1-4-2-4C8%2C0.5%2C7.5%2C0%2C6.5%2C0C5%2C0%2C4%2C1.877%2C4%2C4.5%20c0%2C0.021%2C0.001%2C0.039%2C0.002%2C0.06C3.508%2C4.696%2C3.5%2C5.063%2C3.5%2C5.5c0%2C0.467%2C0.007%2C0.855%2C0.609%2C0.965%20C4.262%2C7.621%2C4.617%2C8.49%2C5.303%2C8.997c0.047%2C0.341%2C0.026%2C0.704-0.153%2C1.104C1.503%2C10.503%2C0%2C12%2C0%2C12v2h14v-2%20C14%2C12%2C12.497%2C10.503%2C8.851%2C10.101z%22%2F%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3Cg%3E%3C%2Fg%3E%3C%2Fsvg%3E');
+}
+
+.scm-cp .scm-merchant-logo h2 img {
+	display: block;
+	width: 140px;
+	height: auto;
+}
+
+.scm-cp .scm-demo-logo h2 img {
+	display: block;
+	width: 250px;
+	height: auto;
+}
+
+.scm-cp .scm-ui-btn-primary {
+	font-weight: normal !important;
+	cursor: pointer;
+	color: white !important;
+	text-decoration: none !important;
+	border: medium none;
+	border-radius: 5px;
+	/* gradient */
+	background: #41b7fd; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, center top, center bottom, from(#41b7fd)
+		to(#0165d4)); /*old webkit*/
+	background: -webkit-linear-gradient(top, #41b7fd, #0165d4);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, #41b7fd, #0165d4); /*gecko*/
+	background: -ms-linear-gradient(top, #41b7fd, #0165d4); /*IE10*/
+	background: -o-linear-gradient(top, #41b7fd, #0165d4); /*opera 11.10+*/
+	background: linear-gradient(top, #41b7fd, #0165d4);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, #41b7fd, #0165d4);
+	/*PIE for IE7 and IE8*/
+}
+
+.scm-cp .scm-ui-btn-secondary {
+	font-weight: normal !important;
+	cursor: pointer;
+	color: rgb(45, 144, 236) !important;
+	text-decoration: none !important;
+	border: medium none;
+	border-radius: 5px;
+	/* gradient */
+	background: #f5f5f5; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, left top, left bottom, from(white),
+		to(#eaeaea)); /*old webkit*/
+	background: -webkit-linear-gradient(top, white, #eaeaea);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, white, #eaeaea); /*gecko*/
+	background: -ms-linear-gradient(top, white, #eaeaea); /*IE10*/
+	background: -o-linear-gradient(top, white, #eaeaea); /*opera 11.10+*/
+	background: linear-gradient(top, white, #eaeaea);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, white, #eaeaea);
+	/*PIE for IE7 and IE8*/
+}
+
+.scm-cp .scm-ui-btn-facebook {
+	font-weight: normal !important;
+	cursor: pointer;
+	color: white !important;
+	text-decoration: none !important;
+	border: medium none;
+	border-radius: 5px;
+	/* gradient */
+	background: #5074af; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#5074af),
+		to(#405786)); /*old webkit*/
+	background: -webkit-linear-gradient(top, #5074af, #405786);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, #5074af, #405786); /*gecko*/
+	background: -ms-linear-gradient(top, #5074af, #405786); /*IE10*/
+	background: -o-linear-gradient(top, #5074af, #405786); /*opera 11.10+*/
+	background: linear-gradient(top, #5074af, #405786);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, #5074af, #405786);
+	/*PIE for IE7 and IE8*/
+}
+
+.scm-cp .scm-ui-btn-google {
+	font-weight: normal !important;
+	cursor: pointer;
+	color: white !important;
+	text-decoration: none !important;
+	border: medium none;
+	border-radius: 5px;
+	/* gradient */
+	background: #DF4B33; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, left top, left bottom, from(white),
+		to(#eaeaea)); /*old webkit*/
+	background: -webkit-linear-gradient(top, #DF4B33, #e25f4a);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, #DF4B33, #e25f4a); /*gecko*/
+	background: -ms-linear-gradient(top, #DF4B33, #e25f4a); /*IE10*/
+	background: -o-linear-gradient(top, #DF4B33, #e25f4a); /*opera 11.10+*/
+	background: linear-gradient(top, #DF4B33, #e25f4a);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, #DF4B33, #e25f4a);
+	/*PIE for IE7 and IE8*/
+}
+
+.scm-cp .scm-ui-btn-primary:hover {
+	background: none repeat scroll 0% 0% #1F8BE7;
+	-pie-background: #1f8be7; /*PIE for IE7 and IE8*/
+}
+
+.scm-cp .scm-ui-btn-secondary:hover {
+	/* gradient */
+	background: #eaeaea; /*fallback for IE6 or worse*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#eaeaea),
+		to(#f0f0f0)); /*old webkit*/
+	background: -webkit-linear-gradient(top, #eaeaea, #f0f0f0);
+	/*new webkit*/
+	background: -moz-linear-gradient(top, #eaeaea, #f0f0f0); /*gecko*/
+	background: -ms-linear-gradient(top, #eaeaea, #f0f0f0); /*IE10*/
+	background: -o-linear-gradient(top, #eaeaea, #f0f0f0); /*opera 11.10+*/
+	background: linear-gradient(top, #eaeaea, #f0f0f0);
+	/*future CSS3 browsers*/
+	-pie-background: linear-gradient(top, #eaeaea, #f0f0f0);
+	/*PIE for IE7 and IE8*/
+}
+
+/* Footer */
+.scm-cp .scm-footer.ui-footer {
+	position: absolute;
+	bottom: 0;
+	padding-bottom: 0;
+}
+
+.scm-cp .scm-footer {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#EEEEEE),
+		to(#F5F5F5)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(#EEEEEE, #F5F5F5);
+	/* Chrome 10+, Saf5.1+ */
+	background-image: -moz-linear-gradient(#EEEEEE, #F5F5F5); /* FF3.6 */
+	background-image: -ms-linear-gradient(#EEEEEE, #F5F5F5); /* IE10 */
+	background-image: -o-linear-gradient(#EEEEEE, #F5F5F5);
+	/* Opera 11.10+ */
+	background-image: linear-gradient(#EEEEEE, #F5F5F5);
+}
+
+.scm-cp .scm-footer p {
+	font-size: .8em;
+	color: #999;
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	margin: 0 1.25em 1.25em;
+}
+
+.scm-cp .scm-footer p:first-child {
+	font-size: 0.8em;
+	color: #666;
+	font-weight: 400;
+	margin: 1em 1em .75em;
+	float: right;
+	margin: 1.25em 1.25em 1.25em 3%;
+}
+
+/* Content */
+.scm-cp .scm-content {
+	padding-top: 3em;
+}
+
+.scm-cp .scm-content>h1,.scm-cp .scm-content>p,.scm-cp .scm-content>ul li
+	{
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+}
+
+.scm-cp .scm-content>h1 {
+	font-size: 1.6em;
+	margin: 0 0 .625em;
+}
+
+.scm-cp .scm-content>p {
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.scm-cp .scm-content>ul:not (.scm-list ) li {
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.scm-cp .scm-content>p {
+	margin: 0 0 1.25em;
+}
+
+.scm-cp .scm-content>ul {
+	padding-left: 1.3em;
+}
+
+.scm-cp .scm-content strong {
+	font-weight: 700;
+}
+
+.scm-cp .scm-content>p strong {
+	font-weight: 400;
+}
+
+/*################################################################################################################################*/
+
+
+/* Homepage */
+.scm-home > .scm-content > img {
+	width: 400px;
+	max-width: 100%;
+	display: block;
+	margin: 2.5em 0;
+}
+.scm-home .ui-grid-a {
+	margin: 2.5em -.5em -.5em;
+}
+.scm-block-content {
+	margin: .5em;
+	padding: 1em;
+	background: #fff;
+	border: 1px solid #eee;
+	-webkit-border-radius: .3125em;
+	border-radius: .3125em;
+	font-family: 'Open Sans', sans-serif;
+}
+.scm-block-content h3 {
+	font-size: 1.5em;
+	font-weight: 300;
+	color: #051861;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: .25em;
+	margin: 0 0 .5em;
+}
+.scm-block-content p {
+	font-size: 1.1em;
+	font-weight: 300;
+	line-height: 1.4;
+	margin: .7em 0;
+}
+.scm-block-content p:last-child {
+	margin-bottom: 0;
+}
+
+.scm-block-content a:link {
+	font-weight: 300;
+	text-decoration: none;
+}
+
+a.todo:link {
+	font-weight: 300;
+	text-decoration: none;
+	color: #DDDDDD;
+}
+
+
+/* Lists */
+.scm-cp .scm-search .scm-list {
+	margin: 0 -1em 1em;
+}
+.scm-cp .scm-list .ui-btn,
+.scm-cp .scm-list .ui-btn:visited,
+.scm-cp .scm-list .ui-li-divider {
+	font-family: 'Open Sans', sans-serif;
+	font-weight: 300;
+	text-shadow: none !important;
+}
+.scm-cp .scm-list .ui-btn:hover,
+.scm-cp .scm-list .ui-btn:active {
+	color: #3388cc;
+}
+.scm-cp .scm-list .ui-btn.ui-btn-active {
+	color: #fff;
+}
+.scm-cp .scm-list .ui-li-divider {
+	color: #3eb249;
+}
+
+/* Navmenu */
+.scm-navmenu-panel .ui-listview > li .ui-collapsible-heading {
+	margin: 0;
+}
+.scm-navmenu-panel .ui-collapsible.ui-li-static {
+	padding: 0;
+	border: none !important;
+}
+.scm-navmenu-panel .ui-collapsible + li > .ui-btn,
+.scm-navmenu-panel .ui-collapsible + .ui-collapsible > .ui-collapsible-heading > .ui-btn,
+.scm-navmenu-panel .ui-panel-inner > .ui-listview > li.ui-first-child .ui-btn {
+	border-top: none !important;
+}
+.scm-navmenu-panel .ui-listview .ui-listview .ui-btn {
+	padding-left: 1.5em;
+	color: #999;
+}
+.scm-navmenu-panel .ui-listview .ui-listview .ui-btn.ui-btn-active {
+	color: #fff;
+}
+.scm-navmenu-panel .ui-btn:after {
+	opacity: .4;
+	filter: Alpha(Opacity=40);
+}
+.scm-cp .scm-navmenu-panel.scm-panel-page-nav {
+	display: none;
+	position: absolute;
+	top: 178px;
+	left: 12px;
+}
+.scm-cp .scm-navmenu-panel.scm-panel-page-nav ul li:first-child a{
+	border-top: none;
+}
+
+/*Responsive*/
+@media (min-width: 60em) {
+
+	.scm-cp .scm-demo-logo h2 img {
+		display: block;
+		width: 500px;
+		height: auto;
+	}
+	
+	.scm-cp .scm-header h2 {
+		padding: 1em 0 .7em;
+		margin: 0 1em 0 3%;
+		text-align: left;
+	}
+	.scm-cp .scm-header h2 img {
+		width: 275px;
+		height: 78px;
+	}
+	.scm-cp .scm-header p {
+		bottom: auto;
+		left: auto;
+		top: 50%;
+		right: 15%;
+		font-size: 1.2em;
+		margin-top: -.625em;
+	}
+	.scm-cp .scm-navmenu-link {
+		display: none;
+	}
+	.scm-cp .scm-search-link {
+		right: 3%;
+	}
+	.scm-cp .scm-footer p {
+		float: right;
+		margin: 1.5em 3% 1.5em 1.5em;
+	}
+	.scm-cp .scm-footer p:first-child {
+		float: left;
+		margin: 1.25em 1.25em 1.25em 3%;
+	}
+	.scm-cp .scm-navmenu-panel {
+		visibility: visible;
+		position: relative;
+		left: 0;
+		float: left;
+		width: 25%;
+		background: none;
+		-webkit-transition: none !important;
+		-moz-transition: none !important;
+		transition: none !important;
+		-webkit-transform: none !important;
+		-moz-transform: none !important;
+		transform: none !important;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	.scm-cp.scm-panel-page .scm-navmenu-panel {
+		display: none;
+	}
+	html .scm-cp.scm-panel-page .scm-navmenu-panel.scm-panel-page-nav {
+		display: block;
+	}
+	.scm-cp .scm-navmenu-panel .ui-panel-inner {
+		margin-top: 3em;
+		margin-bottom: 3em;
+	}
+	.scm-cp .scm-content {
+		width: 67%;
+		padding-top: 2em;
+		padding-left: 5%;
+		padding-right: 3%;
+		float: right;
+	}
+    .scm-cp .scm-content.scm-fullwidth {
+		width: auto;
+		padding-left: 15%;
+		padding-right: 15%;
+		float: none;
+	}
+	.scm-navmenu-panel .ui-listview .ui-btn {
+		padding-left: 12.5%;
+	}
+	.scm-navmenu-panel .ui-listview .ui-listview .ui-btn {
+		padding-left: 15%;
+	}
+	.scm-navmenu-panel .ui-collapsible,
+	.scm-navmenu-panel .ui-collapsible-content,
+	.scm-navmenu-panel .ui-btn {
+		background: none !important;
+		border-color: #ddd !important;
+	}
+	.scm-navmenu-panel .ui-btn.ui-btn-active {
+		color: #3388cc !important;
+	}
+	.scm-navmenu-panel .ui-btn::after {
+		opacity: 0;
+		-webkit-transition: opacity 500ms ease;
+		-moz-transition: opacity 500ms ease;
+		transition: opacity 500ms ease;
+	}
+	.scm-navmenu-panel .ui-btn:hover::after {
+		opacity: .4;
+	}
+	.scm-search-panel {
+		width: 26em;
+		right: -26em;
+		z-index: 1003; /* Puts the panel on top of the dismiss modal which is not adjusted to custom width */
+	}
+	.scm-search-panel.ui-panel-animate.ui-panel-position-right {
+		-webkit-transform: translate3d(26em,0,0);
+		-moz-transform: translate3d(26em,0,0);
+		transform: translate3d(26em,0,0);
+	}
+	.ui-panel-dismiss-open.ui-panel-dismiss-position-right {
+		left: -17em;
+		right: 17em;
+	}
+}
+@media (min-width: 35em) {
+	.scm-block-content {
+		min-height: 18em;
+	}
+}

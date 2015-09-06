@@ -1,0 +1,17 @@
+@()(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+
+@main("Welcome to "+Messages.get("section.mobile")+" Apis") {	
+	    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="col-md-4">
+          <h2>@Messages.get("section.mobile.capacity")</h2>
+          <p>@Messages.get("section.mobile.capacity.desc")</p>
+          <p><a class="btn btn-default" href="@routes.MobileCapacity.form" role="button">@Messages.get("button.explore") &raquo;</a></p>
+        </div>
+      </div>
+
+}

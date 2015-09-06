@@ -1,0 +1,26 @@
+@(backend: String, redirectUri : String, clientId : String, response : String, error : Option[String])(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Welcome to "+Messages.get("section.consent.paymentv2.transactions.selfcare")+" Apis") {
+    <div class="container">
+        <p>
+            <a href="@{Play.current.configuration.getString(backend + ".consent_endpoint")}?response_type=code&redirect_uri=@helper.urlEncode(redirectUri)&client_id=@helper.urlEncode(clientId)&lang=en">Get Transactions</a>
+        </p>
+    </div>
+
+    @if(error.isDefined) {
+        <div class="alert alert-dismissable alert-danger">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            Error: @error.get
+        </div>
+    }
+
+    @if(response != null) {
+        <div class="success alert alert-dismissable alert-success">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            Response: @response
+        </div>
+    }
+}

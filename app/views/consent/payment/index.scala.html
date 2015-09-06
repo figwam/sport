@@ -1,0 +1,71 @@
+@(accessToken : Either[String, String], transactionId : Either[String,String], amountReserved : String, charged : Option[Boolean], backend : String)(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+
+@import helper._
+@import play.i18n.Messages
+@import play.api.Play
+
+@main("Welcome Consent: Payment") {
+
+<script type="text/javascript">
+function reserveAmount() {
+	  var amount = window.prompt("Enter the amount to be reserved.");
+	  window.location.href="reserve?token=@if(accessToken.isRight){@accessToken.right.get}&amount="+amount+"&transaction_id=@if(transactionId.isRight){@transactionId.right.get}&backend=@backend";
+}
+function pay() {
+    var amount = 100;
+	  window.location.href="pay?token=@if(accessToken.isRight){@accessToken.right.get}&amount="+amount+"&transaction_id=@if(transactionId.isRight){@transactionId.right.get}&reserved=@amountReserved&backend=@backend";
+}
+</script>
+
+<div class="panel">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+    	<img src="@routes.Assets.at("images/logo-roberto.png")"/>
+    </h3>
+    <div class="btn-group pull-right"></div>
+  </div>
+  <div class="panel-body">
+  	<h2>Welcome to roberto.ch online shop</h2>
+  	<p>
+  	This is a demo which simulates payment.
+    </p>
+    
+    @if(accessToken.isLeft) {
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          Error getting access token: @accessToken.left.get
+        </div>
+    }
+    @if(transactionId.isLeft) {
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          Error reserving amount: @transactionId.left.get
+        </div>
+    }
+    @if(charged.isDefined && !charged.get) {
+        <div class="alert alert-dismissable alert-danger">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          Error with payment. Do you have enough amount reserved?
+        </div>
+    }
+    @if(charged.isDefined && charged.get) {
+        <div class="alert alert-dismissable alert-info">
+          <button type="button" class="close" data-dismiss="alert">x</button>
+          Payment successful!
+        </div>
+    }
+    
+    <p>Your account balance</p>
+    <p>CHF @amountReserved</p>
+    <p><input type="button" value="Reserve Amount" OnClick="javascript: reserveAmount()"></p>
+    
+    <p>Your shopping cart:</p>
+  
+    <p>Product 1</p>
+    <p>CHF 100,00</p>
+    <p><input type="button" value="Pay with Swisscom" OnClick="javascript: pay()"></p>
+
+  </div><!-- panel-heading -->
+</div><!-- panel -->
+
+}
