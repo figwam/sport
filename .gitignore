@@ -2,6 +2,7 @@
 /target/
 /temp/
 /project/target/
+/project/project/target
 .target
 .settings
 .project
