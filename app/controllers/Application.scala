@@ -4,26 +4,25 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
-import models.User
 
 import views._
 
 object Application extends Controller {
-  
+
   def index = Action { implicit request =>
-    
+
     Ok(views.html.index())
-  }  
+  }
   // -- Authentication
 
-  val loginForm = Form(
-    tuple(
-      "username" -> text(minLength = 1),
-      "password" -> text(minLength = 1)
-    ) verifying ("Invalid username or password", result => result match {
-      case (username, password) => User.authenticate(username, password).isDefined
-    })
-  )
+  // val loginForm = Form(
+  //   tuple(
+  //     "username" -> text(minLength = 1),
+  //     "password" -> text(minLength = 1)
+  //   ) verifying ("Invalid username or password", result => result match {
+  //     case (username, password) => User.authenticate(username, password).isDefined
+  //   })
+  // )
 
 //  /**
 //   * Login page.
@@ -41,7 +40,7 @@ object Application extends Controller {
 //      user => Redirect(routes.Application.index).withSession("username" -> user._1)
 //    )
 //  }
-//  
+//
 //  def authenticateSwisscom() = Action { implicit request =>
 //    loginForm.bindFromRequest.fold(
 //      formWithErrors => {
@@ -58,7 +57,7 @@ object Application extends Controller {
 //      "success" -> "You've been logged out"
 //    )
 //  }
-//  
+//
 //  def getLoggedUser = { username =>
 //	  User.findByUsername(username)
 //  }
@@ -69,7 +68,7 @@ object Application extends Controller {
  * Provide security features
  */
 //trait Secured {
-//  
+//
 //  /**
 //   * Retrieve the connected user username.
 //   */
@@ -79,20 +78,20 @@ object Application extends Controller {
 //   * Redirect to login if the user in not authorized.
 //   */
 //  private def onUnauthorized(request: RequestHeader) = Results.Redirect(routes.Application.login)
-//  
+//
 //  // --
-//  
-//  /** 
+//
+//  /**
 //   * Action for authenticated users.
 //   */
 //  def IsAuthenticated(f: => String => Request[AnyContent] => Result) = Security.Authenticated(username, onUnauthorized) { user =>
 //    Action(request => f(user)(request))
 //  }
-//  
+//
 //  def IsAuthenticatedUser(f: User => Request[AnyContent] => Result) = IsAuthenticated { username => request =>
 //	  User.findByUsername(username).map { user =>
 //	    f(user)(request)
 //	  }.getOrElse(onUnauthorized(request))
 //  }
-// 
+//
 //}

@@ -1,9 +1,291 @@
-2015-09-11 13:10:27,573 - [INFO] - from play in pool-4-thread-1 
+2015-09-11 14:27:10,345 - [INFO] - from play in pool-4-thread-2 
 Listening for HTTP on /0:0:0:0:0:0:0:0:9000
 
-2015-09-11 13:10:50,090 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-1 
+2015-09-11 14:29:24,023 - [ERROR] - from application in New I/O worker #1 
+
+
+! @6ndm72jb6 - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$UnexpectedException: Unexpected exception[JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:237) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:230) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.play$PlayReloader$$anon$$taskFailureHandler(PlayReloader.scala:230) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:90) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:122) ~[play_2.11-2.3.6.jar:2.3.6]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:120) ~[play_2.11-2.3.6.jar:2.3.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library-2.11.1.jar:na]
+Caused by: com.typesafe.sbt.jse.SbtJsTask$JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:195) ~[na:na]
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:167) ~[na:na]
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Try$.apply(Try.scala:161) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Success.map(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$3.exec(ExecutionContextImpl.scala:107) ~[scala-library-2.11.1.jar:na]
+	... 4 common frames omitted
+
+2015-09-11 14:29:24,258 - [WARN] - from play in New I/O worker #1 
+No application found at invoker init
+
+2015-09-11 14:32:05,100 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-1 
 JDBC username was not set in config!
 
-2015-09-11 13:10:50,091 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-1 
+2015-09-11 14:32:05,100 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-1 
+JDBC password was not set in config!
+
+2015-09-11 14:35:00,768 - [ERROR] - from application in New I/O worker #5 
+
+
+! @6ndm7lnga - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$UnexpectedException: Unexpected exception[JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:237) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:230) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.play$PlayReloader$$anon$$taskFailureHandler(PlayReloader.scala:230) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:90) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:122) ~[play_2.11-2.3.6.jar:2.3.6]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:120) ~[play_2.11-2.3.6.jar:2.3.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library-2.11.1.jar:na]
+Caused by: com.typesafe.sbt.jse.SbtJsTask$JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:195) ~[na:na]
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:167) ~[na:na]
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Try$.apply(Try.scala:161) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Success.map(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$3.exec(ExecutionContextImpl.scala:107) ~[scala-library-2.11.1.jar:na]
+	... 4 common frames omitted
+
+2015-09-11 14:35:43,195 - [ERROR] - from application in New I/O worker #5 
+
+
+! @6ndm7o8a6 - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$UnexpectedException: Unexpected exception[JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:237) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:230) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.play$PlayReloader$$anon$$taskFailureHandler(PlayReloader.scala:230) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:90) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:122) ~[play_2.11-2.3.6.jar:2.3.6]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:120) ~[play_2.11-2.3.6.jar:2.3.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library-2.11.1.jar:na]
+Caused by: com.typesafe.sbt.jse.SbtJsTask$JsTaskFailure: /Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13
+        functions: require('./functions')(environment),
+                                         ^
+TypeError: object is not a function
+    at module.exports (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less/index.js:13:42)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/lib/less-node/index.js:5:12)
+    at Module._compile (module.js:460:26)
+    at Object.Module._extensions..js (module.js:478:10)
+    at Module.load (module.js:355:32)
+    at Function.Module._load (module.js:310:12)
+    at Module.require (module.js:365:17)
+    at require (module.js:384:17)
+    at Object.<anonymous> (/Users/alex/workspace/sport/gymix/project/target/node-modules/webjars/less/index.js:1:80)
+    at Module._compile (module.js:460:26)
+
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:195) ~[na:na]
+	at com.typesafe.sbt.jse.SbtJsTask$$anonfun$com$typesafe$sbt$jse$SbtJsTask$$executeJsOnEngine$1.apply(SbtJsTask.scala:167) ~[na:na]
+	at scala.util.Success$$anonfun$map$1.apply(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Try$.apply(Try.scala:161) ~[scala-library-2.11.1.jar:na]
+	at scala.util.Success.map(Try.scala:206) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.Future$$anonfun$map$1.apply(Future.scala:235) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.CallbackRunnable.run(Promise.scala:32) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.ExecutionContextImpl$$anon$3.exec(ExecutionContextImpl.scala:107) ~[scala-library-2.11.1.jar:na]
+	... 4 common frames omitted
+
+2015-09-11 14:36:58,995 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-2 
+JDBC username was not set in config!
+
+2015-09-11 14:36:58,996 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-2 
+JDBC password was not set in config!
+
+2015-09-11 14:37:51,362 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-3 
+JDBC username was not set in config!
+
+2015-09-11 14:37:51,364 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-3 
+JDBC password was not set in config!
+
+2015-09-11 14:38:08,872 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-4 
+JDBC username was not set in config!
+
+2015-09-11 14:38:08,872 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-4 
+JDBC password was not set in config!
+
+2015-09-11 14:47:28,763 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
+JDBC username was not set in config!
+
+2015-09-11 14:47:28,763 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
+JDBC password was not set in config!
+
+2015-09-11 14:53:13,562 - [ERROR] - from application in New I/O worker #3 
+
+
+! @6ndma624o - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$CompilationException: Compilation error[object User is not a member of package models]
+	at play.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27) ~[na:na]
+	at play.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:235) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:230) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.play$PlayReloader$$anon$$taskFailureHandler(PlayReloader.scala:230) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:90) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:122) ~[play_2.11-2.3.6.jar:2.3.6]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:120) ~[play_2.11-2.3.6.jar:2.3.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library-2.11.1.jar:na]
+
+2015-09-11 14:53:34,725 - [ERROR] - from application in New I/O worker #3 
+
+
+! @6ndma77co - Internal server error, for (GET) [/] ->
+
+play.PlayExceptions$CompilationException: Compilation error[not found: value User]
+	at play.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27) ~[na:na]
+	at play.PlayExceptions$CompilationException$.apply(PlayExceptions.scala:27) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:235) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$play$PlayReloader$$anon$$taskFailureHandler$1.apply(PlayReloader.scala:230) ~[na:na]
+	at scala.Option.map(Option.scala:145) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.play$PlayReloader$$anon$$taskFailureHandler(PlayReloader.scala:230) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at play.PlayReloader$$anon$1$$anonfun$reload$2.apply(PlayReloader.scala:90) ~[na:na]
+	at scala.util.Either$LeftProjection.map(Either.scala:377) ~[scala-library-2.11.1.jar:na]
+	at play.PlayReloader$$anon$1.reload(PlayReloader.scala:90) ~[na:na]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:122) ~[play_2.11-2.3.6.jar:2.3.6]
+	at play.core.ReloadableApplication$$anonfun$get$1.apply(ApplicationProvider.scala:120) ~[play_2.11-2.3.6.jar:2.3.6]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.liftedTree1$1(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.impl.Future$PromiseCompletingRunnable.run(Future.scala:24) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask$AdaptedRunnableAction.exec(ForkJoinTask.java:1361) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinTask.doExec(ForkJoinTask.java:260) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool$WorkQueue.runTask(ForkJoinPool.java:1339) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinPool.runWorker(ForkJoinPool.java:1979) ~[scala-library-2.11.1.jar:na]
+	at scala.concurrent.forkjoin.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:107) ~[scala-library-2.11.1.jar:na]
+
+2015-09-11 14:55:26,641 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
+JDBC username was not set in config!
+
+2015-09-11 14:55:26,641 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
+JDBC password was not set in config!
+
+2015-09-11 15:21:28,720 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
+JDBC username was not set in config!
+
+2015-09-11 15:21:28,721 - [WARN] - from com.jolbox.bonecp.BoneCPConfig in play-internal-execution-context-6 
 JDBC password was not set in config!
 
