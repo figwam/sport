@@ -2,8 +2,10 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.wst.jsdt.launching.baseBrowserLibrary"/>
+	<classpathentry kind="src" path="target/scala-2.10/classes/public/mock/consent/Swisscom-Consent_files"/>
+	<classpathentry kind="src" path="target/scala-2.10/classes/public/javascripts"/>
 	<classpathentry kind="src" path="public/mock/consent/Swisscom-Consent_files"/>
-	<classpathentry kind="src" path="public/javascripts"/>
 	<classpathentry kind="src" path="temp"/>
+	<classpathentry kind="src" path="public/javascripts"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

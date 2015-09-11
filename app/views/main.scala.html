@@ -4,323 +4,267 @@
 @import play.i18n.Messages
 @import controllers.Application
 
-<!DOCTYPE html>
-
 <html>
-    <head>
-        <title>@title</title>
-        <meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-		<!-- <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")"> -->
 
-      	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<head>
+  <title>@title</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <!-- <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")"> -->
 
-		<!-- Get by URL query -->
-		@defining(request.session.get("theme").getOrElse("null")) { theme=>
-			@if(theme.equalsIgnoreCase("demapi")
-				|| theme.equalsIgnoreCase("darky")
-				|| theme.equalsIgnoreCase("united")
-				|| theme.equalsIgnoreCase("cyborg")){
-	        	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/libs/bootstrap-"+theme+"-theme.min.css")">
-	        } else {
-	        	<link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/libs/bootstrap-demapi-theme.min.css")">
-	        }
-        }
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-  		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- animate css -->
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/animate.min.css ")">
+  <link rel="stylesheet" type="text/css" media="screen" href="@routes.Assets.at("stylesheets/libs/bootstrap-gymix-theme.min.css ")">
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/font-awesome.min.css ")">
+  <!-- google font -->
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
+  <!-- custom css -->
+  <link rel="stylesheet" href="@routes.Assets.at("stylesheets/custom-style.css ")">
+</head>
 
-  		<!--[if lt IE 9]>
-  			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  		<![endif]-->
-  		<link href="@routes.Assets.at("stylesheets/styles.css")" rel="stylesheet">
-    </head>
-
-    <body>
-    <!-- Static navbar -->
-     <body>
-<nav class="navbar navbar-trans navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapsible">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Gymix</a>
-    </div>
-    <div class="navbar-collapse collapse" id="navbar-collapsible">
-      <ul class="nav navbar-nav navbar-left">
-        <li><a href="#section1">Sport für Alle</a></li>
-        <li><a href="#section2">Was ist Gymix?</a></li>
-        <li><a href="#section3">Angebote</a></li>
-        <li><a href="#section4">Kontakt</a></li>
-        <li>&nbsp;</li>
-      </ul>
-    </div>
+<body>
+  <!-- start preloader -->
+  <div class="preloader">
+    <div class="sk-spinner sk-spinner-rotating-plane"></div>
   </div>
-</nav>
-
-<section class="container-fluid" id="section1">
-  	<h1 class="text-center v-center">Sport jederzeit, überall</h1>
-
-  	<div class="container">
-      <div class="row">
-          <div class="col-sm-4">
-            <div class="row">
-              <div class="col-sm-10 col-sm-offset-2 text-center"><h3>Flexibel</h3>
-                <p>Sport für Alle, volle Flexibilität: Entscheiden Sie selbst Wann, Wohin und zu Welcher Sportart Sie heute gehen möchten.</p><i class="fa fa-cloud fa-5x"></i></div>
-            </div>
-          </div>
-          <div class="col-sm-4 text-center">
-            <div class="row">
-              <div class="col-sm-10 col-sm-offset-1 text-center"><h3>Einfach</h3><p>Ein einfaches und unkompliziertes Abonnement bei Gymix emöglicht Ihnen mehrere Sportclubs zu besuchen.</p><i class="fa fa-smile-o fa-5x"></i></div>
-            </div>
-          </div>
-          <div class="col-sm-4 text-center">
-            <div class="row">
-              <div class="col-sm-10 text-center"><h3>Unverbindlich</h3><p>Ein unkomliziertes Abbonement Model gibt Ihnen die volle Freiheit. Kündigungfristen gehören der Vergangenheit an.</p><i class="fa fa-star fa-5x"></i></div>
-            </div>
-          </div>
-      </div><!--/row-->
-    <div class="row"><br></div>
-  </div><!--/container-->
-</section>
-
-<section class="container-fluid" id="section2">
-  <div class="row">
-  	<div class="col-sm-8 col-sm-offset-2 text-center">
-        <h1>Was ist Gymix?</h1>
-        <br>
-		<p class="lead">Gymix ist ein Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-        <br>
-      	<i style="font-size:120px" class="fa fa-cloud fa-5x"></i>
-    </div>
-  </div>
-</section>
-
-<!--
-<section class="container-fluid" id="section3">
-	<h1 class="text-center">Gymix macht Spass!</h1>
-    <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
-        <h3 class="text-center">Vertical scrolling has become a popular and lasting trend in Web design.</h3>
-        <div class="row">
-          <div class="col-xs-4 col-xs-offset-1">Some brand-tacular designs even have home page content that is taller that 12,000 pixels. That's a lotta content.</div>
-          <div class="col-xs-2"></div>
-          <div class="col-xs-4 text-right">Anyhoo, this is just some random blurb of text, and Bootply.com is a playground and code editor for Bootstrap.</div>
-        </div>
-        <p class="text-center">
-          <img src="/assets/example/img_mtnpeople.png" class="img-responsive center-block ">
-        </p>
-      </div>
-   </div>
-</section>
-
-<section class="container-fluid" id="section4">
-	<h2 class="text-center">Change this Content. Change the world.</h2>
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-      <img src="/assets/example/bg_smartphones.jpg" class="img-responsive center-block ">
-      <p class="text-center">Images will scale down proportionately as browser width narrows.</p>
-      </div>
-    </div>
-</section>
--->
-<section class="container-fluid" id="section5">
-  <div class="col-sm-10 col-sm-offset-1">
+  <!-- end preloader -->
+  <!-- start navigation -->
+  <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
     <div class="container">
-    <div class="row">
-      <div class="col-sm-4 col-xs-12">
-            <div class="list-group">
-              <a href="#" class="list-group-item active">
-                <h2 class="list-group-item-heading">Basic</h2>
-                <h6>Free to get started</h6>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 100 - more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 2 - this is more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 3 GB</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 4</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Feature</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Feature</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <button class="btn btn-primary btn-lg btn-block">Get Started</button>
-              </a>
-            </div>
-      </div><!--/left-->
-
-      <div class="col-sm-4 col-xs-12">
-            <div class="list-group text-center">
-              <a href="#" class="list-group-item active">
-                <h2 class="list-group-item-heading">Better</h2>
-                <h6>Most popular plan</h6>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 200 - more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 2 - this is more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 5 GB</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 6</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Feature</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Feature</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <button class="btn btn-default btn-lg btn-block">$10 per month</button>
-              </a>
-            </div>
-      </div><!--/middle-->
-
-      <div class="col-sm-4 col-xs-12">
-            <div class="list-group text-right">
-              <a href="#" class="list-group-item active">
-                <h2 class="list-group-item-heading">Best</h2>
-                <h6>For enterprise grade</h6>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 100 - more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 2 - this is more about this</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 8 GB</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Option 10</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Unlimited</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <p class="list-group-item-text">Unlimited</p>
-              </a>
-              <a href="#" class="list-group-item">
-                <button class="btn btn-default btn-lg btn-block">$20 per month</button>
-              </a>
-            </div>
-      </div><!--/right-->
-
-    </div><!--/row-->
-    </div><!--/container-->
-  </div>
-</section>
-
-<section class="container-fluid" id="section6">
-	<h2 class="text-center">Do you see what I mean?</h2>
-    <p class="text-center lead">Add some compelling information here</p>
-    <!--<img src="/assets/example/bg_iphone.png" class="img-responsive center-block ">-->
-
-</section>
-
-<section class="container" id="section7">
-	<h1 class="text-center">Social Media Fascination</h1>
-    <div class="row">
-      <!--fontawesome icons-->
-      <div class="col-sm-1 col-sm-offset-2 col-xs-4 text-center">
-       <i class="fa fa-github fa-4x"></i>
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+        </button>
+        <a href="#" class="navbar-brand">Gymix</a>
       </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-foursquare fa-4x"></i>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right text-uppercase">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#feature">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#download">Download</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
       </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       	<i class="fa fa-facebook fa-4x"></i>
-      </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-pinterest fa-4x"></i>
-      </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-google-plus fa-4x"></i>
-      </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-twitter fa-4x"></i>
-      </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-dribbble fa-4x"></i>
-      </div>
-      <div class="col-sm-1 col-xs-4 text-center">
-       <i class="fa fa-instagram fa-4x"></i>
-      </div>
-  </div><!--/row-->
-  <div class="row">
-  	<div class="col-md-12 text-center">
-      <br><br>
-      <p>
-    	<a href="#">subscribe now</a>
-      </p>
     </div>
-  </div>
-</section>
-
-<footer id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-6 col-sm-6 col-md-3 column">
-          <h4>Information</h4>
-          <ul class="nav">
-            <li><a href="about-us.html">Products</a></li>
-            <li><a href="about-us.html">Services</a></li>
-            <li><a href="about-us.html">Benefits</a></li>
-            <li><a href="elements.html">Developers</a></li>
-          </ul>
+  </nav>
+  <!-- end navigation -->
+  <!-- start home -->
+  <section id="home">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-10 wow fadeIn" data-wow-delay="0.3s">
+            <h1 class="text-upper">Flexibel und einfach wie noch nie</h1>
+            <p class="tm-white">Sport für Alle, volle Flexibilität: Entscheiden Sie selbst Wann, Wohin und zu Welcher Sportart Sie heute gehen möchten.</p>
+            <!--<img src="@routes.Assets.at("images/box-3.jpg")" class="img-responsive" alt="home img">-->
+          </div>
+          <div class="col-md-1"></div>
         </div>
-      <div class="col-xs-6 col-md-3 column">
-          <h4>Follow Us</h4>
-          <ul class="nav">
-            <li><a href="#">Twitter</a></li>
-            <li><a href="#">Facebook</a></li>
-            <li><a href="#">Google+</a></li>
-            <li><a href="#">Pinterest</a></li>
-          </ul>
       </div>
-      <div class="col-xs-6 col-md-3 column">
-          <h4>Contact Us</h4>
-          <ul class="nav">
-            <li><a href="#">Email</a></li>
-            <li><a href="#">Headquarters</a></li>
-            <li><a href="#">Management</a></li>
-            <li><a href="#">Support</a></li>
-          </ul>
+    </div>
+  </section>
+  <!-- end home -->
+  <!-- start divider -->
+  <section id="divider">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+          <i class="fa fa-laptop"></i>
+          <h3 class="text-uppercase">Flexibel</h3>
+          <p>Sport für Alle, volle Flexibilität: Entscheiden Sie selbst Wann, Wohin und zu Welcher Sportart Sie heute gehen möchten.</p>
+        </div>
+        <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+          <i class="fa fa-twitter"></i>
+          <h3 class="text-uppercase">Einfach</h3>
+          <p>Ein einfaches und unkompliziertes Abonnement bei Gymix emöglicht Ihnen mehrere Sportclubs zu besuchen.</p>
+        </div>
+        <div class="col-md-4 wow fadeInUp templatemo-box" data-wow-delay="0.3s">
+          <i class="fa fa-font"></i>
+          <h3 class="text-uppercase">Unverbindlich</h3>
+          <p>Ein unkomliziertes Abbonement Model gibt Ihnen die volle Freiheit. Kündigungfristen gehören der Vergangenheit an.</p>
+        </div>
       </div>
-      <div class="col-xs-6 col-md-3 column">
-          <h4>Customer Service</h4>
-          <ul class="nav">
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Delivery Information</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-            <li><a href="#">Terms &amp; Conditions</a></li>
-          </ul>
-      </div>
-    </div><!--/row-->
-  </div>
-</footer>
+    </div>
+  </section>
+  <!-- end divider -->
 
-	<!-- script references -->
-		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-      	<script type="text/javascript" src="@routes.Assets.at("javascripts/jso.js")"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
-		<script src="@routes.Assets.at("javascripts/scripts.js")"></script>
-	</body>
-    </body>
+  <!-- start feature -->
+  <section id="feature">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+          <h2 class="text-uppercase">Our Software Features</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>
+            <span><i class="fa fa-mobile"></i></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p><i class="fa fa-code"></i>Quis autem velis reprehenderit et quis voluptate velit esse quam.</p>
+        </div>
+        <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+          <!--<img src="images/software-img.png" class="img-responsive" alt="feature img">-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end feature -->
+
+  <!-- start feature1 -->
+  <section id="feature1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+          <!--<img src="images/software-img.png" class="img-responsive" alt="feature img">-->
+        </div>
+        <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+          <h2 class="text-uppercase">More of Your Software</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p>
+            <span><i class="fa fa-mobile"></i></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          <p><i class="fa fa-code"></i>Quis autem velis reprehenderit et quis voluptate velit esse quam.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end feature1 -->
+
+  <!-- start pricing -->
+  <section id="pricing">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 wow bounceIn">
+          <h2 class="text-uppercase">Our Pricing</h2>
+        </div>
+        <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+          <div class="pricing text-uppercase">
+            <div class="pricing-title">
+              <h4>Basic Plan</h4>
+              <p>$10</p>
+              <small class="text-lowercase">monthly</small>
+            </div>
+            <ul>
+              <li>2 GB Space</li>
+              <li>200 GB Bandwidth</li>
+              <li>20 More Themes</li>
+              <li>Lifetime Support</li>
+            </ul>
+            <button class="btn btn-primary text-uppercase">Sign up</button>
+          </div>
+        </div>
+        <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+          <div class="pricing active text-uppercase">
+            <div class="pricing-title">
+              <h4>Business Plan</h4>
+              <p>$20</p>
+              <small class="text-lowercase">monthly</small>
+            </div>
+            <ul>
+              <li>5 GB space</li>
+              <li>500 GB Bandwidth</li>
+              <li>50 More Themes</li>
+              <li>Lifetime Support</li>
+            </ul>
+            <button class="btn btn-primary text-uppercase">Sign up</button>
+          </div>
+        </div>
+        <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+          <div class="pricing text-uppercase">
+            <div class="pricing-title">
+              <h4>Pro Plan</h4>
+              <p>$30</p>
+              <small class="text-lowercase">monthly</small>
+            </div>
+            <ul>
+              <li>10 GB space</li>
+              <li>1,000 GB bandwidth</li>
+              <li>100 more themes</li>
+              <li>Lifetime Support</li>
+            </ul>
+            <button class="btn btn-primary text-uppercase">Sign Up</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end pricing -->
+
+  <!-- start download -->
+  <section id="download">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+          <h2 class="text-uppercase">Download Our Software</h2>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p>
+          <button class="btn btn-primary text-uppercase"><i class="fa fa-download"></i> Download</button>
+        </div>
+        <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+          <!--<img src="images/software-img.png" class="img-responsive" alt="feature img">-->
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end download -->
+
+  <!-- start contact -->
+  <section id="contact">
+    <div class="overlay">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <h2 class="text-uppercase">Contact Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p>
+            <address>
+              <p><i class="fa fa-map-marker"></i>1234 Street Name, City Name, United States</p>
+              <p><i class="fa fa-phone"></i> 0992 234234 / 0234 234234</p>
+              <p><i class="fa fa-envelope-o"></i> hello[at]yoursite.com</p>
+            </address>
+          </div>
+          <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
+            <div class="contact-form">
+              <form action="#" method="post">
+                <div class="col-md-6">
+                  <input type="text" class="form-control" placeholder="Name">
+                </div>
+                <div class="col-md-6">
+                  <input type="email" class="form-control" placeholder="Email">
+                </div>
+                <div class="col-md-12">
+                  <input type="text" class="form-control" placeholder="Subject">
+                </div>
+                <div class="col-md-12">
+                  <textarea class="form-control" placeholder="Message" rows="4"></textarea>
+                </div>
+                <div class="col-md-8">
+                  <input type="submit" class="form-control text-uppercase" value="Send">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end contact -->
+
+  <!-- start footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <p>Copyright © 2015 Gymix GmbH</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="@routes.Assets.at("javascripts/jquery-2.1.4.min.js ")"></script>
+  <script src="@routes.Assets.at("javascripts/bootstrap.min.js ")"></script>
+  <script src="@routes.Assets.at("javascripts/wow.min.js ")"></script>
+  <script src="@routes.Assets.at("javascripts/jquery.singlePageNav.min.js ")"></script>
+  <script src="@routes.Assets.at("javascripts/custom.js ")"></script>
+</body>
+
 </html>
