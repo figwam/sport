@@ -16,8 +16,8 @@
         </ul>
         <div class="col-md-8">
           <h1 class="text-left">@Messages.get("welcome.title")</h1>
-          <h3 class="text-left lato animate slideInDown">@Messages.get("welcome.subtext.1")</h3>
-          <h4 class="text-left lato animate slideInDown">@Messages.get("welcome.subtext.2")</h4>
+          <h4 class="text-left lato animate slideInDown">@Messages.get("welcome.subtext.1")</h4>
+          <h5 class="text-left lato animate slideInDown">@Messages.get("welcome.subtext.2")</h5>
           <!--
           <p class="text-left">
             <br>
@@ -115,7 +115,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-            <img src="http://maps.googleapis.com/maps/api/staticmap?center=Bern&zoom=13&size=600x300&maptype=roadmap&markers=color:red%7Clabel:S%7C46.9481282,7.4465944&markers=color:red%7Clabel:G%7C46.9485384,7.4473883&markers=color:red%7Clabel:C%7C46.931828,7.419808&sensor=false" class="img-responsive" alt="feature img">
+            <img src="@routes.Callouts.getStaticGoogleMap" class="img-responsive" alt="feature img">
           </div>
           <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
             <h2 class="text-uppercase">@Messages.get("section.studios.title")</h2>

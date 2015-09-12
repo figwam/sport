@@ -1,6 +1,5 @@
 package controllers
 
-
 import play.api._
 import play.api.mvc._
 import play.api.data._
@@ -15,10 +14,16 @@ import javax.inject.Inject
 import scala.concurrent.Future
 import play.api.mvc._
 import play.api.libs.ws._
+import play.api.libs.iteratee._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Callouts extends Controller {
-  
-  def getStaticGoogleMap = Action { implicit request =>
+
+
+
+  def getStaticGoogleMap = Action.async {
+
+    // Make the request
     val request = WS.url("http://maps.googleapis.com/maps/api/staticmap")
     val promise =
       request.withRequestTimeout(10000)
@@ -30,19 +35,26 @@ object Callouts extends Controller {
         .withQueryString("marker" -> "color:red%7Clabel:G%7C46.9485384,7.4473883")
         .withQueryString("marker" -> "color:red%7Clabel:S%7C46.9481282,7.4465944")
         .withQueryString("marker" -> "color:red%7Clabel:C%7C46.931828,7.419808")
-        .get()
-    val response = awaitResult(promise)
-    Ok(response.body)
-  
-  }
+        .getStream().map {
+          case (response, body) =>
 
+            // Check that the response was successful
+            if (response.status == 200) {
 
+              // Get the content type
+              val contentType = response.headers.get("Content-Type").flatMap(_.headOption)
+                .getOrElse("application/octet-stream")
 
-  protected def awaitResult(future: Future[Response]) = {
-    Await.result(future, secondsToWait)
-  }
-  val secondsToWait = {
-    import scala.concurrent.duration._
-    30.seconds
+              // If there's a content length, send that, otherwise return the body chunked
+              response.headers.get("Content-Length") match {
+                case Some(Seq(length)) =>
+                  Ok.feed(body).as(contentType).withHeaders("Content-Length" -> length)
+                case _ =>
+                  Ok.chunked(body).as(contentType)
+              }
+            } else {
+              BadGateway
+            }
+        }
   }
 }
