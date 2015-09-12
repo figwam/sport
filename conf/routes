@@ -17,11 +17,4 @@ GET         /                                                        controllers
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                                            controllers.Assets.at(path="/public", file)
 
-# Map static resources from the /app/public folder to the /public path
-#{if play.Play.mode.isDev()}
-# ...    GET     /public/                        staticDir:public
-#{/}
-#{else}
-#   GET     d2iu8jbjgczc8x.cloudfront.net/public  staticDir:public
-#    GET     /public/                              staticDir:public
-#{/}
+GET         /generate/map                                            controllers.Callouts.getStaticGoogleMap

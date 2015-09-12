@@ -13,6 +13,8 @@ object Application extends Controller {
 
     Ok(views.html.index())
   }
+
+  
   // -- Authentication
 
   // val loginForm = Form(
