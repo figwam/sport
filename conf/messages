@@ -1,3 +1,38 @@
 brand=Gymix
 welcome=Welcome to Gymix
-welcome.title=Sport ohne Abonnement
+welcome.title=Sportabo so flexibel wie noch nie
+welcome.subtext=Entscheiden Sie selbst wann, wohin und welchen Sport Sie besuchen möchten
+menu.gymix=Was ist Gymix
+menu.advantages=Ihre Vorteile
+menu.pricing=Preise
+menu.followus=Folge uns
+welcome.get.member=Training beginnen
+section.whoweare.title=Was ist Gymix?
+
+section.whoweare.text=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+section.advantages.title=Ihre Vorteile
+section.advantages.text=Profesionelle Trainer, Sportvielfalt, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+section.advantages.1=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+section.advantages.2=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+
+
+section.pricing.title=Unsere Preise
+section.pricing.signup=Anmelden
+section.pricing.basic=Basis
+section.pricing.basic.price=CHF 59
+section.pricing.business=Standard
+section.pricing.business.price=CHF 89
+section.pricing.pro=Premium
+section.pricing.pro.price=CHF 119
+
+section.pricing.basic.1=Eintritte
+section.pricing.basic.2=Eintritte im selben Studio
+section.pricing.basic.3=Jederzeit Abostop möglich
+section.pricing.basic.4=Jederzeit kündbar
+
+word.monthly=monatlich
+
+
+
+
