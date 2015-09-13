@@ -2,7 +2,7 @@ name := "gymix"
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala,PlayJava,JavaAppPackaging)
 
 scalaVersion := "2.11.1"
 
@@ -17,3 +17,5 @@ libraryDependencies ++= Seq(
 )
 
 includeFilter in (Assets, LessKeys.less) := "*.less"
+
+herokuAppName in Compile := "ancient-shore-6366"
