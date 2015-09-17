@@ -1,13 +1,11 @@
-@(title: String)(content: Html)(implicit request: play.api.mvc.Request[play.api.mvc.AnyContent])
+@(content: Html)(implicit messages: Messages)
 
-@import helper._
-@import play.i18n.Messages
-@import controllers.Application
+<!DOCTYPE html>
 
 <html>
 
 <head>
-  <title>@title</title>
+  <title>Gymix</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <!-- <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")"> -->
@@ -40,10 +38,10 @@
       </div>
       <div class="collapse navbar-collapse">
         <ul class="nav navbar-nav navbar-right text-uppercase">
-          <li><a href="#whoweare">@Messages.get("menu.gymix")</a></li>
-          <li><a href="#feature">@Messages.get("menu.advantages")</a></li>
-          <li><a href="#studios">@Messages.get("menu.studios")</a></li>
-          <li><a href="#pricing">@Messages.get("menu.pricing")</a></li>
+          <li><a href="#whoweare">@Messages("menu.gymix")</a></li>
+          <li><a href="#feature">@Messages("menu.advantages")</a></li>
+          <li><a href="#studios">@Messages("menu.studios")</a></li>
+          <li><a href="#pricing">@Messages("menu.pricing")</a></li>
         </ul>
       </div>
     </div>

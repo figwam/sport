@@ -1,7 +1,9 @@
+# Messages
+
 brand=Gymix
 welcome=Welcome to Gymix
 welcome.title=Sportabo so flexibel wie noch nie
-welcome.subtext.1=Das flexibelste und einfachste Sportabonnement in der Region Bern. 
+welcome.subtext.1=Das flexibelste und einfachste Sportabonnement in der Region Bern.
 welcome.subtext.2=Entscheiden Sie selbst wann, wohin und welchen Sport Sie besuchen möchten
 menu.gymix=Was ist Gymix
 menu.advantages=Ihre Vorteile
@@ -25,18 +27,22 @@ section.studios.text=Im Moment kooperieren wir mit den Sportstudios der Region B
 section.pricing.title=Unsere Preise
 section.pricing.signup=Anmelden
 section.pricing.basic=Basis
-section.pricing.basic.price=CHF 59
+section.pricing.basic.price=CHF 59000
 section.pricing.business=Standard
-section.pricing.business.price=CHF 89
+section.pricing.business.price=CHF 89000
 section.pricing.pro=Premium
-section.pricing.pro.price=CHF 119
+section.pricing.pro.price=CHF 119000
 
 section.pricing.basic.1=Eintritte
 section.pricing.basic.2=Eintritte im selben Studio
 section.pricing.basic.3=Jederzeit Abostop möglich
 section.pricing.basic.4=Jederzeit kündbar
+#4,2 6,4 8,6
 
 word.monthly=monatlich
+
+employees.list.title={0,choice,0#No employees|1#One employee|1<{0,number,integer} employees} found
+
 
 
 

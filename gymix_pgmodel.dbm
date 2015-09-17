@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.8.1" last-position="0,35" last-zoom="1"
+	 default-schema="public" default-owner="postgres">
+<database name="gymix">
+</database>
+
+<schema name="public" protected="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<table name="user">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="91" y="487"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="firstname" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="lastname" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="mobile">
+		<type name="varchar"/>
+	</column>
+	<column name="phone">
+		<type name="varchar"/>
+	</column>
+	<column name="email">
+		<type name="varchar"/>
+	</column>
+	<column name="email_verified" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="ptoken">
+		<type name="varchar"/>
+	</column>
+	<column name="is_deleted" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<column name="delete_reason">
+		<type name="varchar"/>
+	</column>
+	<column name="is_inactive" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<column name="inactive_reason">
+		<type name="varchar"/>
+	</column>
+	<constraint name="user_id_primary" type="pk-constr" table="public.&quot;user&quot;">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_address" index="15"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="address_fk" index="1"/>
+		<object name="user_uq" index="2"/>
+	</customidxs>
+</table>
+
+<index name="user_extid_idx" table="public.&quot;user&quot;"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<table name="studio">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="400" y="46"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="mobile">
+		<type name="smallint"/>
+	</column>
+	<column name="phone" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="is_deleted" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<column name="deleted_reason">
+		<type name="varchar"/>
+	</column>
+	<constraint name="studio_id_primary" type="pk-constr" table="public.studio">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_address" index="9"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="address_fk" index="1"/>
+		<object name="studio_uq" index="2"/>
+	</customidxs>
+</table>
+
+<table name="address">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="74" y="62"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="street" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="housenr" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="zip" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="country" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="houseName">
+		<type name="varchar"/>
+	</column>
+	<column name="is_deleted" not-null="true" default-value="false">
+		<type name="boolean"/>
+	</column>
+	<column name="longitude">
+		<type name="decimal" length="9" precision="6"/>
+	</column>
+	<column name="latitude">
+		<type name="decimal" length="9" precision="6"/>
+	</column>
+	<constraint name="address_id_primary" type="pk-constr" table="public.address">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="offer">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="730" y="582"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="nr_access" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="nr_access_same" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="price" not-null="true">
+		<type name="decimal" length="5" precision="2"/>
+	</column>
+	<column name="is_deleted" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<constraint name="offer_id_idx" type="pk-constr" table="public.offer">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<index name="address_extid_idx" table="public.address"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<index name="studio_extid_idx" table="public.studio"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<table name="subscription">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="408" y="602"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="is_inactive" not-null="true" default-value="false">
+		<type name="bool"/>
+	</column>
+	<constraint name="subscription_id_primary" type="pk-constr" table="public.subscription">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_offer" index="6"/>
+		<object name="id_user" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="offer_fk" index="3"/>
+		<object name="subscription_uq" index="2"/>
+		<object name="subscription_uq1" index="4"/>
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<table name="time_stop">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="575" y="376"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="stop_on" not-null="true">
+		<type name="date"/>
+	</column>
+	<column name="reason" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true">
+		<type name="date"/>
+	</column>
+	<constraint name="timestop_id_primary" type="pk-constr" table="public.time_stop">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_subscription" index="5"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="subscription_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="subscription_has_one_user" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#e0406b"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.subscription"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="offer_has_one_subscription" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#976920"
+	 src-table="public.subscription"
+	 dst-table="public.offer"
+	 src-required="false" dst-required="true"/>
+
+<relationship name="subscription_has_many_timestop" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#2d02d3"
+	 src-table="public.subscription"
+	 dst-table="public.time_stop"
+	 src-required="true" dst-required="false"/>
+
+<table name="users">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="780" y="286"/>
+	<column name="id" not-null="true">
+		<type name="bigserial"/>
+	</column>
+	<column name="name">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<constraint name="testtable_id_idx" type="pk-constr" table="public.users">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="user_has_one_address" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#f06f77"
+	 src-table="public.address"
+	 dst-table="public.&quot;user&quot;"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="studio_has_one_address" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#577810"
+	 src-table="public.address"
+	 dst-table="public.studio"
+	 src-required="true" dst-required="false"/>
+
+<table name="training">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="761" y="55"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="start_from" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="end_at" not-null="true">
+		<type name="timestamp"/>
+	</column>
+	<column name="name" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="recurring" not-null="true" default-value="true">
+		<type name="bool"/>
+	</column>
+	<column name="contingent" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<column name="updated_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<constraint name="training_id_primary" type="pk-constr" table="public.training">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_studio" index="9"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="studio_fk" index="1"/>
+	</customidxs>
+</table>
+
+<relationship name="studio_has_many_training" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#22e6f0"
+	 src-table="public.studio"
+	 dst-table="public.training"
+	 src-required="true" dst-required="false"/>
+
+<table name="registration">
+	<schema name="public"/>
+	<role name="postgres"/>
+	<position x="330" y="260"/>
+	<column name="id" not-null="true">
+		<type name="serial"/>
+	</column>
+	<column name="ext_id" not-null="true">
+		<type name="varchar"/>
+	</column>
+	<column name="created_on" not-null="true" default-value="NOW()">
+		<type name="timestamp"/>
+	</column>
+	<constraint name="id_registration_primary" type="pk-constr" table="public.registration">
+		<columns names="id" ref-type="src-columns"/>
+	</constraint>
+
+	<customidxs object-type="column">
+		<object name="id_training" index="4"/>
+		<object name="id_user" index="3"/>
+	</customidxs>
+
+	<customidxs object-type="constraint">
+		<object name="registration_uq" index="3"/>
+		<object name="training_fk" index="2"/>
+		<object name="user_fk" index="1"/>
+	</customidxs>
+</table>
+
+<index name="subscription_ext_id_idx" table="public.subscription"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<index name="offer_ext_id_idx" table="public.offer"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<index name="timestop_ext_id_idx" table="public.time_stop"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<index name="training_ext_id_idx" table="public.training"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<index name="registration_ext_id_idx" table="public.registration"
+	 concurrent="false" unique="false" fast-update="false" buffering="false"
+	 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="ext_id"/>
+		</idxelement>
+</index>
+
+<relationship name="user_has_many_registration" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#ca4dfe"
+	 src-table="public.&quot;user&quot;"
+	 dst-table="public.registration"
+	 src-required="true" dst-required="false"/>
+
+<relationship name="registration_has_one_training" type="rel11"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 custom-color="#7d6bec"
+	 src-table="public.training"
+	 dst-table="public.registration"
+	 src-required="true" dst-required="false"/>
+
+</dbmodel>

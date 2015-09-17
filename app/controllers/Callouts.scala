@@ -1,21 +1,11 @@
 package controllers
 
-import play.api._
-import play.api.mvc._
-import play.api.data._
-import scala.concurrent.Await
-import scala.concurrent.Future
-import scala.concurrent.duration.DurationInt
-import play.api.libs.ws.Response
-import play.api.libs.ws.WS
 import play.api.Play.current
-import javax.inject.Inject
-
-import scala.concurrent.Future
+import play.api.libs.ws.WS
 import play.api.mvc._
-import play.api.libs.ws._
-import play.api.libs.iteratee._
+
 import scala.concurrent.ExecutionContext.Implicits.global
+
 
 object Callouts extends Controller {
 

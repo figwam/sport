@@ -2,12 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# debug routes
-# GET     /debugToken                          controllers.ApigeeCallouts.getToken(code,redirect_uri,authorizationHeader)
-# GET     /debugAddress                        controllers.ApigeeCallouts.getAddress(accessToken)
 
 # Home page
-GET         /                                                        controllers.Application.index
+GET        /                      controllers.Application.index
+GET        /addresses             controllers.Application.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
 
 # Authentication
 #GET         /login                                                   controllers.Application.login
@@ -15,6 +13,6 @@ GET         /                                                        controllers
 #GET         /logout                                                  controllers.Application.logout
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                                            controllers.Assets.at(path="/public", file)
+GET        /assets/*file          controllers.Assets.at(path="/public", file)
 
-GET         /generate/map                                            controllers.Callouts.getStaticGoogleMap
+GET        /generate/map          controllers.Callouts.getStaticGoogleMap
