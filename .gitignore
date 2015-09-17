@@ -11,3 +11,5 @@
 .DS_Store
 /logs
 .gymix.iml
+.cache-main
+.tern-project
