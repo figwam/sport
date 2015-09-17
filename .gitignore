@@ -4,8 +4,10 @@
 /project/target/
 /project/project/target
 .target
+.idea
 .settings
 .project
 .classpath
 .DS_Store
-logs
+/logs
+.gymix.iml
