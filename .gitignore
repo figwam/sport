@@ -10,6 +10,6 @@
 .classpath
 .DS_Store
 /logs
-.gymix.iml
+gymix.iml
 .cache-main
 .tern-project
