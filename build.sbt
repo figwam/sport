@@ -17,9 +17,15 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.4-1202-jdbc42",
   "org.slf4j" % "slf4j-nop" % "1.7.12",
   "com.typesafe.play" 	%% "play-slick" 		% "1.0.1",
-  "com.typesafe.play" %% "anorm" % "2.4.0"
+  "com.typesafe.play" %% "anorm" % "2.4.0",
+  "com.mohiva" %% "play-silhouette" % "3.0.0",
+  "com.kyleu" %% "jdub-async" % "1.0"
 )
+
+routesGenerator := InjectedRoutesGenerator
 
 includeFilter in (Assets, LessKeys.less) := "*.less"
 
 herokuAppName in Compile := "ancient-shore-6366"
+
+

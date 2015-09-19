@@ -1,5 +1,7 @@
 package controllers
 
+import play.api.i18n.MessagesApi
+import services.user.AuthenticationEnvironment
 import views._
 import play.api._
 import play.api.mvc._
@@ -9,20 +11,22 @@ import models._
 import java.util.concurrent.TimeoutException
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
-import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
-class Application(dao: AddressDaoComponent) extends Controller {
+
+@javax.inject.Singleton
+class Application @javax.inject.Inject() (override val messagesApi: MessagesApi, override val env: AuthenticationEnvironment)
+  extends BaseController {
 
 
-  def index = Action { implicit request =>
-    Ok("views.html.index()")
-  }
-
+  //def index = Action { implicit request =>
+  //  Ok(views.html.index())
+  //}
 
   /**
    * Display the paginated list of employees.
    */
+/*
   def list(page: Int, orderBy: Int, filter: String): Action[AnyContent] = Action.async { implicit request =>
     dao.list(page, 10, orderBy, "%" + filter + "%").map { pageEmp =>
       Ok(html.list(pageEmp, orderBy, filter))
@@ -32,7 +36,7 @@ class Application(dao: AddressDaoComponent) extends Controller {
         InternalServerError(ex.getMessage)
     }
   }
-
+*/
   /*  def createAddress = Action { implicit request =>
     val db = Database.forConfig("default")
     try {
@@ -46,5 +50,3 @@ class Application(dao: AddressDaoComponent) extends Controller {
   }*/
 
 }
-
-object Application extends Application(AddressDao)

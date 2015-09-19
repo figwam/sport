@@ -5,7 +5,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 -->
 <dbmodel pgmodeler-ver="0.8.1" last-position="0,0" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
-<database name="gymixx">
+<database name="test" encoding="UTF8" lc-collate="en_US" lc-ctype="en_US">
 	<role name="postgres"/>
 	<tablespace name="pg_default"/>
 </database>
@@ -16,7 +16,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="users">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="497" y="466"/>
+	<position x="55" y="46"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -56,7 +56,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="delete_reason">
 		<type name="varchar"/>
 	</column>
-	<column name="is_active" not-null="true" default-value="true">
+	<column name="is_inactive" not-null="true" default-value="false">
 		<type name="bool"/>
 	</column>
 	<column name="inactive_reason">
@@ -96,7 +96,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="studio">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="429.813" y="19"/>
+	<position x="597.813" y="16"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -141,7 +141,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="address">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="97.531" y="23"/>
+	<position x="366.531" y="18"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -186,7 +186,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="offer">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="96.172" y="617"/>
+	<position x="377.172" y="483"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -238,7 +238,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="subscription">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="92.1094" y="417"/>
+	<position x="73.1094" y="522"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -251,11 +251,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="updated_on" not-null="true" default-value="NOW()">
 		<type name="timestamp"/>
 	</column>
-	<column name="is_active" not-null="true" default-value="true">
+	<column name="is_inactive" not-null="true" default-value="false">
 		<type name="bool"/>
-	</column>
-	<column name="canceled_on">
-		<type name="timestamp"/>
 	</column>
 	<constraint name="subscription_id_primary" type="pk-constr" table="public.subscription">
 		<columns names="id" ref-type="src-columns"/>
@@ -277,7 +274,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="time_stop">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="95" y="231.2"/>
+	<position x="94" y="302.2"/>
 	<column name="id" not-null="true">
 		<type name="bigserial"/>
 	</column>
@@ -351,10 +348,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.studio"
 	 src-required="true" dst-required="false"/>
 
-<table name="clazz">
+<table name="class">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="797.438" y="72.2"/>
+	<position x="605.438" y="240.2"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -382,7 +379,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="updated_on" not-null="true" default-value="NOW()">
 		<type name="timestamp"/>
 	</column>
-	<constraint name="training_id_primary" type="pk-constr" table="public.clazz">
+	<constraint name="training_id_primary" type="pk-constr" table="public.class">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
@@ -401,7 +398,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#8f7e74"
 	 src-table="public.studio"
-	 dst-table="public.clazz"
+	 dst-table="public.class"
 	 src-required="true" dst-required="false">
 	<label ref-type="name-label">
 		<position x="0" y="0"/>
@@ -411,7 +408,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="registration">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="831.859" y="337.2"/>
+	<position x="370.859" y="324.2"/>
 	<column name="id" not-null="true">
 		<type name="serial"/>
 	</column>
@@ -426,12 +423,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_clazz" index="4"/>
+		<object name="id_class" index="4"/>
 		<object name="id_users" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="clazz_fk" index="2"/>
+		<object name="class_fk" index="2"/>
 		<object name="registration_uq" index="3"/>
 		<object name="users_fk" index="1"/>
 	</customidxs>
@@ -461,7 +458,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 </index>
 
-<index name="training_ext_id_idx" table="public.clazz"
+<index name="training_ext_id_idx" table="public.class"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
@@ -491,7 +488,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#6d577d"
-	 src-table="public.clazz"
+	 src-table="public.class"
 	 dst-table="public.registration"
 	 src-required="true" dst-required="false">
 	<label ref-type="name-label">
@@ -502,7 +499,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="oauth2_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1269.75" y="163.2"/>
+	<position x="1016.75" y="161.2"/>
 	<column name="provider" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
@@ -535,7 +532,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="session_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1043" y="158.4"/>
+	<position x="772" y="578.4"/>
 	<column name="id" not-null="true">
 		<type name="text"/>
 	</column>
@@ -565,7 +562,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="oauth1_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1048.95" y="309.4"/>
+	<position x="784.953" y="739.4"/>
 	<column name="provider" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
@@ -589,7 +586,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="openid_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1286.73" y="44.4"/>
+	<position x="1040.73" y="40.4"/>
 	<column name="provider" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
@@ -613,7 +610,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="password_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1043.84" y="38.4"/>
+	<position x="823.844" y="473.4"/>
 	<column name="provider" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
@@ -640,7 +637,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="user_profiles">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1276.72" y="297.4"/>
+	<position x="1051.72" y="506.4"/>
 	<column name="provider" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
@@ -692,7 +689,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="requests">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1118" y="522.6"/>
+	<position x="1022" y="671.6"/>
 	<column name="id" not-null="true">
 		<type name="uuid"/>
 	</column>
@@ -754,92 +751,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</customidxs>
 </table>
 
-<relationship name="users_has_many_studio" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#029773"
-	 src-table="public.users"
-	 dst-table="public.studio"
-	 src-required="false" dst-required="false"/>
-
-<index name="users_profiles_idx" table="public.users"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="profiles"/>
-		</idxelement>
-</index>
-
-<index name="users_username_idx" table="public.users"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="username"/>
-		</idxelement>
-</index>
-
-<index name="users_roles_idx" table="public.users"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="roles"/>
-		</idxelement>
-</index>
-
 <relationship name="users_has_many_requests" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 custom-color="#6dd993"
+	 custom-color="#4d245e"
 	 src-table="public.users"
 	 dst-table="public.requests"
-	 src-required="false" dst-required="false"/>
-
-<index name="id_users_idx" table="public.requests"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="id_users"/>
-		</idxelement>
-</index>
-
-<table name="bill">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="432" y="264"/>
-	<column name="id" not-null="true">
-		<type name="serial"/>
-	</column>
-	<column name="ext_id" not-null="true">
-		<type name="varchar"/>
-	</column>
-	<column name="amount" not-null="true">
-		<type name="decimal" length="5" precision="2"/>
-	</column>
-	<column name="created_on" not-null="true" default-value="NOW()">
-		<type name="timestamp"/>
-	</column>
-	<column name="vat" not-null="true">
-		<type name="smallint"/>
-	</column>
-</table>
-
-<index name="ext_id_idx" table="public.bill"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="ext_id"/>
-		</idxelement>
-</index>
-
-<relationship name="users_has_many_bill" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#56a157"
-	 src-table="public.users"
-	 dst-table="public.bill"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

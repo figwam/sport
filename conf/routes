@@ -4,15 +4,25 @@
 
 
 # Home page
-GET        /                      controllers.Application.index
-GET        /addresses             controllers.Application.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
+#GET         /                    controllers.Application.index
+#GET         /addresses           controllers.Application.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
 
 # Authentication
-#GET         /login                                                   controllers.Application.login
-#POST        /login                                                   controllers.Application.authenticate
-#GET         /logout                                                  controllers.Application.logout
+GET         /                        controllers.HomeController.index
+GET         /admin-test              controllers.HomeController.adminTest
+
+# Authentication
+GET         /signup                  controllers.RegistrationController.registrationForm
+POST        /signup                  controllers.RegistrationController.register
+GET         /signin                  controllers.AuthenticationController.signInForm
+POST        /signin                  controllers.AuthenticationController.authenticateCredentials
+GET         /signin/:provider        controllers.AuthenticationController.authenticateSocial(provider)
+GET         /signout                 controllers.AuthenticationController.signOut
+
+# Profile
+GET         /profile                 controllers.ProfileController.profile
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file          controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
-GET        /generate/map          controllers.Callouts.getStaticGoogleMap
+GET         /generate/map        controllers.Callouts.getStaticGoogleMap

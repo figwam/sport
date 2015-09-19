@@ -7,7 +7,7 @@ import play.api.mvc._
 import scala.concurrent.ExecutionContext.Implicits.global
 
 
-object Callouts extends Controller {
+class Callouts extends Controller {
 
   def getStaticGoogleMap = Action.async {
 
