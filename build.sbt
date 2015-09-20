@@ -20,7 +20,6 @@ libraryDependencies ++= Seq(
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
   "com.mohiva" %% "play-silhouette-testkit" % "3.0.2" % "test",
   specs2 % Test,
-  "com.typesafe.slick" %% "slick" % "3.0.3",
   "com.typesafe.play" %% "play-slick" % "1.0.1",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.1",
   "com.h2database" % "h2" % "1.4.188",
@@ -31,6 +30,8 @@ libraryDependencies ++= Seq(
 )
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
+
+includeFilter in (Assets, LessKeys.less) := "*.less"
 
 routesGenerator := InjectedRoutesGenerator
 

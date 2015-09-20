@@ -1,48 +1,48 @@
-error.email = Valid email required
-error.required = This field is required
-invalid.credentials = Invalid credentials!
-access.denied = Access denied!
-user.exists = There already exists a user with this email!
-could.not.authenticate = Could not authenticate with social provider! Please try again!
+# Messages
 
-home.title = Silhouette - Home
-sign.up.title = Silhouette - Sign Up
-sign.in.title = Silhouette - Sign In
+brand=Gymix
+welcome=Welcome to Gymix
+welcome.title=Sportabo so flexibel wie noch nie
+welcome.subtext.1=Das flexibelste und einfachste Sportabonnement in der Region Bern.
+welcome.subtext.2=Entscheiden Sie selbst wann, wohin und welchen Sport Sie besuchen möchten
+menu.gymix=Was ist Gymix
+menu.advantages=Ihre Vorteile
+menu.pricing=Preise
+menu.studios=Studios
+menu.followus=Folge uns
+welcome.get.member=Training beginnen
+section.whoweare.title=Was ist Gymix?
 
-toggle.navigation = Toggle navigation
-welcome.signed.in = Welcome, you are now signed in!
+section.whoweare.text=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
 
-sign.up.account = Sign up for a new account
-sign.in.credentials = Sign in with your credentials
-
-error = Error!
-home = Home
-first.name = First name
-last.name = Last name
-full.name = Full name
-email = Email
-password = Password
-sign.up = Sign up
-sign.in = Sign in
-sign.out = Sign out
-sign.in.now = Sign in now
-sign.up.now = Sign up now
-already.a.member = Already a member?
-not.a.member = Not a member?
-
-remember.me = Remember my login on this computer
-or.use.social = Or use your existing account on one of the following services to sign in:
-
-google = Google
-facebook = Facebook
-twitter = Twitter
-vk = VK
-xing = Xing
-yahoo = Yahoo
+section.advantages.title=Ihre Vorteile
+section.advantages.text=Profesionelle Trainer, Sportvielfalt, Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+section.advantages.1=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. 
+section.advantages.2=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
 
 
-street=Strasse und Hausnummer
-housenr=Nr
-zip=PLZ
-state=Kanton
-city=Stadt
+section.studios.title=Sportstudios
+section.studios.text=Im Moment kooperieren wir mit den Sportstudios der Region Bern. Das Angebot wird stets erweitert. 
+
+section.pricing.title=Unsere Preise
+section.pricing.signup=Anmelden
+section.pricing.basic=Basis
+section.pricing.basic.price=CHF 59000
+section.pricing.business=Standard
+section.pricing.business.price=CHF 89000
+section.pricing.pro=Premium
+section.pricing.pro.price=CHF 119000
+
+section.pricing.basic.1=Eintritte
+section.pricing.basic.2=Eintritte im selben Studio
+section.pricing.basic.3=Jederzeit Abostop möglich
+section.pricing.basic.4=Jederzeit kündbar
+#4,2 6,4 8,6
+
+word.monthly=monatlich
+employees.list.title={0,choice,0#No employees|1#One employee|1<{0,number,integer} employees} found
+
+
+
+
+
