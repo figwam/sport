@@ -2,27 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-
 # Home page
-#GET         /                    controllers.Application.index
-#GET         /addresses           controllers.Application.list(p:Int ?= 0, s:Int ?= 2, f ?= "")
-
-# Authentication
-GET         /                        controllers.HomeController.index
-GET         /admin-test              controllers.HomeController.adminTest
-
-# Authentication
-GET         /signup                  controllers.RegistrationController.registrationForm
-POST        /signup                  controllers.RegistrationController.register
-GET         /signin                  controllers.AuthenticationController.signInForm
-POST        /signin                  controllers.AuthenticationController.authenticateCredentials
-GET         /signin/:provider        controllers.AuthenticationController.authenticateSocial(provider)
-GET         /signout                 controllers.AuthenticationController.signOut
-
-# Profile
-GET         /profile                 controllers.ProfileController.profile
+GET         /                                controllers.ApplicationController.index
+GET         /signIn                          controllers.ApplicationController.signIn
+GET         /signUp                          controllers.ApplicationController.signUp
+GET         /signOut                         controllers.ApplicationController.signOut
+GET         /authenticate/:provider          controllers.SocialAuthController.authenticate(provider)
+POST        /authenticate/credentials        controllers.CredentialsAuthController.authenticate
+POST        /signUp                          controllers.SignUpController.signUp
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file        controllers.Assets.at(path="/public", file)
-
-GET         /generate/map        controllers.Callouts.getStaticGoogleMap
+GET         /assets/*file                    controllers.Assets.at(path="/public", file)
+GET         /webjars/*file                   controllers.WebJarAssets.at(file)

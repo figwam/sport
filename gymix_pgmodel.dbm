@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.8.1" last-position="0,0" last-zoom="1"
+<dbmodel pgmodeler-ver="0.8.1" last-position="611,1" last-zoom="1"
 	 default-schema="public" default-owner="postgres">
 <database name="gymixx">
 	<role name="postgres"/>
@@ -13,7 +13,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <schema name="public" protected="true" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
 </schema>
 
-<table name="users">
+<table name="user">
 	<schema name="public"/>
 	<role name="postgres"/>
 	<position x="497" y="466"/>
@@ -71,7 +71,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="roles" not-null="true">
 		<type name="varchar"/>
 	</column>
-	<constraint name="user_id_primary" type="pk-constr" table="public.users">
+	<column name="fullname">
+		<type name="varchar"/>
+	</column>
+	<column name="avatarURL">
+		<type name="varchar"/>
+	</column>
+	<constraint name="user_id_primary" type="pk-constr" table="public.&quot;user&quot;">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 
@@ -81,11 +87,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 	<customidxs object-type="constraint">
 		<object name="address_fk" index="1"/>
-		<object name="users_uq" index="2"/>
+		<object name="user_uq" index="2"/>
 	</customidxs>
 </table>
 
-<index name="user_extid_idx" table="public.users"
+<index name="user_extid_idx" table="public.&quot;user&quot;"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
@@ -263,14 +269,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 	<customidxs object-type="column">
 		<object name="id_offer" index="6"/>
-		<object name="id_users" index="5"/>
+		<object name="id_user" index="7"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="offer_fk" index="3"/>
 		<object name="subscription_uq" index="2"/>
 		<object name="subscription_uq1" index="4"/>
-		<object name="users_fk" index="1"/>
+		<object name="user_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -311,7 +317,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#0abb02"
-	 src-table="public.users"
+	 src-table="public.&quot;user&quot;"
 	 dst-table="public.subscription"
 	 src-required="true" dst-required="false"/>
 
@@ -339,7 +345,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#8cf777"
 	 src-table="public.address"
-	 dst-table="public.users"
+	 dst-table="public.&quot;user&quot;"
 	 src-required="true" dst-required="false"/>
 
 <relationship name="studio_has_one_address" type="rel11"
@@ -427,13 +433,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 	<customidxs object-type="column">
 		<object name="id_clazz" index="4"/>
-		<object name="id_users" index="3"/>
+		<object name="id_user" index="3"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
 		<object name="clazz_fk" index="2"/>
 		<object name="registration_uq" index="3"/>
-		<object name="users_fk" index="1"/>
+		<object name="user_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -482,7 +488,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#014c6d"
-	 src-table="public.users"
+	 src-table="public.&quot;user&quot;"
 	 dst-table="public.registration"
 	 src-required="true" dst-required="false"/>
 
@@ -532,17 +538,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="session_info">
+<table name="login_info">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="1043" y="158.4"/>
+	<position x="1044" y="159.4"/>
 	<column name="id" not-null="true">
 		<type name="text"/>
 	</column>
-	<column name="provider" not-null="true">
+	<column name="provider_id" not-null="true">
 		<type name="character varying" length="64"/>
 	</column>
-	<column name="key" not-null="true">
+	<column name="provider_key" not-null="true">
 		<type name="text"/>
 	</column>
 	<column name="last_used" not-null="true">
@@ -557,7 +563,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="created" not-null="true">
 		<type name="timestamp"/>
 	</column>
-	<constraint name="pk_session_info" type="pk-constr" table="public.session_info">
+	<constraint name="pk_session_info" type="pk-constr" table="public.login_info">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -678,14 +684,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 </index>
 
-<index name="idx_session_info_provider_key" table="public.session_info"
+<index name="idx_session_info_provider_key" table="public.login_info"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="90">
 		<idxelement use-sorting="false">
-			<column name="provider"/>
+			<column name="provider_id"/>
 		</idxelement>
 		<idxelement use-sorting="false">
-			<column name="key"/>
+			<column name="provider_key"/>
 		</idxelement>
 </index>
 
@@ -746,11 +752,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 
 	<customidxs object-type="column">
-		<object name="id_users" index="16"/>
+		<object name="id_user" index="16"/>
 	</customidxs>
 
 	<customidxs object-type="constraint">
-		<object name="users_fk" index="1"/>
+		<object name="user_fk" index="1"/>
 	</customidxs>
 </table>
 
@@ -759,11 +765,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#029773"
-	 src-table="public.users"
+	 src-table="public.&quot;user&quot;"
 	 dst-table="public.studio"
 	 src-required="false" dst-required="false"/>
 
-<index name="users_profiles_idx" table="public.users"
+<index name="users_profiles_idx" table="public.&quot;user&quot;"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
@@ -771,7 +777,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 </index>
 
-<index name="users_username_idx" table="public.users"
+<index name="users_username_idx" table="public.&quot;user&quot;"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
@@ -779,28 +785,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 </index>
 
-<index name="users_roles_idx" table="public.users"
+<index name="users_roles_idx" table="public.&quot;user&quot;"
 	 concurrent="false" unique="false" fast-update="false" buffering="false"
 	 index-type="btree" factor="0">
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
 			<column name="roles"/>
-		</idxelement>
-</index>
-
-<relationship name="users_has_many_requests" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 custom-color="#6dd993"
-	 src-table="public.users"
-	 dst-table="public.requests"
-	 src-required="false" dst-required="false"/>
-
-<index name="id_users_idx" table="public.requests"
-	 concurrent="false" unique="false" fast-update="false" buffering="false"
-	 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="id_users"/>
 		</idxelement>
 </index>
 
@@ -838,7 +827,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
 	 custom-color="#56a157"
-	 src-table="public.users"
+	 src-table="public.&quot;user&quot;"
 	 dst-table="public.bill"
 	 src-required="false" dst-required="false"/>
 
