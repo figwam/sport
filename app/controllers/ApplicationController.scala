@@ -29,8 +29,8 @@ class ApplicationController @Inject() (
    *
    * @return The result to display.
    */
-  def index = SecuredAction.async { implicit request =>
-    Future.successful(Ok(views.html.home(request.identity)))
+  def index = UserAwareAction.async { implicit request =>
+    Future.successful(Ok(views.html.index(request.identity)))
   }
 
   /**

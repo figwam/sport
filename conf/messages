@@ -42,6 +42,10 @@ section.pricing.basic.4=Jederzeit kündbar
 word.monthly=monatlich
 employees.list.title={0,choice,0#No employees|1#One employee|1<{0,number,integer} employees} found
 
+view.index.title=Gymix
+sign.up=Anmelden
+sign.in=Einloggen
+
 
 
 
