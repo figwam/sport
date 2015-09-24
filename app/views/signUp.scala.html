@@ -1,45 +1,51 @@
-@(signInForm: Form[forms.SignUpForm.Data])(implicit request: RequestHeader, messages: Messages)
+@()(implicit request: RequestHeader, messages: Messages)
 
 @import b3.inline.fieldConstructor
+@import forms.SignUpForm.form
 
-@main(Messages("sign.in.title")) {
-    <section id="signUp">
+<div ng-controller="SignUpCtrl">
+    <section id="home">
         <div class="overlay">
             <div class="container">
                 <div class="row">
-                    @request.flash.get("error").map { msg =>
-                        <div class="col-md-6 col-md-offset-3 alert alert-danger alert-error">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a>
-                            <strong>@Messages("error")</strong> @msg
-                        </div>
-                    }
+                    <div class="col-md-3"></div>
                     <div class="col-md-6">
-                        <div class="contact-form">
-                            <legend>@Messages("sign.in.credentials")</legend>
-                            @helper.form(action = routes.SignUpController.signUp()) {
-                                @helper.CSRF.formField
-                                @b3.text(signInForm("firstname"), '_hiddenLabel -> Messages("first.name"), 'placeholder -> Messages("first.name"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("lastname"), '_hiddenLabel -> Messages("last.name"), 'placeholder -> Messages("last.name"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-lg")
-                                @b3.password(signInForm("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("street"), '_hiddenLabel -> Messages("street"), 'placeholder -> Messages("street"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("zip"), '_hiddenLabel -> Messages("zip"), 'placeholder -> Messages("zip"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("city"), '_hiddenLabel -> Messages("city"), 'placeholder -> Messages("city"), 'class -> "form-control input-lg")
-                                @b3.text(signInForm("state"), '_hiddenLabel -> Messages("state"), 'placeholder -> Messages("state"), 'class -> "form-control input-lg")
-                                <div class="form-group">
-                                    <div>
-                                        <button id="submit" type="submit" value="submit" class="btn btn-lg btn-primary btn-block">@Messages("sign.up")</button>
-                                    </div>
-                                </div>
-                                <div class="sign-in-now">
-                                    <p>@Messages("already.a.member") <a href="@routes.ApplicationController.signIn">@Messages("sign.in.now")</a></p>
-                                </div>
-                            }
+                        <legend >@Messages("sign.up.account")</legend>
+                        <form name="form" id="sign-up-form" ng-submit="submit()" ng-model-options="{ updateOn: 'submit blur' }" autocomplete="off">
 
-                        </div>
+                            @b3.text(form("firstName"), '_hiddenLabel -> Messages("first.name"), 'placeholder -> Messages("first.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "firstName")
+                            <div class="help-block text-danger" ng-if="form.firstName.$dirty" ng-messages="form.firstName.$error">
+                                <div ng-message="required">@Messages("error.required")</div>
+                            </div>
+
+                            @b3.text(form("lastName"), '_hiddenLabel -> Messages("last.name"), 'placeholder -> Messages("last.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "lastName")
+                            <div class="help-block text-danger" ng-if="form.lastName.$dirty" ng-messages="form.lastName.$error">
+                                <div ng-message="required">@Messages("error.required")</div>
+                            </div>
+
+                            @b3.text(form("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "email")
+                            <div class="help-block text-danger" ng-if="form.email.$dirty" ng-messages="form.email.$error">
+                                <div ng-message="required">@Messages("error.required")</div>
+                                <div ng-message="email">@Messages("error.email")</div>
+                            </div>
+
+                            @b3.password(form("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "password")
+                            <div class="help-block text-danger" ng-if="form.password.$dirty" ng-messages="form.password.$error">
+                                <div ng-message="required">@Messages("error.required")</div>
+                            </div>
+
+                            <div class="form-group">
+                                <button id="submit" type="submit" value="submit" class="btn btn-lg btn-success btn-block">@Messages("sign.up")</button>
+                            </div>
+
+                            <div>
+                                <p class="already-member">@Messages("already.a.member") <a ui-sref="signIn">@Messages("sign.in.now")</a></p>
+                            </div>
+                        </form>
                     </div>
+                    <div class="col-md-3"></div>
                 </div>
             </div>
         </div>
     </section>
-}
+</div>

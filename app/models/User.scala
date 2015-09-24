@@ -4,6 +4,10 @@ import java.util.UUID
 
 import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
 
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import play.api.libs.json._
+
 
 case class User(
    id: Option[Long],
@@ -28,3 +32,22 @@ case class User(
    fullname: Option[String] = None,
    avatarurl: Option[String] = None,
    address: Address) extends Identity
+
+
+/**
+ * The companion object.
+ */
+object User {
+   implicit object timestampFormat extends Format[Timestamp] {
+      val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")
+      def reads(json: JsValue) = {
+         val str = json.as[String]
+         JsSuccess(new Timestamp(format.parse(str).getTime))
+      }
+      def writes(ts: Timestamp) = JsString(format.format(ts))
+   }
+   /**
+    * Converts the [User] object to Json and vice versa.
+    */
+   implicit val jsonFormat = Json.format[User]
+}

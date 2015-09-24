@@ -1,0 +1,128 @@
+<!-- start home -->
+<section id="home">
+    <div class="overlay">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="text-left">@Messages("welcome.title")</h1>
+                    <h4 class="text-left">@Messages("welcome.subtext.1")</h4>
+                    <h5 class="text-left">@Messages("welcome.subtext.2")</h5>
+
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Trainer suchen">
+                            <span class="input-group-btn">
+                                <button class="btn btn-success" type="button">Los!</button>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end home -->
+<!-- start divider -->
+<section id="whoweare">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center wow bounceIn">
+                <h1>@Messages("section.whoweare.title")</h1>
+                <br>
+
+                <p class="lead wow fadeIn" data-wow-delay="0.6s">@Messages("section.whoweare.text")</p>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="feature">
+    <div class="container">
+        <div class="row">
+            <div class="wow bounceIn" data-wow-delay="0.6s">
+                <h2 class="text-uppercase">@Messages("section.advantages.title")</h2>
+
+                <p>@Messages("section.advantages.text")</p>
+
+                <p><span><i class="fa fa-mobile"></i></span>@Messages("section.advantages.1")</p>
+
+                <p><i class="fa fa-code"></i>@Messages("section.advantages.2")</p>
+            </div>
+        </div>
+    </div>
+</section>
+<section id="studios">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
+                <img src="@routes.Callouts.getStaticGoogleMap" class="img-responsive" alt="feature img">
+            </div>
+            <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
+                <h2 class="text-uppercase">@Messages("section.studios.title")</h2>
+
+                <p>@Messages("section.studios.text")</p>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end studios -->
+
+<section id="pricing">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 wow bounceIn">
+                <h2 class="text-uppercase">@Messages("section.pricing.title")</h2>
+            </div>
+            <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+                <div class="pricing">
+                    <div class="pricing-title text-uppercase">
+                        <h4>@Messages("section.pricing.basic")</h4>
+
+                        <p>@Messages("section.pricing.basic.price")</p>
+                        <small class="text-lowercase">@Messages("word.monthly")</small>
+                    </div>
+                    <ul>
+                        <li><b>4</b> @Messages("section.pricing.basic.1")</li>
+                        <li><b>2</b> @Messages("section.pricing.basic.2")</li>
+                        <li>@Messages("section.pricing.basic.3")</li>
+                        <li>@Messages("section.pricing.basic.4")</li>
+                    </ul>
+                    <button class="btn btn-primary text-uppercase">@Messages("section.pricing.signup")</button>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+                <div class="pricing active">
+                    <div class="pricing-title text-uppercase">
+                        <h4>@Messages("section.pricing.business")</h4>
+
+                        <p>@Messages("section.pricing.business.price")</p>
+                        <small class="text-lowercase">@Messages("word.monthly")</small>
+                    </div>
+                    <ul>
+                        <li><b>6</b> @Messages("section.pricing.basic.1")</li>
+                        <li><b>4</b> @Messages("section.pricing.basic.2")</li>
+                        <li>@Messages("section.pricing.basic.3")</li>
+                        <li>@Messages("section.pricing.basic.4")</li>
+                    </ul>
+                    <button class="btn btn-primary text-uppercase">@Messages("section.pricing.signup")</button>
+                </div>
+            </div>
+            <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
+                <div class="pricing">
+                    <div class="pricing-title text-uppercase">
+                        <h4>@Messages("section.pricing.pro")</h4>
+
+                        <p>@Messages("section.pricing.pro.price")</p>
+                        <small class="text-lowercase">@Messages("word.monthly")</small>
+                    </div>
+                    <ul>
+                        <li><b>8</b> @Messages("section.pricing.basic.1")</li>
+                        <li><b>6</b> @Messages("section.pricing.basic.2")</li>
+                        <li>@Messages("section.pricing.basic.3")</li>
+                        <li>@Messages("section.pricing.basic.4")</li>
+                    </ul>
+                    <button class="btn btn-primary text-uppercase">@Messages("section.pricing.signup")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

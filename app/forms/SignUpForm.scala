@@ -4,6 +4,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.data._
 import validation.Constraints._
+import play.api.libs.json.Json
 
 /**
  * The form which handles the sign up process.
@@ -35,12 +36,23 @@ object SignUpForm {
    * @param password The password of the user.
    */
   case class Data(
-                   firstName: String,
-                   lastName: String,
-                   email: String,
-                   password: String,
+    firstname: String,
+    lastname: String,
+    email: String,
+    password: String,
                    street: String,
                    city: String,
                    zip: String,
                    state: String)
+
+  /**
+   * The companion object.
+   */
+  object Data {
+
+    /**
+     * Converts the [Date] object to Json and vice versa.
+     */
+    implicit val jsonFormat = Json.format[Data]
+  }
 }

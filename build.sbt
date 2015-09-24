@@ -1,3 +1,5 @@
+import com.tuplejump.sbt.yeoman.Yeoman
+
 import scalariform.formatter.preferences._
 
 name := "gymix"
@@ -18,15 +20,13 @@ libraryDependencies ++= Seq(
   "net.codingwell" %% "scala-guice" % "4.0.0",
   "net.ceedubs" %% "ficus" % "1.1.2",
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
+  "org.webjars" % "bootstrap" % "3.1.1",
   "com.mohiva" %% "play-silhouette-testkit" % "3.0.2" % "test",
   "org.webjars.bower" % "font-awsome" % "4.4.0",
   specs2 % Test,
   "com.typesafe.play" %% "play-slick" % "1.0.1",
   "com.typesafe.play" %% "play-slick-evolutions" % "1.0.1",
-  "com.h2database" % "h2" % "1.4.188",
   "org.postgresql" % "postgresql" % "9.4-1202-jdbc42",
-  "org.webjars" % "angularjs" % "1.3.15",
-  "org.webjars" % "angular-ui-bootstrap" % "0.13.0",
   cache,
   evolutions,
   filters
@@ -50,6 +50,11 @@ scalacOptions ++= Seq(
   "-Ywarn-nullary-override", // Warn when non-nullary overrides nullary, e.g. def foo() over def foo.
   "-Ywarn-numeric-widen" // Warn when numerics are widened.
 )
+//********************************************************
+// Yeoman settings
+//********************************************************
+Yeoman.yeomanSettings
+
 
 //********************************************************
 // Scalariform settings

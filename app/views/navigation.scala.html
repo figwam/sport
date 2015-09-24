@@ -1,0 +1,35 @@
+@()(implicit messages: Messages)
+
+<div class="navigation-area" ng-controller="NavigationCtrl">
+        <!-- start navigation -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-init="navCollapsed = true" ng-click="navCollapsed = !navCollapsed">
+                    <span class="sr-only">@Messages("toggle.navigation")</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="#home" class="navbar-brand text-uppercase">@Messages("brand")</a>
+            </div>
+            <div class="collapse navbar-collapse" ng-class="{ in: !navCollapsed }" ng-click="navCollapsed = !navCollapsed">
+                <ul class="nav navbar-nav navbar-left">
+                    <li><a href="#whoweare">@Messages("menu.gymix")</a></li>
+                    <li><a href="#feature">@Messages("menu.advantages")</a></li>
+                    <li><a href="#studios">@Messages("menu.studios")</a></li>
+                    <li><a href="#pricing">@Messages("menu.pricing")</a></li>
+                </ul>
+                <form class="navbar-form navbar-right">
+                    <!-- User is logged in -->
+                    <!--<a ng-if="isAuthenticated()" class="btn btn-primary" ui-sref="home">@Messages("login"): {{user.fullname ? user.fullname : user.firstname}}</a>-->
+                    <a ng-if="isAuthenticated()" class="btn btn-default" ui-sref="signOut">@Messages("sign.out")</a>
+
+                    <!-- User is logged out -->
+                    <a ng-if="!isAuthenticated()" class="btn btn-primary" ui-sref="signIn">@Messages("sign.in")</a>
+                    <a ng-if="!isAuthenticated()" class="btn btn-success" ui-sref="signUp">@Messages("sign.up")</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

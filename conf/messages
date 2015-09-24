@@ -1,7 +1,7 @@
 # Messages
 
 brand=Gymix
-welcome=Welcome to Gymix
+welcome=Willkommen to Gymix
 welcome.title=Sportabo so flexibel wie noch nie
 welcome.subtext.1=Das flexibelste und einfachste Sportabonnement in der Region Bern.
 welcome.subtext.2=Entscheiden Sie selbst wann, wohin und welchen Sport Sie besuchen möchten
@@ -43,8 +43,27 @@ word.monthly=monatlich
 employees.list.title={0,choice,0#No employees|1#One employee|1<{0,number,integer} employees} found
 
 view.index.title=Gymix
-sign.up=Anmelden
+sign.up=Registrieren
 sign.in=Einloggen
+sign.out=Abmelden
+sign.in.credentials=Logge dich mit deinem Account ein
+remember.me=Eingeloggt bleiben
+not.a.member=Noch nicht angemeldet?
+sign.up.now=Registrieren
+sign.up.account=Registriere dich jetzt bei Gymix
+first.name=Vorname
+last.name=Nachname
+email=E-Mail
+password=Passwort
+already.a.member=Bereits registriert?
+sign.in.now=Logge dich jetzt ein
+
+#overide messages
+error.required=Bitte füllen Sie diese Felder aus
+error.email=Bitte valide E-Mail Adresse eingeben
+
+
+word.welcome=Willkommen
 
 
 
