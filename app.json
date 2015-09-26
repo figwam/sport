@@ -10,7 +10,8 @@
   "repository": "",
   "success_url": "/",
   "env": {
-    "PLAY_CONF_FILE": "application.prod.conf",
+    "NPM_CONFIG_PRODUCTION": "false",
+    "PLAY_PROD_CONF_FILE": "application.prod.conf",
     "PLAY_APP_SECRET": "changeme",
     "FACEBOOK_CLIENT_ID": "",
     "FACEBOOK_CLIENT_SECRET": "",

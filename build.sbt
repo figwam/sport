@@ -79,6 +79,7 @@ herokuAppName in Compile := Map(
 
 herokuJdkVersion in Compile := "1.8"
 herokuConfigVars in Compile := Map(
+  "NPM_CONFIG_PRODUCTION": "false",
   "PLAY_PROD_CONF_FILE" -> "application.prod.conf",
   "JAVA_OPTS" -> "-XX:+UseCompressedOops"
 )
