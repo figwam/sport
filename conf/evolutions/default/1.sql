@@ -29,8 +29,6 @@ CREATE TABLE public."user"(
 
 );
 -- ddl-end --
-ALTER TABLE public."user" OWNER TO postgres;
--- ddl-end --
 
 -- object: user_extid_idx | type: INDEX --
 -- DROP INDEX IF EXISTS public.user_extid_idx CASCADE;
@@ -59,8 +57,6 @@ CREATE TABLE public.studio(
 
 );
 -- ddl-end --
-ALTER TABLE public.studio OWNER TO postgres;
--- ddl-end --
 
 -- object: public.address | type: TABLE --
 -- DROP TABLE IF EXISTS public.address CASCADE;
@@ -81,7 +77,7 @@ CREATE TABLE public.address(
 
 );
 -- ddl-end --
-ALTER TABLE public.address OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: public.offer | type: TABLE --
@@ -100,7 +96,7 @@ CREATE TABLE public.offer(
 
 );
 -- ddl-end --
-ALTER TABLE public.offer OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: address_extid_idx | type: INDEX --
@@ -136,7 +132,7 @@ CREATE TABLE public.subscription(
 
 );
 -- ddl-end --
-ALTER TABLE public.subscription OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: public.time_stop | type: TABLE --
@@ -152,7 +148,7 @@ CREATE TABLE public.time_stop(
 
 );
 -- ddl-end --
-ALTER TABLE public.time_stop OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: user_fk | type: CONSTRAINT --
@@ -227,7 +223,7 @@ CREATE TABLE public.clazz(
 
 );
 -- ddl-end --
-ALTER TABLE public.clazz OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: studio_fk | type: CONSTRAINT --
@@ -249,7 +245,7 @@ CREATE TABLE public.registration(
 
 );
 -- ddl-end --
-ALTER TABLE public.registration OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: subscription_ext_id_idx | type: INDEX --
@@ -342,7 +338,7 @@ CREATE TABLE public.login_info(
 
 );
 -- ddl-end --
-ALTER TABLE public.login_info OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: public.registration | type: TABLE --
@@ -353,7 +349,7 @@ CREATE TABLE public.user_login_info(
 	id_login_info bigint NOT NULL
 );
 -- ddl-end --
-ALTER TABLE public.user_login_info OWNER TO postgres;
+
 -- object: user_fk | type: CONSTRAINT --
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS user_fk CASCADE;
 ALTER TABLE public.user_login_info ADD CONSTRAINT user_fk FOREIGN KEY (id_user)
@@ -391,7 +387,7 @@ CREATE TABLE public.password_info(
 
 );
 -- ddl-end --
-ALTER TABLE public.password_info OWNER TO postgres;
+
 -- ddl-end --
 -- object: clazz_fk | type: CONSTRAINT --
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
@@ -419,7 +415,7 @@ CREATE TABLE public.oauth2_info(
 
 );
 -- ddl-end --
-ALTER TABLE public.oauth2_info OWNER TO postgres;
+
 -- ddl-end --
 -- object: clazz_fk | type: CONSTRAINT --
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
@@ -444,7 +440,7 @@ CREATE TABLE public.oauth1_info(
 
 );
 -- ddl-end --
-ALTER TABLE public.oauth1_info OWNER TO postgres;
+
 -- ddl-end --
 -- object: clazz_fk | type: CONSTRAINT --
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
@@ -466,7 +462,7 @@ CREATE TABLE public.openidattributes(
 
 );
 -- ddl-end --
-ALTER TABLE public.openidattributes OWNER TO postgres;
+
 
 CREATE TABLE public.openidinfo(
 	id varchar NOT NULL,
@@ -475,7 +471,7 @@ CREATE TABLE public.openidinfo(
 
 );
 -- ddl-end --
-ALTER TABLE public.openidinfo OWNER TO postgres;
+
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
 ALTER TABLE public.openidinfo ADD CONSTRAINT login_info_fk FOREIGN KEY (id_login_info)
 REFERENCES public.login_info (id) MATCH FULL
@@ -533,7 +529,7 @@ CREATE TABLE public.bill(
 	CONSTRAINT pk_bill PRIMARY KEY (id)
 );
 -- ddl-end --
-ALTER TABLE public.bill OWNER TO postgres;
+
 -- ddl-end --
 
 -- object: ext_id_idx | type: INDEX --
