@@ -75,7 +75,7 @@ herokuAppName in Compile := Map(
   "test" -> "ancient-shore-6366",
   "stg"  -> "your-heroku-app-stage",
   "prod" -> "your-heroku-app-prod"
-  ).getOrElse(sys.props("appEnv"), "your-heroku-app-dev")
+  ).getOrElse(sys.props("appEnv"), "ancient-shore-6366")
 
 herokuJdkVersion in Compile := "1.8"
 herokuConfigVars in Compile := Map(
