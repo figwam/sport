@@ -9,7 +9,8 @@ var app = angular.module('uiApp', [
   'ngCookies',
   'ui.router',
   'mgcrea.ngStrap',
-  'satellizer'
+  'satellizer',
+  'validation.match'
 ]);
 
 /**
@@ -32,6 +33,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
 
   $urlRouterProvider.otherwise('/home');
 
+
   $stateProvider
     .state('home', { url: '/home', templateUrl: '/views/home.html'})
     .state('signUp', { url: '/signUp', templateUrl: '/views/signUp.html' })
@@ -39,6 +41,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
     .state('signIn', { url: '/signIn', templateUrl: '/views/signIn.html' })
     .state('signOut', { url: '/signOut', template: null,  controller: 'SignOutCtrl' });
 
+  //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
   $httpProvider.interceptors.push(function($q, $injector) {
     return {
       request: function(request) {
@@ -58,7 +61,9 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
         }
 
         return request;
-      },
+      }
+      /*
+      ,
 
       responseError: function(rejection) {
         if (rejection.status === 401) {
@@ -66,15 +71,16 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
         }
         return $q.reject(rejection);
       }
+      */
     };
   });
 
   // Auth config
   $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
   $authProvider.loginOnSignup = true;
-  $authProvider.loginRedirect = '/home';
+  $authProvider.loginRedirect = '/';
   $authProvider.logoutRedirect = '/';
-  $authProvider.signupRedirect = '/home';
+  $authProvider.signupRedirect = '/signIn';
   $authProvider.loginUrl = '/signIn';
   $authProvider.signupUrl = '/signUp';
   $authProvider.loginRoute = '/signIn';

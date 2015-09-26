@@ -10,12 +10,36 @@ app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
   /**
    * Submits the login form.
    */
+
   $scope.submit = function() {
     $auth.setStorage($scope.rememberMe ? 'localStorage' : 'sessionStorage');
     $auth.login({ email: $scope.email, password: $scope.password, rememberMe: $scope.rememberMe })
       .then(function() {
         $alert({
-          content: 'You have successfully signed in',
+          content: 'Sie haben sich erfolgreich eingeloggt',
+          animation: 'fadeZoomFadeDown',
+          type: 'material',
+          duration: 3
+        });
+      })
+      .catch(function(response) {
+        $scope.errorMessage = {};
+        angular.forEach(response.data.message, function(message, field) {
+          console.log(response.data.message);
+          // response.data.message -> Message ist invalid.credentials
+          $scope.form.email.$setValidity('invalid.credentials', false);
+          $scope.form.password.$setValidity('invalid.credentials', false);
+        });
+      });
+  };
+
+  /*
+  $scope.submit = function() {
+    $auth.setStorage($scope.rememberMe ? 'localStorage' : 'sessionStorage');
+    $auth.login({ email: $scope.email, password: $scope.password, rememberMe: $scope.rememberMe })
+      .then(function() {
+        $alert({
+          content: 'Sie haben sich erfolgreich eingeloggt',
           animation: 'fadeZoomFadeDown',
           type: 'material',
           duration: 3
@@ -31,6 +55,7 @@ app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
         });
       });
   };
+  */
 
   /**
    * Authenticate with a social provider.
@@ -41,7 +66,7 @@ app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
     $auth.authenticate(provider)
       .then(function() {
         $alert({
-          content: 'You have successfully signed in',
+          content: 'Sie haben sich erfolgreich eingeloggt',
           animation: 'fadeZoomFadeDown',
           type: 'material',
           duration: 3

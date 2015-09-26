@@ -12,7 +12,10 @@
     "angular-strap": "2.1.5",
     "angular-route": "1.4.3",
     "angular-cookies": "1.4.3",
+    "angular-validation-match": "1.6.0",
     "bootstrap-sass-official": "3.3.5",
-    "ui-router": "0.2.15"
+    "ui-router": "0.2.15",
+    "components-font-awesome": "4.4",
+    "animate.css": "3.4.0"
   }
 }

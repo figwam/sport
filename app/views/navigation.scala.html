@@ -22,7 +22,7 @@
                 </ul>
                 <form class="navbar-form navbar-right">
                     <!-- User is logged in -->
-                    <!--<a ng-if="isAuthenticated()" class="btn btn-primary" ui-sref="home">@Messages("login"): {{user.fullname ? user.fullname : user.firstname}}</a>-->
+                    <a ng-if="isAuthenticated()" class="btn btn-info" ui-sref="home">@Messages("login"): {{user.fullname ? user.fullname : user.firstname}} My Classes</a>
                     <a ng-if="isAuthenticated()" class="btn btn-default" ui-sref="signOut">@Messages("sign.out")</a>
 
                     <!-- User is logged out -->

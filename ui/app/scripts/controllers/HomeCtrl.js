@@ -16,12 +16,12 @@ app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', 'UserFactory', fun
         $rootScope.user = data;
       })
       .error(function(error) {
-        $alert({
+        /*$alert({ // Dont alert, we dont expect authorized user on home page
           content: error.message,
           animation: 'fadeZoomFadeDown',
           type: 'material',
           duration: 3
-        });
+        });*/
       });
   };
 }]);

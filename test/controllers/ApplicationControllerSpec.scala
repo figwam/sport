@@ -21,7 +21,7 @@ class ApplicationControllerSpec extends PlaySpecification with Mockito {
   sequential
 
   "The `index` action" should {
-    "redirect to login page if user is unauthorized" in new Context {
+    "redirect to home page if user is unauthorized" in new Context {
       new WithApplication(application) {
         val Some(redirectResult) = route(FakeRequest(routes.ApplicationController.index())
           .withAuthenticator[CookieAuthenticator](LoginInfo("invalid", "invalid"))

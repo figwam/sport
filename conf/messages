@@ -51,17 +51,24 @@ remember.me=Eingeloggt bleiben
 not.a.member=Noch nicht angemeldet?
 sign.up.now=Registrieren
 sign.up.account=Registriere dich jetzt bei Gymix
-first.name=Vorname
-last.name=Nachname
+firstname=Vorname
+lastname=Nachname
+street=Strasse und Hausnummer
+zip=Postleitzahl
+state=Kanton
+city=Stadt
 email=E-Mail
 password=Passwort
+password.validate=Passwort Bestätigung
 already.a.member=Bereits registriert?
 sign.in.now=Logge dich jetzt ein
 
 #overide messages
-error.required=Bitte füllen Sie diese Felder aus
+error.required=Bitte füllen Sie alle Felder aus
 error.email=Bitte valide E-Mail Adresse eingeben
-
+error.pattern=Ungültige Eingabe
+password.not.match=Bitte geben Sie zwei mal dasselbe Passwort ein
+invalid.credentials=Login fehlgeschlagen: E-Mail und Passwort Kombination ist falsch
 
 word.welcome=Willkommen
 

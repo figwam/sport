@@ -1,50 +1,86 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
 @import b3.inline.fieldConstructor
+
 @import forms.SignUpForm.form
 
 <div ng-controller="SignUpCtrl">
-    <section id="home">
-        <div class="overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
-                        <legend >@Messages("sign.up.account")</legend>
-                        <form name="form" id="sign-up-form" ng-submit="submit()" ng-model-options="{ updateOn: 'submit blur' }" autocomplete="off">
+    <section id="signUp">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <legend >@Messages("sign.up.account")</legend>
+                            <form name="form" id="sign-up-form" ng-submit="submit()" ng-model-options="{ updateOn: 'submit blur' }" autocomplete="off">
 
-                            @b3.text(form("firstName"), '_hiddenLabel -> Messages("first.name"), 'placeholder -> Messages("first.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "firstName")
-                            <div class="help-block text-danger" ng-if="form.firstName.$dirty" ng-messages="form.firstName.$error">
-                                <div ng-message="required">@Messages("error.required")</div>
-                            </div>
+                                @b3.text(form("firstname"), '_hiddenLabel -> Messages("firstname"), 'placeholder -> Messages("firstname"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "firstname")
+                                <div class="help-block text-danger" ng-if="form.firstname.$dirty" ng-messages="form.firstname.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
 
-                            @b3.text(form("lastName"), '_hiddenLabel -> Messages("last.name"), 'placeholder -> Messages("last.name"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "lastName")
-                            <div class="help-block text-danger" ng-if="form.lastName.$dirty" ng-messages="form.lastName.$error">
-                                <div ng-message="required">@Messages("error.required")</div>
-                            </div>
+                                @b3.text(form("lastname"), '_hiddenLabel -> Messages("lastname"), 'placeholder -> Messages("lastname"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "lastname")
+                                <div class="help-block text-danger" ng-if="form.lastname.$dirty" ng-messages="form.lastname.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
 
-                            @b3.text(form("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "email")
-                            <div class="help-block text-danger" ng-if="form.email.$dirty" ng-messages="form.email.$error">
-                                <div ng-message="required">@Messages("error.required")</div>
-                                <div ng-message="email">@Messages("error.email")</div>
-                            </div>
+                                @b3.text(form("street"), '_hiddenLabel -> Messages("street"), 'placeholder -> Messages("street"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "street")
+                                <div class="help-block text-danger" ng-if="form.street.$dirty" ng-messages="form.street.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
 
-                            @b3.password(form("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-lg", 'required -> "", Symbol("ng-model") -> "password")
-                            <div class="help-block text-danger" ng-if="form.password.$dirty" ng-messages="form.password.$error">
-                                <div ng-message="required">@Messages("error.required")</div>
-                            </div>
+                                @b3.text(form("zip"), '_hiddenLabel -> Messages("zip"), 'pattern->"[0-9]{4}", 'placeholder -> Messages("zip"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "zip")
+                                <div class="help-block text-danger" ng-if="form.zip.$dirty" ng-messages="form.zip.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                    <div ng-message="pattern">@Messages("error.pattern")</div>
+                                </div>
 
-                            <div class="form-group">
-                                <button id="submit" type="submit" value="submit" class="btn btn-lg btn-success btn-block">@Messages("sign.up")</button>
-                            </div>
+                                @b3.text(form("city"), '_hiddenLabel -> Messages("city"), 'placeholder -> Messages("city"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "city")
+                                <div class="help-block text-danger" ng-if="form.city.$dirty" ng-messages="form.city.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
 
-                            <div>
-                                <p class="already-member">@Messages("already.a.member") <a ui-sref="signIn">@Messages("sign.in.now")</a></p>
-                            </div>
-                        </form>
+                                @b3.text(form("state"), '_hiddenLabel -> Messages("state"), 'placeholder -> Messages("state"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "state")
+                                <div class="help-block text-danger" ng-if="form.state.$dirty" ng-messages="form.state.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
+
+                                @b3.email(form("email"), '_hiddenLabel -> Messages("email"), 'placeholder -> Messages("email"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "email")
+                                <div class="help-block text-danger" ng-if="form.email.$dirty" ng-messages="form.email.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                    <div ng-message="email">@Messages("error.email")</div>
+                                </div>
+
+                                @b3.password(form("password"), '_hiddenLabel -> Messages("password"), 'placeholder -> Messages("password"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "password")
+                                <div class="help-block text-danger" ng-if="form.password.$dirty" ng-messages="form.password.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                </div>
+                                <!--
+                                <pre>form.passwordValidate.$error = {{ form.passwordValidate.$error | json }}</pre>
+                                -->
+                                @b3.password(form("passwordValidate"), '_hiddenLabel -> Messages("passwordValidate"),
+                                    'placeholder -> Messages("password.validate"), 'class -> "form-control input-sm", 'required -> "",
+                                    'match -> "password", Symbol("ng-model") -> "passwordValidate")
+                                <div class="help-block text-danger" ng-if="form.passwordValidate.$dirty" ng-messages="form.passwordValidate.$error">
+                                    <div ng-message="required">@Messages("error.required")</div>
+                                    <div ng-message="match">@Messages("password.not.match")</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <button id="submit" type="submit" value="submit" class="btn btn-lg btn-success btn-block">@Messages("sign.up")</button>
+                                </div>
+
+                            </form>
+
+                        </div>
                     </div>
-                    <div class="col-md-3"></div>
+
+                    <div>
+                        <p class="already-member">@Messages("already.a.member") <a ui-sref="signIn">@Messages("sign.in.now")</a></p>
+                    </div>
                 </div>
+                <div class="col-md-2"></div>
             </div>
         </div>
     </section>
