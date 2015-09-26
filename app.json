@@ -10,7 +10,6 @@
   "repository": "",
   "success_url": "/",
   "env": {
-    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-scala.git",
     "PLAY_CONF_FILE": "application.prod.conf",
     "PLAY_APP_SECRET": "changeme",
     "FACEBOOK_CLIENT_ID": "",
@@ -20,4 +19,10 @@
     "TWITTER_CONSUMER_KEY": "",
     "TWITTER_CONSUMER_SECRET": ""
   }
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-scala.git"
+    }
+  ]
+}
 }
