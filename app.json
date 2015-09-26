@@ -10,6 +10,7 @@
   "repository": "",
   "success_url": "/",
   "env": {
+    "BUILDPACK_URL": "https://github.com/heroku/heroku-buildpack-multi",
     "NPM_CONFIG_PRODUCTION": "false",
     "PLAY_PROD_CONF_FILE": "application.prod.conf",
     "PLAY_APP_SECRET": "changeme",
@@ -20,10 +21,4 @@
     "TWITTER_CONSUMER_KEY": "",
     "TWITTER_CONSUMER_SECRET": ""
   }
-  "buildpacks": [
-    {
-      "url": "https://github.com/heroku/heroku-buildpack-scala.git"
-    }
-  ]
-}
 }
