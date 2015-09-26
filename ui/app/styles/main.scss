@@ -314,11 +314,14 @@ a {
   border-radius: 4px;
   outline: none;
 }
-.facebook { background: #3B5998; }
-.google { background: #D14836; }
-.twitter { background: #00ACED; }
-.xing { background: #006567; }
-.vk { background: #567ca4; }
+
+#contact .facebook { color: #3B5998; }
+#contact .google { color: #D14836; }
+#contact .twitter { color: #00ACED; }
+#contact .xing { color: #006567; }
+#contact .vk { color: #567ca4; }
+#contact .instagramm { color: #3f729b;}
+
 
 .social-providers,
 .sign-in-now,

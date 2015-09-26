@@ -32,7 +32,7 @@ libraryDependencies ++= Seq(
   filters
 )
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file(".")).enablePlugins(PlayScala, JavaAppPackaging)
 
 includeFilter in (Assets, LessKeys.less) := "*.less"
 
@@ -66,3 +66,19 @@ ScalariformKeys.preferences := ScalariformKeys.preferences.value
   .setPreference(FormatXml, false)
   .setPreference(DoubleIndentClassDeclaration, false)
   .setPreference(PreserveDanglingCloseParenthesis, true)
+
+//********************************************************
+// heroku settings
+// https://github.com/heroku/sbt-heroku#configuring-the-plugin
+//********************************************************
+herokuAppName in Compile := Map(
+  "test" -> "ancient-shore-6366",
+  "stg"  -> "your-heroku-app-stage",
+  "prod" -> "your-heroku-app-prod"
+  ).getOrElse(sys.props("appEnv"), "your-heroku-app-dev")
+
+herokuJdkVersion in Compile := "1.8"
+herokuConfigVars in Compile := Map(
+  "PLAY_PROD_CONF_FILE" -> "application.prod.conf",
+  "JAVA_OPTS" -> "-XX:+UseCompressedOops"
+)

@@ -17,4 +17,6 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.1.1")
 
 addSbtPlugin("com.tuplejump" % "sbt-yeoman" % "0.8.1")
 
-addSbtPlugin("com.heroku" % "sbt-heroku" % "0.4.3")
+addSbtPlugin("com.heroku" % "sbt-heroku" % "0.5.3")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.4")
