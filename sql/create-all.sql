@@ -14,12 +14,12 @@
 --
 CREATE TABLE public.address(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
-	street varchar NOT NULL,
-	zip varchar NOT NULL,
-	state varchar NOT NULL,
-	city varchar NOT NULL,
-	country varchar NOT NULL,
+	ext_id text NOT NULL,
+	street text NOT NULL,
+	zip text NOT NULL,
+	state text NOT NULL,
+	city text NOT NULL,
+	country text NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	is_deleted boolean NOT NULL DEFAULT false,
@@ -51,26 +51,26 @@ USING btree
 --
 CREATE TABLE public.trainee(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
-	firstname varchar,
-	lastname varchar,
-	mobile varchar,
-	phone varchar,
-	email varchar,
+	ext_id text NOT NULL,
+	firstname text,
+	lastname text,
+	mobile text,
+	phone text,
+	email text,
 	email_verified bool NOT NULL DEFAULT false,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
-	ptoken varchar,
+	ptoken text,
 	is_deleted bool NOT NULL DEFAULT false,
-	delete_reason varchar,
+	delete_reason text,
 	is_active bool NOT NULL DEFAULT true,
-	inactive_reason varchar,
+	inactive_reason text,
 	id_address bigint,
-	username varchar,
+	username text,
 	profiles text NOT NULL,
-	roles varchar NOT NULL,
-	fullname varchar,
-	avatarurl varchar,
+	roles text NOT NULL,
+	fullname text,
+	avatarurl text,
 	CONSTRAINT trainee_id_primary PRIMARY KEY (id)
 
 );
@@ -116,26 +116,26 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 --
 CREATE TABLE public.partner(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
-	firstname varchar,
-	lastname varchar,
-	mobile varchar,
-	phone varchar,
-	email varchar,
+	ext_id text NOT NULL,
+	firstname text,
+	lastname text,
+	mobile text,
+	phone text,
+	email text,
 	email_verified bool NOT NULL DEFAULT false,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
-	ptoken varchar,
+	ptoken text,
 	is_deleted bool NOT NULL DEFAULT false,
-	delete_reason varchar,
+	delete_reason text,
 	is_active bool NOT NULL DEFAULT true,
-	inactive_reason varchar,
+	inactive_reason text,
 	id_address bigint,
-	username varchar,
+	username text,
 	profiles text NOT NULL,
-	roles varchar NOT NULL,
-	fullname varchar,
-	avatarurl varchar,
+	roles text NOT NULL,
+	fullname text,
+	avatarurl text,
 	CONSTRAINT partner_id_primary PRIMARY KEY (id)
 
 );
@@ -179,16 +179,20 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 --
 CREATE TABLE public.studio(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
-	name varchar NOT NULL,
-	mobile smallint,
-	phone smallint NOT NULL,
+	ext_id text NOT NULL,
+	name text NOT NULL,
+	mobile text,
+	phone text,
+	email text,
+	sporttype text,
+	description text,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	is_deleted bool NOT NULL DEFAULT false,
-	deleted_reason varchar,
+	deleted_reason text,
 	id_address bigint NOT NULL,
 	id_partner bigint,
+	avatarurl text,
 	CONSTRAINT studio_id_primary PRIMARY KEY (id)
 
 );
@@ -226,10 +230,10 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 --
 CREATE TABLE public.offer(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL,
-	name varchar NOT NULL,
+	name text NOT NULL,
 	nr_access smallint NOT NULL,
 	nr_access_same smallint NOT NULL,
 	price decimal(5,2) NOT NULL,
@@ -258,7 +262,7 @@ USING btree
 --                                                             888
 CREATE TABLE public.subscription(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	is_active bool NOT NULL DEFAULT true,
@@ -305,9 +309,9 @@ USING btree
 --                                                                 888
 CREATE TABLE public.time_stop(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	stop_on date NOT NULL,
-	reason varchar NOT NULL,
+	reason text NOT NULL,
 	created_on date NOT NULL,
 	id_subscription bigint NOT NULL,
 	CONSTRAINT timestop_id_primary PRIMARY KEY (id)
@@ -339,16 +343,15 @@ USING btree
 --
 CREATE TABLE public.clazz(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	start_from timestamp NOT NULL,
 	end_at timestamp NOT NULL,
-	name varchar NOT NULL,
-	recurring bool NOT NULL DEFAULT true,
+	name text NOT NULL,
 	contingent smallint NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	id_studio bigint NOT NULL,
-	CONSTRAINT training_id_primary PRIMARY KEY (id)
+	CONSTRAINT clazz_id_primary PRIMARY KEY (id)
 
 );
 
@@ -359,6 +362,46 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
 CREATE INDEX clazz_ext_id_idx ON public.clazz
+USING btree
+(
+	ext_id ASC NULLS LAST
+);
+
+--   .d8888b.  888                                 8888888b.            .d888 d8b          d8b 888    d8b
+--  d88P  Y88b 888                                 888  "Y88b          d88P"  Y8P          Y8P 888    Y8P
+--  888    888 888                                 888    888          888                     888
+--  888        888  8888b.  88888888 88888888      888    888  .d88b.  888888 888 88888b.  888 888888 888  .d88b.  88888b.
+--  888        888     "88b    d88P     d88P       888    888 d8P  Y8b 888    888 888 "88b 888 888    888 d88""88b 888 "88b
+--  888    888 888 .d888888   d88P     d88P        888    888 88888888 888    888 888  888 888 888    888 888  888 888  888
+--  Y88b  d88P 888 888  888  d88P     d88P         888  .d88P Y8b.     888    888 888  888 888 Y88b.  888 Y88..88P 888  888
+--   "Y8888P"  888 "Y888888 88888888 88888888      8888888P"   "Y8888  888    888 888  888 888  "Y888 888  "Y88P"  888  888
+--
+--
+--
+CREATE TABLE public.clazz_definition(
+	id bigserial NOT NULL,
+	ext_id text NOT NULL,
+	start_from timestamp NOT NULL,
+	end_at timestamp NOT NULL,
+	active_from timestamp NOT NULL DEFAULT NOW(),
+	active_till timestamp,
+	name text NOT NULL,
+	recurrence text NOT NULL,
+	contingent smallint NOT NULL,
+	created_on timestamp NOT NULL DEFAULT NOW(),
+	updated_on timestamp NOT NULL DEFAULT NOW(),
+	id_studio bigint NOT NULL,
+	CONSTRAINT clazz_definition_id_primary PRIMARY KEY (id)
+
+);
+
+-- ALTER TABLE public.clazz DROP CONSTRAINT IF EXISTS studio_fk CASCADE;
+ALTER TABLE public.clazz_definition ADD CONSTRAINT studio_fk FOREIGN KEY (id_studio)
+REFERENCES public.studio (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
+CREATE INDEX clazz_definition_ext_id_idx ON public.clazz_definition
 USING btree
 (
 	ext_id ASC NULLS LAST
@@ -377,7 +420,7 @@ USING btree
 --                      "Y88P"
 CREATE TABLE public.registration(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	id_trainee bigint NOT NULL,
 	id_clazz bigint NOT NULL,
@@ -418,7 +461,7 @@ USING btree
 --
 CREATE TABLE public.bill(
 	id bigserial NOT NULL,
-	ext_id varchar NOT NULL,
+	ext_id text NOT NULL,
 	amount decimal(5,2) NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	vat smallint NOT NULL,
@@ -462,7 +505,7 @@ ON DELETE SET NULL ON UPDATE CASCADE;
 --                    "Y88P"
 CREATE TABLE public.login_info(
 	id bigserial NOT NULL,
-	provider_id varchar NOT NULL,
+	provider_id text NOT NULL,
 	provider_key text NOT NULL,
 	last_used timestamp NOT NULL DEFAULT NOW(),
 	expiration timestamp NOT NULL DEFAULT NOW(),
@@ -496,20 +539,20 @@ CREATE TABLE public.trainee_login_info(
 	id_login_info bigint NOT NULL
 );
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS trainee_fk CASCADE;
+-- ALTER TABLE public.trainee_login_info DROP CONSTRAINT IF EXISTS trainee_fk CASCADE;
 ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_fk FOREIGN KEY (id_trainee)
 REFERENCES public.trainee (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+-- ALTER TABLE public.trainee_login_info DROP CONSTRAINT IF EXISTS trainee_login_info_trainee_uq CASCADE;
 ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_login_info_trainee_uq UNIQUE (id_trainee);
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
+-- ALTER TABLE public.trainee_login_info DROP CONSTRAINT IF EXISTS login_info_fk CASCADE;
 ALTER TABLE public.trainee_login_info ADD CONSTRAINT login_info_fk FOREIGN KEY (id_login_info)
 REFERENCES public.login_info (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+-- ALTER TABLE public.trainee_login_info DROP CONSTRAINT IF EXISTS trainee_login_info_trainee_li_uq CASCADE;
 ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_login_info_trainee_li_uq UNIQUE (id_login_info);
 
 --  88888888888              d8b                                                                                                        888      d8b           .d888
@@ -526,9 +569,9 @@ ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_login_info_trainee_
 CREATE TABLE public.trainee_password_info(
 	id bigserial NOT NULL,
 	id_login_info bigint NOT NULL,
-	hasher varchar NOT NULL,
-	password varchar NOT NULL,
-	salt varchar,
+	hasher text NOT NULL,
+	password text NOT NULL,
+	salt text,
 	created timestamp NOT NULL DEFAULT NOW(),
 	CONSTRAINT pk_trainee_password_info PRIMARY KEY (id)
 
@@ -561,20 +604,20 @@ CREATE TABLE public.partner_login_info(
 	id_login_info bigint NOT NULL
 );
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS partner_fk CASCADE;
+-- ALTER TABLE public.partner_login_info DROP CONSTRAINT IF EXISTS partner_fk CASCADE;
 ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_fk FOREIGN KEY (id_partner)
 REFERENCES public.partner (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+-- ALTER TABLE public.partner_login_info DROP CONSTRAINT IF EXISTS partner_login_info_partner_uq CASCADE;
 ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_login_info_partner_uq UNIQUE (id_partner);
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
+-- ALTER TABLE public.partner_login_info DROP CONSTRAINT IF EXISTS login_info_fk CASCADE;
 ALTER TABLE public.partner_login_info ADD CONSTRAINT login_info_fk FOREIGN KEY (id_login_info)
 REFERENCES public.login_info (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+-- ALTER TABLE public.partner_login_info DROP CONSTRAINT IF EXISTS partner_login_info_partner_li_uq CASCADE;
 ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_login_info_partner_li_uq UNIQUE (id_login_info);
 
 --  8888888b.                  888                                                                                                          888
@@ -591,9 +634,9 @@ ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_login_info_partner_
 CREATE TABLE public.partner_password_info(
 	id bigserial NOT NULL,
 	id_login_info bigint NOT NULL,
-	hasher varchar NOT NULL,
-	password varchar NOT NULL,
-	salt varchar,
+	hasher text NOT NULL,
+	password text NOT NULL,
+	salt text,
 	created timestamp NOT NULL DEFAULT NOW(),
 	CONSTRAINT pk_partner_password_info PRIMARY KEY (id)
 
@@ -623,9 +666,9 @@ CREATE TABLE public.oauth2_info(
 	id bigserial NOT NULL,
 	id_login_info bigint NOT NULL,
 	access_token text NOT NULL,
-	token_type varchar,
+	token_type text,
 	expires_in integer,
-	refresh_token varchar,
+	refresh_token text,
 	created timestamp NOT NULL DEFAULT NOW(),
 	CONSTRAINT pk_oauth2_info PRIMARY KEY (id)
 
@@ -653,8 +696,8 @@ ALTER TABLE public.oauth2_info ADD CONSTRAINT oauth2_info_trainee_li_uq UNIQUE (
 -- DROP TABLE IF EXISTS public.oauth1_info CASCADE;
 CREATE TABLE public.oauth1_info(
 	id bigserial NOT NULL,
-	token varchar NOT NULL,
-	secret varchar NOT NULL,
+	token text NOT NULL,
+	secret text NOT NULL,
 	id_login_info bigint NOT NULL,
 	created timestamp NOT NULL DEFAULT NOW(),
 	CONSTRAINT pk_oauth1_info PRIMARY KEY (id)
@@ -680,9 +723,9 @@ ALTER TABLE public.oauth1_info ADD CONSTRAINT oauth1_info_trainee_li_uq UNIQUE (
 --              888
 --              888
 CREATE TABLE public.openidattributes(
-	id varchar NOT NULL,
-	key varchar NOT NULL,
-	value varchar NOT NULL,
+	id text NOT NULL,
+	key text NOT NULL,
+	value text NOT NULL,
 	CONSTRAINT pk_openidattributes_info PRIMARY KEY (id)
 
 );
@@ -700,7 +743,7 @@ CREATE TABLE public.openidattributes(
 --              888
 
 CREATE TABLE public.openidinfo(
-	id varchar NOT NULL,
+	id text NOT NULL,
 	id_login_info bigint NOT NULL,
 	CONSTRAINT pk_openidinfo_info PRIMARY KEY (id)
 

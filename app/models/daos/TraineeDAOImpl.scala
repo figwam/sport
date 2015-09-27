@@ -14,7 +14,8 @@ import scala.concurrent.Future
 /**
  * Give access to the trainee object using Slick
  */
-class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvider) extends TraineeDAO with DAOSlick {
+class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)
+  extends TraineeDAO with DAOSlick {
 
   import driver.api._
 

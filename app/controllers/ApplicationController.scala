@@ -2,12 +2,16 @@ package controllers
 
 import javax.inject.{Singleton, Inject}
 
+import akka.actor.Props
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import models.Trainee
+import models.daos.{TraineeDAO, ClazzDAO}
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.libs.Akka
+import scheduler.ClazzScheduler
 
 import scala.concurrent.Future
 
@@ -22,7 +26,9 @@ import scala.concurrent.Future
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[Trainee, JWTAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry)
+  socialProviderRegistry: SocialProviderRegistry
+  //,clazzDAO: ClazzDAO
+                                        )
   extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
@@ -31,6 +37,7 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def trainee = SecuredAction.async { implicit request =>
+    //Akka.system.actorOf(Props(new ClazzScheduler(clazzDAO)), name = "clazzScheduler")
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 

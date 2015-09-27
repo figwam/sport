@@ -4,25 +4,31 @@ import com.mohiva.play.silhouette.api.LoginInfo
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 
+case class Page[A](items: Seq[A], page: Int, offset: Long, total: Long) {
+  lazy val prev = Option(page - 1).filter(_ >= 0)
+  lazy val next = Option(page + 1).filter(_ => (offset + items.size) < total)
+}
+
+
 trait DBTableDefinitions {
 
   protected val driver: JdbcProfile
   import driver.api._
 
-case class DBAddress(
-  id: Option[Long],
-  extId: String,
-  street: String,
-  zip: String,
-  city: String,
-  state: String,
-  country: String,
-  createdOn: java.sql.Timestamp,
-  updatedOn: java.sql.Timestamp,
-  isDeleted: Boolean = false,
-  longitude: Option[scala.math.BigDecimal] = None,
-  latitude: Option[scala.math.BigDecimal] = None
-  )
+  case class DBAddress(
+                        id: Option[Long],
+                        extId: String,
+                        street: String,
+                        zip: String,
+                        city: String,
+                        state: String,
+                        country: String,
+                        createdOn: java.sql.Timestamp,
+                        updatedOn: java.sql.Timestamp,
+                        isDeleted: Boolean = false,
+                        longitude: Option[scala.math.BigDecimal] = None,
+                        latitude: Option[scala.math.BigDecimal] = None
+                        )
 
   class Addresses(_tableTag: Tag) extends Table[DBAddress](_tableTag, "address") {
     def * = (id.?, extId, street, zip, city, state, country, createdOn, updatedOn, isDeleted, longitude, latitude) <> (DBAddress.tupled, DBAddress.unapply)
@@ -63,33 +69,67 @@ case class DBAddress(
     val index1 = index("ext_id_idx", extId)
   }
 
+
+
+  case class DBClazzDefinition(
+                      id: Option[Long],
+                      extId: String,
+                      startFrom: java.sql.Timestamp,
+                      endAt: java.sql.Timestamp,
+                      activeFrom: java.sql.Timestamp,
+                      activeTill: java.sql.Timestamp,
+                      name: String,
+                      recurrence: String,
+                      contingent: Short,
+                      createdOn: java.sql.Timestamp,
+                      updatedOn: java.sql.Timestamp,
+                      idStudio: Long
+                      )
+
+
+  class ClazzDefinitions(_tableTag: Tag) extends Table[DBClazzDefinition](_tableTag, "clazz_definition") {
+    def * = (id.?, extId, startFrom, endAt, activeFrom, activeTill, name, recurrence, contingent, createdOn, updatedOn, idStudio) <>(DBClazzDefinition.tupled, DBClazzDefinition.unapply)
+    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
+    val extId: Rep[String] = column[String]("ext_id")
+    val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
+    val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
+    val activeFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("active_from")
+    val activeTill: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("active_till")
+    val name: Rep[String] = column[String]("name")
+    val recurrence: Rep[String] = column[String]("recurrence", O.Default("ONE_TIME"))
+    val contingent: Rep[Short] = column[Short]("contingent")
+    val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
+    val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
+    val idStudio: Rep[Long] = column[Long]("id_studio")
+    lazy val studioFk = foreignKey("studio_fk", idStudio, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
+    val index1 = index("training_ext_id_idx", extId)
+  }
+
   case class DBClazz(
-    id: Option[Long],
-    extId: String,
-    startFrom: java.sql.Timestamp,
-    endAt: java.sql.Timestamp,
-    name: String,
-    recurring: Boolean = true,
-    contingent: Short,
-    createdOn: java.sql.Timestamp,
-    updatedOn: java.sql.Timestamp,
-    idStudio: Long
-    )
+                      id: Option[Long],
+                      extId: String,
+                      startFrom: java.sql.Timestamp,
+                      endAt: java.sql.Timestamp,
+                      name: String,
+                      contingent: Short,
+                      createdOn: java.sql.Timestamp,
+                      updatedOn: java.sql.Timestamp,
+                      idStudio: Long
+                      )
 
 
   class Clazzes(_tableTag: Tag) extends Table[DBClazz](_tableTag, "clazz") {
-    def * = (id.?, extId, startFrom, endAt, name, recurring, contingent, createdOn, updatedOn, idStudio) <> (DBClazz.tupled, DBClazz.unapply)
+    def * = (id.?, extId, startFrom, endAt, name, contingent, createdOn, updatedOn, idStudio) <>(DBClazz.tupled, DBClazz.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
     val name: Rep[String] = column[String]("name")
-    val recurring: Rep[Boolean] = column[Boolean]("recurring", O.Default(true))
     val contingent: Rep[Short] = column[Short]("contingent")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val idStudio: Rep[Long] = column[Long]("id_studio")
-    lazy val studioFk = foreignKey("studio_fk", idStudio, slickStudios)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    lazy val studioFk = foreignKey("studio_fk", idStudio, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
     val index1 = index("training_ext_id_idx", extId)
   }
 
@@ -233,27 +273,35 @@ case class DBAddress(
   }
 
   case class DBStudio(
-    id: Option[Long],
-    extId: String,
-    name: String,
-    mobile: Option[Short] = None,
-    phone: Short,
-    createdOn: java.sql.Timestamp,
-    updatedOn: java.sql.Timestamp,
-    isDeleted: Boolean = false,
-    deletedReason: Option[String] = None,
-    idAddress: Long,
-    idPartner: Long
+      id: Option[Long],
+      extId: String,
+      name: String,
+      mobile: Option[String] = None,
+      phone: Option[String] = None,
+      email: Option[String] = None,
+      avatarurl: Option[String] = None,
+      description: Option[String] = None,
+      sporttype: Option[String] = None,
+      createdOn: java.sql.Timestamp,
+      updatedOn: java.sql.Timestamp,
+      isDeleted: Boolean = false,
+      deletedReason: Option[String] = None,
+      idAddress: Long,
+      idPartner: Long
     )
 
 
   class Studios(_tableTag: Tag) extends Table[DBStudio](_tableTag, "studio") {
-    def * = (id, extId, name, mobile, phone, createdOn, updatedOn, isDeleted, deletedReason, idAddress, idPartner) <> (DBStudio.tupled, DBStudio.unapply)
+    def * = (id, extId, name, mobile, phone, email, avatarurl, description, sporttype, createdOn, updatedOn, isDeleted, deletedReason, idAddress, idPartner) <> (DBStudio.tupled, DBStudio.unapply)
     val id: Rep[Option[Long]] = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val name: Rep[String] = column[String]("name")
-    val mobile: Rep[Option[Short]] = column[Option[Short]]("mobile", O.Default(None))
-    val phone: Rep[Short] = column[Short]("phone")
+    val mobile: Rep[Option[String]] = column[Option[String]]("mobile", O.Default(None))
+    val phone: Rep[Option[String]] = column[Option[String]]("phone", O.Default(None))
+    val email: Rep[Option[String]] = column[Option[String]]("email", O.Default(None))
+    val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
+    val description: Rep[Option[String]] = column[Option[String]]("description", O.Default(None))
+    val sporttype: Rep[Option[String]] = column[Option[String]]("sporttype", O.Default(None))
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val isDeleted: Rep[Boolean] = column[Boolean]("is_deleted", O.Default(false))
@@ -528,6 +576,7 @@ case class DBAddress(
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
   val slickClazzes = TableQuery[Clazzes]
+  val slickClazzDefinitions = TableQuery[ClazzDefinitions]
   val slickOffers = TableQuery[Offers]
   val slickRegistrations = TableQuery[Registrations]
   val slickStudios = TableQuery[Studios]

@@ -5,6 +5,7 @@
 -- # --- !Downs
 
 DROP TABLE IF EXISTS public.registration CASCADE;
+DROP TABLE IF EXISTS public.clazz_definition CASCADE;
 DROP TABLE IF EXISTS public.clazz CASCADE;
 DROP TABLE IF EXISTS public.studio CASCADE;
 DROP TABLE IF EXISTS public.trainee_login_info CASCADE;
