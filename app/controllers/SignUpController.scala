@@ -11,8 +11,8 @@ import com.mohiva.play.silhouette.api.util.PasswordHasher
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import forms.SignUpForm
-import models.{Address, User}
-import models.services.UserService
+import models.{Address, Trainee}
+import models.services.TraineeService
 import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.Json
@@ -25,31 +25,31 @@ import scala.concurrent.Future
  *
  * @param messagesApi The Play messages API.
  * @param env The Silhouette environment.
- * @param userService The user service implementation.
+ * @param traineeService The trainee service implementation.
  * @param authInfoRepository The auth info repository implementation.
  * @param avatarService The avatar service implementation.
  * @param passwordHasher The password hasher implementation.
  */
 class SignUpController @Inject() (
   val messagesApi: MessagesApi,
-  val env: Environment[User, JWTAuthenticator],
-  userService: UserService,
+  val env: Environment[Trainee, JWTAuthenticator],
+  traineeService: TraineeService,
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
-  extends Silhouette[User, JWTAuthenticator] {
+  extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
-   * Registers a new user.
+   * Registers a new trainee.
    *
    * @return The result to display.
    */
   def signUp = Action.async(parse.json) { implicit request =>
     request.body.validate[SignUpForm.Data].map { data =>
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
-      userService.retrieve(loginInfo).flatMap {
-        case Some(user) =>
-          Future.successful(BadRequest(Json.obj("message" -> Messages("user.exists"))))
+      traineeService.retrieve(loginInfo).flatMap {
+        case Some(trainee) =>
+          Future.successful(BadRequest(Json.obj("message" -> Messages("trainee.exists"))))
         case None =>
           val authInfo = passwordHasher.hash(data.password)
           val addr = Address(
@@ -61,7 +61,7 @@ class SignUpController @Inject() (
             data.state,
             "Switzerland"
           )
-          val user = User(
+          val trainee = Trainee(
             None,
             loginInfo = loginInfo,
             extId = UUID.randomUUID(),
@@ -87,13 +87,13 @@ class SignUpController @Inject() (
           )
           for {
             avatar <- avatarService.retrieveURL(data.email)
-            user <- userService.save(user.copy(avatarurl = avatar))
+            trainee <- traineeService.save(trainee.copy(avatarurl = avatar))
             authInfo <- authInfoRepository.add(loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(loginInfo)
             token <- env.authenticatorService.init(authenticator)
           } yield {
-            env.eventBus.publish(SignUpEvent(user, request, request2Messages))
-            env.eventBus.publish(LoginEvent(user, request, request2Messages))
+            env.eventBus.publish(SignUpEvent(trainee, request, request2Messages))
+            env.eventBus.publish(LoginEvent(trainee, request, request2Messages))
             Ok(Json.obj("token" -> token))
           }
       }

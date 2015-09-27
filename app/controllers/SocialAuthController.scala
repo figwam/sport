@@ -7,8 +7,8 @@ import com.mohiva.play.silhouette.api.exceptions.ProviderException
 import com.mohiva.play.silhouette.api.repositories.AuthInfoRepository
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers._
-import models.User
-import models.services.UserService
+import models.Trainee
+import models.services.TraineeService
 import play.api.cache.CacheApi
 import play.api.i18n.{ MessagesApi, Messages }
 import play.api.libs.concurrent.Execution.Implicits._
@@ -24,21 +24,21 @@ import scala.language.postfixOps
  *
  * @param messagesApi The Play messages API.
  * @param env The Silhouette environment.
- * @param userService The user service implementation.
+ * @param traineeService The trainee service implementation.
  * @param authInfoRepository The auth info service implementation.
  * @param socialProviderRegistry The social provider registry.
  */
 class SocialAuthController @Inject() (
   val messagesApi: MessagesApi,
-  val env: Environment[User, JWTAuthenticator],
-  userService: UserService,
+  val env: Environment[Trainee, JWTAuthenticator],
+  traineeService: TraineeService,
   authInfoRepository: AuthInfoRepository,
   socialProviderRegistry: SocialProviderRegistry,
   cache: CacheApi)
-  extends Silhouette[User, JWTAuthenticator] with Logger {
+  extends Silhouette[Trainee, JWTAuthenticator] with Logger {
 
   /**
-   * Authenticates a user against a social provider.
+   * Authenticates a trainee against a social provider.
    *
    * @param provider The ID of the provider to authenticate against.
    * @return The result to display.
@@ -50,12 +50,12 @@ class SocialAuthController @Inject() (
           case Left(result) => Future.successful(result)
           case Right(authInfo) => for {
             profile <- p.retrieveProfile(authInfo)
-            user <- userService.save(profile)
+            trainee <- traineeService.save(profile)
             authInfo <- authInfoRepository.save(profile.loginInfo, authInfo)
             authenticator <- env.authenticatorService.create(profile.loginInfo)
             token <- env.authenticatorService.init(authenticator)
           } yield {
-            env.eventBus.publish(LoginEvent(user, request, request2Messages))
+            env.eventBus.publish(LoginEvent(trainee, request, request2Messages))
             Ok(Json.obj("token" -> token))
           }
         }

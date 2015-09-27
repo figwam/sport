@@ -14,7 +14,9 @@
                         <div class="panel-body">
                             <legend >@Messages("sign.up.account")</legend>
                             <form name="form" id="sign-up-form" ng-submit="submit()" ng-model-options="{ updateOn: 'submit blur' }" autocomplete="off">
-
+                                <div class="help-block text-danger" ng-if="form.email.$dirty" ng-messages="form.email.$error">
+                                    <div ng-message="trainee.exists">@Messages("trainee.exists")</div>
+                                </div>
                                 @b3.text(form("firstname"), '_hiddenLabel -> Messages("firstname"), 'placeholder -> Messages("firstname"), 'class -> "form-control input-sm", 'required -> "", Symbol("ng-model") -> "firstname")
                                 <div class="help-block text-danger" ng-if="form.firstname.$dirty" ng-messages="form.firstname.$error">
                                     <div ng-message="required">@Messages("error.required")</div>

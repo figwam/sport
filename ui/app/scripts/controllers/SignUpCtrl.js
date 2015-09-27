@@ -29,12 +29,20 @@ app.controller('SignUpCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
         duration: 3
       });
     }).catch(function(response) {
+      $scope.errorMessage = {};
+      angular.forEach(response.data.message, function(message, field) {
+        console.log(response.data.message);
+        // response.data.message -> Message ist trainee.exists
+        $scope.form.email.$setValidity('trainee.exists', false);
+      });
+      /*
       $alert({
         content: response.data.message,
         animation: 'fadeZoomFadeDown',
         type: 'material',
         duration: 3
       });
+      */
     });
   };
 }]);

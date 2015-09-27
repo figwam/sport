@@ -22,9 +22,9 @@ object SignInForm {
   /**
    * The form data.
    *
-   * @param email The email of the user.
-   * @param password The password of the user.
-   * @param rememberMe Indicates if the user should stay logged in on the next visit.
+   * @param email The email of the trainee.
+   * @param password The password of the trainee.
+   * @param rememberMe Indicates if the trainee should stay logged in on the next visit.
    */
   case class Data(
     email: String,

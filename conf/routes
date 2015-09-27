@@ -4,7 +4,7 @@
 
 GET         /                                com.tuplejump.playYeoman.Yeoman.index
 
-GET         /user                            controllers.ApplicationController.user
+GET         /trainee                            controllers.ApplicationController.trainee
 GET         /signOut                         controllers.ApplicationController.signOut
 POST        /signIn                          controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp

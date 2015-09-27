@@ -69,6 +69,7 @@ error.email=Bitte valide E-Mail Adresse eingeben
 error.pattern=Ungültige Eingabe
 password.not.match=Bitte geben Sie zwei mal dasselbe Passwort ein
 invalid.credentials=Login fehlgeschlagen: E-Mail und Passwort Kombination ist falsch
+trainee.exists=Benutzer mit dieser E-Mail Adresse ist bereits registriert
 
 word.welcome=Willkommen
 

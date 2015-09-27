@@ -47,19 +47,19 @@ case class DBAddress(
     amount: scala.math.BigDecimal,
     createdOn: java.sql.Timestamp,
     vat: Short,
-    idUser: Long
+    idTrainee: Long
     )
 
 
   class Bills(_tableTag: Tag) extends Table[DBBill](_tableTag, "bill") {
-    def * = (id.?, extId, amount, createdOn, vat, idUser) <> (DBBill.tupled, DBBill.unapply)
+    def * = (id.?, extId, amount, createdOn, vat, idTrainee) <> (DBBill.tupled, DBBill.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val amount: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("amount")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val vat: Rep[Short] = column[Short]("vat")
-    val idUser: Rep[Long] = column[Long]("id_user")
-    lazy val userFk = foreignKey("user_fk", idUser, slickUsers)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
+    val idTrainee: Rep[Long] = column[Long]("id_trainee")
+    lazy val traineeFk = foreignKey("trainee_fk", idTrainee, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
     val index1 = index("ext_id_idx", extId)
   }
 
@@ -132,7 +132,7 @@ case class DBAddress(
     val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
     val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
     lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("oauth1_info_user_li_uq", idLoginInfo, unique=true)
+    val index1 = index("oauth1_info_trainee_li_uq", idLoginInfo, unique=true)
   }
 
   case class DBOAuth2Info(
@@ -156,7 +156,7 @@ case class DBAddress(
     val refreshToken: Rep[Option[String]] = column[Option[String]]("refresh_token", O.Default(None))
     val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
     lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("oauth2_info_user_li_uq", idLoginInfo, unique=true)
+    val index1 = index("oauth2_info_trainee_li_uq", idLoginInfo, unique=true)
   }
 
   case class DBOffer(
@@ -208,7 +208,7 @@ case class DBAddress(
     val id: Rep[String] = column[String]("id", O.AutoInc, O.PrimaryKey)
     val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
     lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("password_info_user_li_uq", idLoginInfo, unique=true)
+    val index1 = index("password_info_trainee_li_uq", idLoginInfo, unique=true)
   }
 
   case class DBPasswordInfo(
@@ -230,26 +230,26 @@ case class DBAddress(
     val salt: Rep[Option[String]] = column[Option[String]]("salt", O.Default(None))
     val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
     lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("password_info_user_li_uq", idLoginInfo, unique=true)
+    val index1 = index("password_info_trainee_li_uq", idLoginInfo, unique=true)
   }
 
   case class DBRegistration(
     id: Option[Long],
     extId: String,
     createdOn: java.sql.Timestamp,
-    idUser: Long,
+    idTrainee: Long,
     idClazz: Long
     )
 
   class Registrations(_tableTag: Tag) extends Table[DBRegistration](_tableTag, "registration") {
-    def * = (id.?, extId, createdOn, idUser, idClazz) <> (DBRegistration.tupled, DBRegistration.unapply)
+    def * = (id.?, extId, createdOn, idTrainee, idClazz) <> (DBRegistration.tupled, DBRegistration.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
-    val idUser: Rep[Long] = column[Long]("id_user")
+    val idTrainee: Rep[Long] = column[Long]("id_trainee")
     val idClazz: Rep[Long] = column[Long]("id_clazz")
     lazy val clazzFk = foreignKey("clazz_fk", idClazz, slickClazzes)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    lazy val userFk = foreignKey("user_fk", idUser, slickUsers)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    lazy val traineeFk = foreignKey("trainee_fk", idTrainee, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
     val index1 = index("registration_ext_id_idx", extId)
     val index2 = index("registration_uq", idClazz, unique=true)
   }
@@ -265,12 +265,12 @@ case class DBAddress(
     isDeleted: Boolean = false,
     deletedReason: Option[String] = None,
     idAddress: Long,
-    idUser: Long
+    idPartner: Long
     )
 
 
   class Studios(_tableTag: Tag) extends Table[DBStudio](_tableTag, "studio") {
-    def * = (id, extId, name, mobile, phone, createdOn, updatedOn, isDeleted, deletedReason, idAddress, idUser) <> (DBStudio.tupled, DBStudio.unapply)
+    def * = (id, extId, name, mobile, phone, createdOn, updatedOn, isDeleted, deletedReason, idAddress, idPartner) <> (DBStudio.tupled, DBStudio.unapply)
     val id: Rep[Option[Long]] = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val name: Rep[String] = column[String]("name")
@@ -281,9 +281,9 @@ case class DBAddress(
     val isDeleted: Rep[Boolean] = column[Boolean]("is_deleted", O.Default(false))
     val deletedReason: Rep[Option[String]] = column[Option[String]]("deleted_reason", O.Default(None))
     val idAddress: Rep[Long] = column[Long]("id_address")
-    val idUser: Rep[Long] = column[Long]("id_user")
+    val idPartner: Rep[Long] = column[Long]("id_partner")
     lazy val addressFk = foreignKey("address_fk", idAddress, slickAddresses)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    lazy val userFk = foreignKey("user_fk", idUser, slickUsers)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
+    lazy val partnerFk = foreignKey("partner_fk", idPartner, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.SetNull)
     val index1 = index("studio_extid_idx", extId)
     val index2 = index("studio_uq", idAddress, unique=true)
   }
@@ -296,12 +296,12 @@ case class DBAddress(
     isActive: Boolean = true,
     canceledOn: Option[java.sql.Timestamp] = None,
     idOffer: Long,
-    idUser: Long
+    idTrainee: Long
     )
 
 
   class Subscriptions(_tableTag: Tag) extends Table[DBSubscription](_tableTag, "subscription") {
-    def * = (id.?, extId, createdOn, updatedOn, isActive, canceledOn, idOffer, idUser) <> (DBSubscription.tupled, DBSubscription.unapply)
+    def * = (id.?, extId, createdOn, updatedOn, isActive, canceledOn, idOffer, idTrainee) <> (DBSubscription.tupled, DBSubscription.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
@@ -309,11 +309,11 @@ case class DBAddress(
     val isActive: Rep[Boolean] = column[Boolean]("is_active", O.Default(true))
     val canceledOn: Rep[Option[java.sql.Timestamp]] = column[Option[java.sql.Timestamp]]("canceled_on", O.Default(None))
     val idOffer: Rep[Long] = column[Long]("id_offer")
-    val idUser: Rep[Long] = column[Long]("id_user")
+    val idTrainee: Rep[Long] = column[Long]("id_trainee")
     lazy val offerFk = foreignKey("offer_fk", idOffer, slickOffers)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    lazy val userFk = foreignKey("user_fk", idUser, slickUsers)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    lazy val traineeFk = foreignKey("trainee_fk", idTrainee, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
     val index1 = index("subscription_ext_id_idx", extId)
-    val index2 = index("subscription_uq", idUser, unique=true)
+    val index2 = index("subscription_uq", idTrainee, unique=true)
     val index3 = index("subscription_uq1", idOffer, unique=true)
   }
 
@@ -339,7 +339,7 @@ case class DBAddress(
     val index1 = index("timestop_ext_id_idx", extId)
   }
 
-  case class DBUser(
+  case class DBTrainee(
     id: Option[Long],
     extId: String,
     firstname: Option[String],
@@ -364,8 +364,8 @@ case class DBAddress(
     )
 
 
-  class Users(_tableTag: Tag) extends Table[DBUser](_tableTag, "user") {
-    def * = (id, extId, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, profiles, roles, fullname, avatarurl) <> (DBUser.tupled, DBUser.unapply)
+  class Trainees(_tableTag: Tag) extends Table[DBTrainee](_tableTag, "trainee") {
+    def * = (id, extId, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, profiles, roles, fullname, avatarurl) <> (DBTrainee.tupled, DBTrainee.unapply)
     val id: Rep[Option[Long]] = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val firstname: Rep[Option[String]] = column[Option[String]]("firstname")
@@ -388,33 +388,33 @@ case class DBAddress(
     val fullname: Rep[Option[String]] = column[Option[String]]("fullname", O.Default(None))
     val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
     lazy val addressFk = foreignKey("address_fk", idAddress, slickAddresses)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("user_extid_idx", extId)
-    val index2 = index("user_uq", idAddress, unique=true)
-    val index3 = index("users_roles_idx", roles)
-    val index4 = index("users_username_idx", username)
+    val index1 = index("trainee_extid_idx", extId)
+    val index2 = index("trainee_uq", idAddress, unique=true)
+    val index3 = index("trainee_roles_idx", roles)
+    val index4 = index("trainee_username_idx", username)
   }
 
-  case class DBUserLoginInfo(
+  case class DBTraineeLoginInfo(
     createdOn: java.sql.Timestamp,
-    idUser: Long,
+    idTrainee: Long,
     idLoginInfo: Long
     )
 
-  class UserLoginInfos(_tableTag: Tag) extends Table[DBUserLoginInfo](_tableTag, "user_login_info") {
-    def * = (createdOn, idUser, idLoginInfo) <> (DBUserLoginInfo.tupled, DBUserLoginInfo.unapply)
+  class TraineeLoginInfos(_tableTag: Tag) extends Table[DBTraineeLoginInfo](_tableTag, "trainee_login_info") {
+    def * = (createdOn, idTrainee, idLoginInfo) <> (DBTraineeLoginInfo.tupled, DBTraineeLoginInfo.unapply)
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
-    val idUser: Rep[Long] = column[Long]("id_user")
+    val idTrainee: Rep[Long] = column[Long]("id_trainee")
     val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
     lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    lazy val userFk = foreignKey("user_fk", idUser, slickUsers)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("user_login_info_user_li_uq", idLoginInfo, unique=true)
-    val index2 = index("user_login_info_user_uq", idUser, unique=true)
+    lazy val traineeFk = foreignKey("trainee_fk", idTrainee, slickTrainees)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    val index1 = index("trainee_login_info_trainee_li_uq", idLoginInfo, unique=true)
+    val index2 = index("trainee_login_info_trainee_uq", idTrainee, unique=true)
   }
 
   // table query definitions
-  val slickUsers = TableQuery[Users]
+  val slickTrainees = TableQuery[Trainees]
   val slickLoginInfos = TableQuery[LoginInfos]
-  val slickUserLoginInfos = TableQuery[UserLoginInfos]
+  val slickTraineeLoginInfos = TableQuery[TraineeLoginInfos]
   val slickPasswordInfos = TableQuery[PasswordInfos]
   val slickOAuth1Infos = TableQuery[OAuth1Infos]
   val slickOAuth2Infos = TableQuery[OAuth2Infos]

@@ -8,9 +8,9 @@
 app.controller('NavigationCtrl', ['$scope', '$auth', function($scope, $auth) {
 
   /**
-   * Indicates if the user is authenticated or not.
+   * Indicates if the trainee is authenticated or not.
    *
-   * @returns {boolean} True if the user is authenticated, false otherwise.
+   * @returns {boolean} True if the trainee is authenticated, false otherwise.
    */
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();

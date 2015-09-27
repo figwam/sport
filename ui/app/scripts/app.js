@@ -19,11 +19,11 @@ var app = angular.module('uiApp', [
 app.run(function($rootScope) {
 
   /**
-   * The user data.
+   * The trainee data.
    *
    * @type {{}}
    */
-  $rootScope.user = {};
+  $rootScope.trainee = {};
 });
 
 /**
@@ -45,7 +45,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
   $httpProvider.interceptors.push(function($q, $injector) {
     return {
       request: function(request) {
-        // Add auth token for Silhouette if user is authenticated
+        // Add auth token for Silhouette if trainee is authenticated
         var $auth = $injector.get('$auth');
         if ($auth.isAuthenticated()) {
           request.headers['X-Auth-Token'] = $auth.getToken();

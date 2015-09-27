@@ -30,10 +30,10 @@ object SignUpForm {
   /**
    * The form data.
    *
-   * @param firstname The first name of a user.
-   * @param lastname The last name of a user.
-   * @param email The email of the user.
-   * @param password The password of the user.
+   * @param firstname The first name of a trainee.
+   * @param lastname The last name of a trainee.
+   * @param email The email of the trainee.
+   * @param password The password of the trainee.
    */
   case class Data(
     firstname: String,

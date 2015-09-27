@@ -5,7 +5,7 @@ import javax.inject.{Singleton, Inject}
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.User
+import models.Trainee
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 
@@ -21,16 +21,16 @@ import scala.concurrent.Future
 @Singleton
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
-  val env: Environment[User, JWTAuthenticator],
+  val env: Environment[Trainee, JWTAuthenticator],
   socialProviderRegistry: SocialProviderRegistry)
-  extends Silhouette[User, JWTAuthenticator] {
+  extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
-   * Returns the user.
+   * Returns the trainee.
    *
    * @return The result to display.
    */
-  def user = SecuredAction.async { implicit request =>
+  def trainee = SecuredAction.async { implicit request =>
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 

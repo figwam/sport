@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat
 import play.api.libs.json._
 
 
-case class User(
+case class Trainee(
    id: Option[Long],
    loginInfo: LoginInfo,
    extId: UUID,
@@ -37,7 +37,7 @@ case class User(
 /**
  * The companion object.
  */
-object User {
+object Trainee {
    implicit object timestampFormat extends Format[Timestamp] {
       val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")
       def reads(json: JsValue) = {
@@ -47,7 +47,7 @@ object User {
       def writes(ts: Timestamp) = JsString(format.format(ts))
    }
    /**
-    * Converts the [User] object to Json and vice versa.
+    * Converts the [Trainee] object to Json and vice versa.
     */
-   implicit val jsonFormat = Json.format[User]
+   implicit val jsonFormat = Json.format[Trainee]
 }

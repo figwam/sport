@@ -20,7 +20,7 @@ case class Address(
 object Address {
 
   /**
-   * Converts the [User] object to Json and vice versa.
+   * Converts the [Trainee] object to Json and vice versa.
    */
   implicit val jsonFormat = Json.format[Address]
 }

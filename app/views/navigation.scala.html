@@ -21,11 +21,11 @@
                     <li><a href="#pricing">@Messages("menu.pricing")</a></li>
                 </ul>
                 <form class="navbar-form navbar-right">
-                    <!-- User is logged in -->
-                    <a ng-if="isAuthenticated()" class="btn btn-info" ui-sref="home">@Messages("login"): {{user.fullname ? user.fullname : user.firstname}} My Classes</a>
+                    <!-- Trainee is logged in -->
+                    <a ng-if="isAuthenticated()" class="btn btn-info" ui-sref="home">@Messages("login"): {{trainee.fullname ? trainee.fullname : trainee.firstname}} My Classes</a>
                     <a ng-if="isAuthenticated()" class="btn btn-default" ui-sref="signOut">@Messages("sign.out")</a>
 
-                    <!-- User is logged out -->
+                    <!-- Trainee is logged out -->
                     <a ng-if="!isAuthenticated()" class="btn btn-primary" ui-sref="signIn">@Messages("sign.in")</a>
                     <a ng-if="!isAuthenticated()" class="btn btn-success" ui-sref="signUp">@Messages("sign.up")</a>
                 </form>

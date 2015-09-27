@@ -17,9 +17,9 @@ import com.mohiva.play.silhouette.impl.providers.openid.services.PlayOpenIDServi
 import com.mohiva.play.silhouette.impl.repositories.DelegableAuthInfoRepository
 import com.mohiva.play.silhouette.impl.services._
 import com.mohiva.play.silhouette.impl.util._
-import models.User
+import models.Trainee
 import models.daos._
-import models.services.{ UserService, UserServiceImpl }
+import models.services.{ TraineeService, TraineeServiceImpl }
 import net.ceedubs.ficus.Ficus._
 import net.ceedubs.ficus.readers.ArbitraryTypeReader._
 import net.codingwell.scalaguice.ScalaModule
@@ -37,8 +37,8 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
    * Configures the module.
    */
   def configure() {
-    bind[UserService].to[UserServiceImpl]
-    bind[UserDAO].to[UserDAOImpl]
+    bind[TraineeService].to[TraineeServiceImpl]
+    bind[TraineeDAO].to[TraineeDAOImpl]
     bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
     bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]
     bind[DelegableAuthInfoDAO[OAuth2Info]].to[OAuth2InfoDAO]
@@ -63,19 +63,19 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   /**
    * Provides the Silhouette environment.
    *
-   * @param userService The user service implementation.
+   * @param traineeService The trainee service implementation.
    * @param authenticatorService The authentication service implementation.
    * @param eventBus The event bus instance.
    * @return The Silhouette environment.
    */
   @Provides
   def provideEnvironment(
-    userService: UserService,
+    traineeService: TraineeService,
     authenticatorService: AuthenticatorService[JWTAuthenticator],
-    eventBus: EventBus): Environment[User, JWTAuthenticator] = {
+    eventBus: EventBus): Environment[Trainee, JWTAuthenticator] = {
 
-    Environment[User, JWTAuthenticator](
-      userService,
+    Environment[Trainee, JWTAuthenticator](
+      traineeService,
       authenticatorService,
       Seq(),
       eventBus

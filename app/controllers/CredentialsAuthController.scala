@@ -11,8 +11,8 @@ import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.exceptions.IdentityNotFoundException
 import com.mohiva.play.silhouette.impl.providers._
 import forms.SignInForm
-import models.User
-import models.services.UserService
+import models.Trainee
+import models.services.TraineeService
 import net.ceedubs.ficus.Ficus._
 import play.api.Configuration
 import play.api.i18n.{Messages, MessagesApi}
@@ -29,7 +29,7 @@ import scala.concurrent.duration._
  *
  * @param messagesApi The Play messages API.
  * @param env The Silhouette environment.
- * @param userService The user service implementation.
+ * @param traineeService The trainee service implementation.
  * @param authInfoRepository The auth info repository implementation.
  * @param credentialsProvider The credentials provider.
  * @param socialProviderRegistry The social provider registry.
@@ -38,14 +38,14 @@ import scala.concurrent.duration._
  */
 class CredentialsAuthController @Inject() (
   val messagesApi: MessagesApi,
-  val env: Environment[User, JWTAuthenticator],
-  userService: UserService,
+  val env: Environment[Trainee, JWTAuthenticator],
+  traineeService: TraineeService,
   authInfoRepository: AuthInfoRepository,
   credentialsProvider: CredentialsProvider,
   socialProviderRegistry: SocialProviderRegistry,
   configuration: Configuration,
   clock: Clock)
-  extends Silhouette[User, JWTAuthenticator] {
+  extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
    * Converts the JSON into a `SignInForm.Data` object.
@@ -57,15 +57,15 @@ class CredentialsAuthController @Inject() (
   )(SignInForm.Data.apply _)
 
   /**
-   * Authenticates a user against the credentials provider.
+   * Authenticates a trainee against the credentials provider.
    *
    * @return The result to display.
    */
   def authenticate = Action.async(parse.json) { implicit request =>
     request.body.validate[SignInForm.Data].map { data =>
       credentialsProvider.authenticate(Credentials(data.email, data.password)).flatMap { loginInfo =>
-        userService.retrieve(loginInfo).flatMap {
-          case Some(user) => env.authenticatorService.create(loginInfo).map {
+        traineeService.retrieve(loginInfo).flatMap {
+          case Some(trainee) => env.authenticatorService.create(loginInfo).map {
             case authenticator if data.rememberMe =>
               val c = configuration.underlying
               authenticator.copy(
@@ -74,12 +74,12 @@ class CredentialsAuthController @Inject() (
               )
             case authenticator => authenticator
           }.flatMap { authenticator =>
-            env.eventBus.publish(LoginEvent(user, request, request2Messages))
+            env.eventBus.publish(LoginEvent(trainee, request, request2Messages))
             env.authenticatorService.init(authenticator).map { token =>
               Ok(Json.obj("token" -> token))
             }
           }
-          case None => Future.failed(new IdentityNotFoundException("Couldn't find user"))
+          case None => Future.failed(new IdentityNotFoundException("Couldn't find trainee"))
         }
       }.recover {
         case e: ProviderException =>
