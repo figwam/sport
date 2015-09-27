@@ -1,15 +1,5 @@
 -- # --- !Ups
 
---   .d8888b.   .d88888b.  888b     d888 888b     d888  .d88888b.  888b    888      88888888888     d8888 888888b.   888      8888888888 .d8888b.
---  d88P  Y88b d88P" "Y88b 8888b   d8888 8888b   d8888 d88P" "Y88b 8888b   888          888        d88888 888  "88b  888      888       d88P  Y88b
---  888    888 888     888 88888b.d88888 88888b.d88888 888     888 88888b  888          888       d88P888 888  .88P  888      888       Y88b.
---  888        888     888 888Y88888P888 888Y88888P888 888     888 888Y88b 888          888      d88P 888 8888888K.  888      8888888    "Y888b.
---  888        888     888 888 Y888P 888 888 Y888P 888 888     888 888 Y88b888          888     d88P  888 888  "Y88b 888      888           "Y88b.
---  888    888 888     888 888  Y8P  888 888  Y8P  888 888     888 888  Y88888          888    d88P   888 888    888 888      888             "888
---  Y88b  d88P Y88b. .d88P 888   "   888 888   "   888 Y88b. .d88P 888   Y8888          888   d8888888888 888   d88P 888      888       Y88b  d88P
---   "Y8888P"   "Y88888P"  888       888 888       888  "Y88888P"  888    Y888          888  d88P     888 8888888P"  88888888 8888888888 "Y8888P"
---
---
 --
 --         d8888      888      888
 --        d88888      888      888
@@ -39,21 +29,13 @@ CREATE TABLE public.address(
 
 );
 
+-- DROP INDEX IF EXISTS public.address_extid_idx CASCADE;
 CREATE INDEX address_extid_idx ON public.address
 USING btree
 (
 	ext_id ASC NULLS LAST
 );
 
---  88888888888 8888888b.         d8888 8888888 888b    888 8888888888 8888888888      88888888888     d8888 888888b.   888      8888888888 .d8888b.
---      888     888   Y88b       d88888   888   8888b   888 888        888                 888        d88888 888  "88b  888      888       d88P  Y88b
---      888     888    888      d88P888   888   88888b  888 888        888                 888       d88P888 888  .88P  888      888       Y88b.
---      888     888   d88P     d88P 888   888   888Y88b 888 8888888    8888888             888      d88P 888 8888888K.  888      8888888    "Y888b.
---      888     8888888P"     d88P  888   888   888 Y88b888 888        888                 888     d88P  888 888  "Y88b 888      888           "Y88b.
---      888     888 T88b     d88P   888   888   888  Y88888 888        888                 888    d88P   888 888    888 888      888             "888
---      888     888  T88b   d8888888888   888   888   Y8888 888        888                 888   d8888888888 888   d88P 888      888       Y88b  d88P
---      888     888   T88b d88P     888 8888888 888    Y888 8888888888 8888888888          888  d88P     888 8888888P"  88888888 8888888888 "Y8888P"
---
 --
 --
 --  88888888888              d8b
@@ -116,10 +98,74 @@ USING btree
 ALTER TABLE public.trainee ADD CONSTRAINT trainee_uq UNIQUE (id_address);
 
 -- ALTER TABLE public.trainee DROP CONSTRAINT IF EXISTS address_fk CASCADE;
-ALTER TABLE public.trainee ADD CONSTRAINT address_fk FOREIGN KEY (id_address)
+ALTER TABLE public.trainee ADD CONSTRAINT trainee_address_fk FOREIGN KEY (id_address)
 REFERENCES public.address (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
+--
+--  8888888b.                  888
+--  888   Y88b                 888
+--  888    888                 888
+--  888   d88P 8888b.  888d888 888888 88888b.   .d88b.  888d888
+--  8888888P"     "88b 888P"   888    888 "88b d8P  Y8b 888P"
+--  888       .d888888 888     888    888  888 88888888 888
+--  888       888  888 888     Y88b.  888  888 Y8b.     888
+--  888       "Y888888 888      "Y888 888  888  "Y8888  888
+--
+--
+--
+CREATE TABLE public.partner(
+	id bigserial NOT NULL,
+	ext_id varchar NOT NULL,
+	firstname varchar,
+	lastname varchar,
+	mobile varchar,
+	phone varchar,
+	email varchar,
+	email_verified bool NOT NULL DEFAULT false,
+	created_on timestamp NOT NULL DEFAULT NOW(),
+	updated_on timestamp NOT NULL DEFAULT NOW(),
+	ptoken varchar,
+	is_deleted bool NOT NULL DEFAULT false,
+	delete_reason varchar,
+	is_active bool NOT NULL DEFAULT true,
+	inactive_reason varchar,
+	id_address bigint,
+	username varchar,
+	profiles text NOT NULL,
+	roles varchar NOT NULL,
+	fullname varchar,
+	avatarurl varchar,
+	CONSTRAINT partner_id_primary PRIMARY KEY (id)
+
+);
+
+-- DROP INDEX IF EXISTS public.partner_extid_idx CASCADE;
+CREATE INDEX partner_extid_idx ON public.partner
+USING btree
+(
+	ext_id ASC NULLS LAST
+);
+-- DROP INDEX IF EXISTS public.partner_username_idx CASCADE;
+CREATE INDEX partner_username_idx ON public.partner
+USING btree
+(
+	username ASC NULLS LAST
+);
+-- DROP INDEX IF EXISTS public.partner_roles_idx CASCADE;
+CREATE INDEX partner_roles_idx ON public.partner
+USING btree
+(
+	roles ASC NULLS LAST
+);
+
+-- ALTER TABLE public.partner DROP CONSTRAINT IF EXISTS partner_uq CASCADE;
+ALTER TABLE public.partner ADD CONSTRAINT partner_uq UNIQUE (id_address);
+
+-- ALTER TABLE public.partner DROP CONSTRAINT IF EXISTS address_fk CASCADE;
+ALTER TABLE public.partner ADD CONSTRAINT partner_address_fk FOREIGN KEY (id_address)
+REFERENCES public.address (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
 
 --   .d8888b.  888                  888 d8b
 --  d88P  Y88b 888                  888 Y8P
@@ -131,11 +177,6 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 --   "Y8888P"   "Y888  "Y88888  "Y88888 888  "Y88P"
 --
 --
---
--- ddl-end --
-
--- object: public.studio | type: TABLE --
--- DROP TABLE IF EXISTS public.studio CASCADE;
 CREATE TABLE public.studio(
 	id bigserial NOT NULL,
 	ext_id varchar NOT NULL,
@@ -151,6 +192,8 @@ CREATE TABLE public.studio(
 	CONSTRAINT studio_id_primary PRIMARY KEY (id)
 
 );
+
+-- DROP INDEX IF EXISTS public.studio_extid_idx CASCADE;
 CREATE INDEX studio_extid_idx ON public.studio
 USING btree
 (
@@ -167,7 +210,7 @@ ALTER TABLE public.studio ADD CONSTRAINT studio_uq UNIQUE (id_address);
 
 -- ALTER TABLE public.studio DROP CONSTRAINT IF EXISTS trainee_fk CASCADE;
 ALTER TABLE public.studio ADD CONSTRAINT partner_fk FOREIGN KEY (id_partner)
-REFERENCES public.trainee (id) MATCH FULL
+REFERENCES public.partner (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
 
 --   .d88888b.   .d888  .d888
@@ -332,7 +375,6 @@ USING btree
 --                          888
 --                     Y8b d88P
 --                      "Y88P"
--- DROP TABLE IF EXISTS public.registration CASCADE;
 CREATE TABLE public.registration(
 	id bigserial NOT NULL,
 	ext_id varchar NOT NULL,
@@ -374,7 +416,6 @@ USING btree
 --
 --
 --
--- DROP TABLE IF EXISTS public.bill CASCADE;
 CREATE TABLE public.bill(
 	id bigserial NOT NULL,
 	ext_id varchar NOT NULL,
@@ -396,7 +437,6 @@ USING btree
 ALTER TABLE public.bill ADD CONSTRAINT trainee_fk FOREIGN KEY (id_trainee)
 REFERENCES public.trainee (id) MATCH FULL
 ON DELETE SET NULL ON UPDATE CASCADE;
-
 
 --  888      .d88888b.   .d8888b.  8888888 888b    888      88888888888     d8888 888888b.   888      8888888888 .d8888b.
 --  888     d88P" "Y88b d88P  Y88b   888   8888b   888          888        d88888 888  "88b  888      888       d88P  Y88b
@@ -471,7 +511,6 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
 ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_login_info_trainee_li_uq UNIQUE (id_login_info);
--- ddl-end --
 
 --  88888888888              d8b                                                                                                        888      d8b           .d888
 --      888                  Y8P                                                                                                        888      Y8P          d88P"
@@ -484,25 +523,89 @@ ALTER TABLE public.trainee_login_info ADD CONSTRAINT trainee_login_info_trainee_
 --                                                               888
 --                                                               888
 --
-CREATE TABLE public.password_info(
+CREATE TABLE public.trainee_password_info(
 	id bigserial NOT NULL,
 	id_login_info bigint NOT NULL,
 	hasher varchar NOT NULL,
 	password varchar NOT NULL,
 	salt varchar,
 	created timestamp NOT NULL DEFAULT NOW(),
-	CONSTRAINT pk_password_info PRIMARY KEY (id)
+	CONSTRAINT pk_trainee_password_info PRIMARY KEY (id)
 
 );
 
--- ALTER TABLE public.password_info DROP CONSTRAINT IF EXISTS login_info_fk CASCADE;
-ALTER TABLE public.password_info ADD CONSTRAINT login_info_fk FOREIGN KEY (id_login_info)
+-- ALTER TABLE public.trainee_password_info DROP CONSTRAINT IF EXISTS trainee_login_info_fk CASCADE;
+ALTER TABLE public.trainee_password_info ADD CONSTRAINT trainee_login_info_fk FOREIGN KEY (id_login_info)
 REFERENCES public.login_info (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
--- ALTER TABLE public.login_info_fk DROP CONSTRAINT IF EXISTS password_info_trainee_li_uq CASCADE;
-ALTER TABLE public.password_info ADD CONSTRAINT password_info_trainee_li_uq UNIQUE (id_login_info);
+-- ALTER TABLE public.trainee_password_info DROP CONSTRAINT IF EXISTS trainee_password_info_trainee_li_uq CASCADE;
+ALTER TABLE public.trainee_password_info ADD CONSTRAINT trainee_password_info_trainee_li_uq UNIQUE (id_login_info);
 
+
+
+--  8888888b.                  888                                   888                   d8b          d8b           .d888
+--  888   Y88b                 888                                   888                   Y8P          Y8P          d88P"
+--  888    888                 888                                   888                                             888
+--  888   d88P 8888b.  888d888 888888 88888b.   .d88b.  888d888      888  .d88b.   .d88b.  888 88888b.  888 88888b.  888888 .d88b.
+--  8888888P"     "88b 888P"   888    888 "88b d8P  Y8b 888P"        888 d88""88b d88P"88b 888 888 "88b 888 888 "88b 888   d88""88b
+--  888       .d888888 888     888    888  888 88888888 888          888 888  888 888  888 888 888  888 888 888  888 888   888  888
+--  888       888  888 888     Y88b.  888  888 Y8b.     888          888 Y88..88P Y88b 888 888 888  888 888 888  888 888   Y88..88P
+--  888       "Y888888 888      "Y888 888  888  "Y8888  888          888  "Y88P"   "Y88888 888 888  888 888 888  888 888    "Y88P"
+--                                                                                     888
+--                                                                                Y8b d88P
+--                                                                                 "Y88P"                                                                                                                     "Y88P"                                           s
+CREATE TABLE public.partner_login_info(
+	created_on timestamp NOT NULL DEFAULT NOW(),
+	id_partner bigint NOT NULL,
+	id_login_info bigint NOT NULL
+);
+
+-- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS partner_fk CASCADE;
+ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_fk FOREIGN KEY (id_partner)
+REFERENCES public.partner (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_login_info_partner_uq UNIQUE (id_partner);
+
+-- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS clazz_fk CASCADE;
+ALTER TABLE public.partner_login_info ADD CONSTRAINT login_info_fk FOREIGN KEY (id_login_info)
+REFERENCES public.login_info (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
+ALTER TABLE public.partner_login_info ADD CONSTRAINT partner_login_info_partner_li_uq UNIQUE (id_login_info);
+
+--  8888888b.                  888                                                                                                          888
+--  888   Y88b                 888                                                                                                          888
+--  888    888                 888                                                                                                          888
+--  888   d88P 8888b.  888d888 888888 88888b.   .d88b.  888d888      88888b.   8888b.  .d8888b  .d8888b  888  888  888  .d88b.  888d888 .d88888
+--  8888888P"     "88b 888P"   888    888 "88b d8P  Y8b 888P"        888 "88b     "88b 88K      88K      888  888  888 d88""88b 888P"  d88" 888
+--  888       .d888888 888     888    888  888 88888888 888          888  888 .d888888 "Y8888b. "Y8888b. 888  888  888 888  888 888    888  888
+--  888       888  888 888     Y88b.  888  888 Y8b.     888          888 d88P 888  888      X88      X88 Y88b 888 d88P Y88..88P 888    Y88b 888
+--  888       "Y888888 888      "Y888 888  888  "Y8888  888          88888P"  "Y888888  88888P'  88888P'  "Y8888888P"   "Y88P"  888     "Y88888
+--                                                                   888
+--                                                                   888
+--                                                                   888
+CREATE TABLE public.partner_password_info(
+	id bigserial NOT NULL,
+	id_login_info bigint NOT NULL,
+	hasher varchar NOT NULL,
+	password varchar NOT NULL,
+	salt varchar,
+	created timestamp NOT NULL DEFAULT NOW(),
+	CONSTRAINT pk_partner_password_info PRIMARY KEY (id)
+
+);
+
+-- ALTER TABLE public.partner_password_info DROP CONSTRAINT IF EXISTS partner_login_info_fk CASCADE;
+ALTER TABLE public.partner_password_info ADD CONSTRAINT partner_login_info_fk FOREIGN KEY (id_login_info)
+REFERENCES public.login_info (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- ALTER TABLE public.partner_password_info DROP CONSTRAINT IF EXISTS partner_password_info_partner_li_uq CASCADE;
+ALTER TABLE public.partner_password_info ADD CONSTRAINT partner_password_info_partner_li_uq UNIQUE (id_login_info);
 
 --   .d88888b.        d8888          888    888       .d8888b.       d8b           .d888
 --  d88P" "Y88b      d88888          888    888      d88P  Y88b      Y8P          d88P"

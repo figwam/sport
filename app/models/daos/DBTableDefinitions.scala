@@ -211,28 +211,6 @@ case class DBAddress(
     val index1 = index("password_info_trainee_li_uq", idLoginInfo, unique=true)
   }
 
-  case class DBPasswordInfo(
-    id: Option[Long],
-    idLoginInfo: Long,
-    hasher: String,
-    password: String,
-    salt: Option[String] = None,
-    created: java.sql.Timestamp
-    )
-
-
-  class PasswordInfos(_tableTag: Tag) extends Table[DBPasswordInfo](_tableTag, "password_info") {
-    def * = (id.?, idLoginInfo, hasher, password, salt, created) <> (DBPasswordInfo.tupled, DBPasswordInfo.unapply)
-    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
-    val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
-    val hasher: Rep[String] = column[String]("hasher")
-    val password: Rep[String] = column[String]("password")
-    val salt: Rep[Option[String]] = column[Option[String]]("salt", O.Default(None))
-    val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
-    lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
-    val index1 = index("password_info_trainee_li_uq", idLoginInfo, unique=true)
-  }
-
   case class DBRegistration(
     id: Option[Long],
     extId: String,
@@ -411,11 +389,140 @@ case class DBAddress(
     val index2 = index("trainee_login_info_trainee_uq", idTrainee, unique=true)
   }
 
+
+
+  case class DBTraineePasswordInfo(
+                             id: Option[Long],
+                             idLoginInfo: Long,
+                             hasher: String,
+                             password: String,
+                             salt: Option[String] = None,
+                             created: java.sql.Timestamp
+                             )
+
+
+  class TraineePasswordInfos(_tableTag: Tag) extends Table[DBTraineePasswordInfo](_tableTag, "trainee_password_info") {
+    def * = (id.?, idLoginInfo, hasher, password, salt, created) <> (DBTraineePasswordInfo.tupled, DBTraineePasswordInfo.unapply)
+    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
+    val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
+    val hasher: Rep[String] = column[String]("hasher")
+    val password: Rep[String] = column[String]("password")
+    val salt: Rep[Option[String]] = column[Option[String]]("salt", O.Default(None))
+    val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
+    lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    val index1 = index("trainee_password_info_trainee_li_uq", idLoginInfo, unique=true)
+  }
+
+
+  //----------------
+
+
+  case class DBPartner(
+                        id: Option[Long],
+                        extId: String,
+                        firstname: Option[String],
+                        lastname: Option[String],
+                        mobile: Option[String] = None,
+                        phone: Option[String] = None,
+                        email: Option[String] = None,
+                        emailVerified: Boolean = false,
+                        createdOn: java.sql.Timestamp,
+                        updatedOn: java.sql.Timestamp,
+                        ptoken: Option[String] = None,
+                        isDeleted: Boolean = false,
+                        deleteReason: Option[String] = None,
+                        isActive: Boolean = true,
+                        inactiveReason: Option[String] = None,
+                        idAddress: Long,
+                        username: Option[String] = None,
+                        profiles: String,
+                        roles: String,
+                        fullname: Option[String] = None,
+                        avatarurl: Option[String] = None
+                        )
+
+
+  class Partners(_tableTag: Tag) extends Table[DBPartner](_tableTag, "partner") {
+    def * = (id, extId, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, profiles, roles, fullname, avatarurl) <> (DBPartner.tupled, DBPartner.unapply)
+    val id: Rep[Option[Long]] = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
+    val extId: Rep[String] = column[String]("ext_id")
+    val firstname: Rep[Option[String]] = column[Option[String]]("firstname")
+    val lastname: Rep[Option[String]] = column[Option[String]]("lastname")
+    val mobile: Rep[Option[String]] = column[Option[String]]("mobile", O.Default(None))
+    val phone: Rep[Option[String]] = column[Option[String]]("phone", O.Default(None))
+    val email: Rep[Option[String]] = column[Option[String]]("email", O.Default(None))
+    val emailVerified: Rep[Boolean] = column[Boolean]("email_verified", O.Default(false))
+    val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
+    val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
+    val ptoken: Rep[Option[String]] = column[Option[String]]("ptoken", O.Default(None))
+    val isDeleted: Rep[Boolean] = column[Boolean]("is_deleted", O.Default(false))
+    val deleteReason: Rep[Option[String]] = column[Option[String]]("delete_reason", O.Default(None))
+    val isActive: Rep[Boolean] = column[Boolean]("is_active", O.Default(true))
+    val inactiveReason: Rep[Option[String]] = column[Option[String]]("inactive_reason", O.Default(None))
+    val idAddress: Rep[Long] = column[Long]("id_address")
+    val username: Rep[Option[String]] = column[Option[String]]("username", O.Default(None))
+    val profiles: Rep[String] = column[String]("profiles")
+    val roles: Rep[String] = column[String]("roles")
+    val fullname: Rep[Option[String]] = column[Option[String]]("fullname", O.Default(None))
+    val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
+    lazy val addressFk = foreignKey("address_fk", idAddress, slickAddresses)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    val index1 = index("partner_extid_idx", extId)
+    val index2 = index("partner_uq", idAddress, unique=true)
+    val index3 = index("partner_roles_idx", roles)
+    val index4 = index("partner_username_idx", username)
+  }
+
+  case class DBPartnerLoginInfo(
+                                 createdOn: java.sql.Timestamp,
+                                 idPartner: Long,
+                                 idLoginInfo: Long
+                                 )
+
+  class PartnerLoginInfos(_tableTag: Tag) extends Table[DBPartnerLoginInfo](_tableTag, "partner_login_info") {
+    def * = (createdOn, idPartner, idLoginInfo) <> (DBPartnerLoginInfo.tupled, DBPartnerLoginInfo.unapply)
+    val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
+    val idPartner: Rep[Long] = column[Long]("id_partner")
+    val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
+    lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    lazy val partnerFk = foreignKey("partner_fk", idPartner, slickPartners)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    val index1 = index("partner_login_info_partner_li_uq", idLoginInfo, unique=true)
+    val index2 = index("partner_login_info_partner_uq", idPartner, unique=true)
+  }
+
+
+
+  case class DBPartnerPasswordInfo(
+                                    id: Option[Long],
+                                    idLoginInfo: Long,
+                                    hasher: String,
+                                    password: String,
+                                    salt: Option[String] = None,
+                                    created: java.sql.Timestamp
+                                    )
+
+
+  class PartnerPasswordInfos(_tableTag: Tag) extends Table[DBPartnerPasswordInfo](_tableTag, "partner_password_info") {
+    def * = (id.?, idLoginInfo, hasher, password, salt, created) <> (DBPartnerPasswordInfo.tupled, DBPartnerPasswordInfo.unapply)
+    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
+    val idLoginInfo: Rep[Long] = column[Long]("id_login_info")
+    val hasher: Rep[String] = column[String]("hasher")
+    val password: Rep[String] = column[String]("password")
+    val salt: Rep[Option[String]] = column[Option[String]]("salt", O.Default(None))
+    val created: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created")
+    lazy val loginInfoFk = foreignKey("login_info_fk", idLoginInfo, slickLoginInfos)(r => r.id.get, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
+    val index1 = index("partner_password_info_partner_li_uq", idLoginInfo, unique=true)
+  }
+
+
+
   // table query definitions
   val slickTrainees = TableQuery[Trainees]
+  val slickPartners = TableQuery[Partners]
   val slickLoginInfos = TableQuery[LoginInfos]
   val slickTraineeLoginInfos = TableQuery[TraineeLoginInfos]
-  val slickPasswordInfos = TableQuery[PasswordInfos]
+  val slickPartnerPasswordInfos = TableQuery[PartnerPasswordInfos]
+  val slickPartnerLoginInfos = TableQuery[PartnerLoginInfos]
+  val slickTraineePasswordInfos = TableQuery[TraineePasswordInfos]
   val slickOAuth1Infos = TableQuery[OAuth1Infos]
   val slickOAuth2Infos = TableQuery[OAuth2Infos]
   val slickOpenIDInfos = TableQuery[OpenIDInfos]

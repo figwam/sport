@@ -39,7 +39,7 @@ class SilhouetteModule extends AbstractModule with ScalaModule {
   def configure() {
     bind[TraineeService].to[TraineeServiceImpl]
     bind[TraineeDAO].to[TraineeDAOImpl]
-    bind[DelegableAuthInfoDAO[PasswordInfo]].to[PasswordInfoDAO]
+    bind[DelegableAuthInfoDAO[PasswordInfo]].to[TraineePasswordInfoDAO]
     bind[DelegableAuthInfoDAO[OAuth1Info]].to[OAuth1InfoDAO]
     bind[DelegableAuthInfoDAO[OAuth2Info]].to[OAuth2InfoDAO]
     bind[CacheLayer].to[PlayCacheLayer]
