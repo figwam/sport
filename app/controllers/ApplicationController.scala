@@ -26,9 +26,7 @@ import scala.concurrent.Future
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[Trainee, JWTAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry
-  //,clazzDAO: ClazzDAO
-                                        )
+  socialProviderRegistry: SocialProviderRegistry)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
@@ -37,7 +35,6 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def trainee = SecuredAction.async { implicit request =>
-    //Akka.system.actorOf(Props(new ClazzScheduler(clazzDAO)), name = "clazzScheduler")
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 
