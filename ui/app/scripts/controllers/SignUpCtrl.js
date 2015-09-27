@@ -16,6 +16,7 @@ app.controller('SignUpCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
       lastname: $scope.lastname,
       street: $scope.street,
       plz: $scope.plz,
+      zip: $scope.zip,
       city: $scope.city,
       state: $scope.state,
       email: $scope.email,
