@@ -16,8 +16,6 @@ case class Clazz(
                   endAt: java.sql.Timestamp,
                   name: String,
                   contingent: Short,
-                  createdOn: java.sql.Timestamp,
-                  updatedOn: java.sql.Timestamp,
                   idStudio: Long)
 
 

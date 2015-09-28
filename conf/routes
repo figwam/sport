@@ -5,6 +5,7 @@
 GET         /                                com.tuplejump.playYeoman.Yeoman.index
 
 GET         /trainee                            controllers.ApplicationController.trainee
+GET         /clazzes                            controllers.ApplicationController.clazzes(p:Int ?= 0, s:Int ?= 2, f ?= "")
 GET         /signOut                         controllers.ApplicationController.signOut
 POST        /signIn                          controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp

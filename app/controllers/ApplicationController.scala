@@ -1,17 +1,22 @@
 package controllers
 
+import java.sql.Timestamp
+import java.util.UUID
+import java.util.concurrent.TimeoutException
 import javax.inject.{Singleton, Inject}
 
 import akka.actor.Props
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.Trainee
+import models.{Clazz, Trainee}
 import models.daos.{TraineeDAO, ClazzDAO}
+import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
 import play.libs.Akka
 import scheduler.ClazzScheduler
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
@@ -26,7 +31,8 @@ import scala.concurrent.Future
 class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[Trainee, JWTAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry)
+  socialProviderRegistry: SocialProviderRegistry,
+  clazzDAO: ClazzDAO)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
@@ -35,6 +41,18 @@ class ApplicationController @Inject() (
    * @return The result to display.
    */
   def trainee = SecuredAction.async { implicit request =>
+    Future.successful(Ok(Json.toJson(request.identity)))
+  }
+
+
+  def clazzes(page: Int, orderBy: Int, filter: String) = SecuredAction.async { implicit request =>
+    /*clazzDAO.list(page, 10, orderBy, "%" + filter + "%").map { pageClazzes =>
+      println("Clazzes:"+pageClazzes)
+    }.recover {
+      case ex: TimeoutException =>
+        Logger.error("Problem found in employee list process")
+        InternalServerError(ex.getMessage)
+    }*/
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 
@@ -58,6 +76,7 @@ class ApplicationController @Inject() (
       case "signUp" => Ok(views.html.signUp())
       case "signIn" => Ok(views.html.signIn(socialProviderRegistry))
       case "navigation" => Ok(views.html.navigation())
+      case "listClazz" => Ok(views.html.listClazz())
       case _ => NotFound
     }
   }

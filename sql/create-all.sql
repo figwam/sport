@@ -232,7 +232,7 @@ CREATE TABLE public.offer(
 	id bigserial NOT NULL,
 	ext_id text NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
-	updated_on timestamp NOT NULL,
+	updated_on timestamp NOT NULL DEFAULT NOW(),
 	name text NOT NULL,
 	nr_access smallint NOT NULL,
 	nr_access_same smallint NOT NULL,

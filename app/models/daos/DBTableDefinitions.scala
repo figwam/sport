@@ -1,12 +1,43 @@
 package models.daos
 
 import com.mohiva.play.silhouette.api.LoginInfo
+import play.api.libs.json._
+import play.api.libs.json.Json._
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
+
+import models.Clazz
 
 case class Page[A](items: Seq[A], page: Int, offset: Long, total: Long) {
   lazy val prev = Option(page - 1).filter(_ >= 0)
   lazy val next = Option(page + 1).filter(_ => (offset + items.size) < total)
+}
+
+object Page {
+  /*implicit def searchResultsReads[T](implicit fmt: Reads[T]): Reads[Page[T]] = new Reads[Page[T]] {
+    def reads(json: JsValue): Page[T] = new Page[T] (
+
+      (json \ "items") match {
+        case JsArray(ts) => ts.map(t => fromJson(t)(fmt))
+        case _ => throw new RuntimeException("Elements MUST be a list")
+      },
+      (json \ "page").as[Int],
+      (json \ "offset").as[Int],
+      (json \ "total").as[Int]
+    )
+  }
+
+  implicit def searchResultsWrites[T](implicit fmt: Writes[T]): Writes[Page[T]] = new Writes[Page[T]] {
+    def writes(ts: Page[T]) = JsObject(Seq(
+      "page" -> JsNumber(ts.page),
+      "offset" -> JsNumber(ts.offset),
+      "total" -> JsNumber(ts.total),
+      "items" -> JsArray(ts.items.map(toJson(_)))
+    ))
+  }
+  */
+
+  //implicit val jsonFormat = Json.format[Page]
 }
 
 

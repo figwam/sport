@@ -39,8 +39,9 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO)  extends Actor {
     case CREATE_CLAZZES =>
       try {
         println("Create clazzes")
-        clazzDAO.insert(Clazz(None, UUID.randomUUID(), new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),"random clazz",5,new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),2L ))
-        println("Create clazzes inserted")
+        clazzDAO.insert(Clazz(None, UUID.randomUUID(), new Timestamp(System.currentTimeMillis()),new Timestamp(System.currentTimeMillis()),"random clazz",5,2L ))
+          .map(c => println("Create clazzes inserted, with id="+c.id))
+        println("Finally Create clazzes inserted")
       } catch {
         case t: Throwable =>
           println("Create clazzes failed")

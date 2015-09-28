@@ -70,6 +70,20 @@ INSERT INTO clazz_definition (ext_id, start_from, end_at, name, recurrence,  con
 		VALUES ('cld00001-5f9a-11e5-9d70-feff819cdc9f','2015-09-28 17:00:00.000000','2015-09-27 17:45:00.000000',
 		'Sandsack','WEEKLY','5',2);
 
+
+
+-- Angebote auf unserem Portal
+INSERT INTO offer(
+	ext_id,
+	name,
+	nr_access,
+	nr_access_same,
+	price
+) VALUES ('off00001-5f9a-11e5-9d70-feff819cdc9f','Basis',4,2,59),
+('off00002-5f9a-11e5-9d70-feff819cdc9f','Standard',6,4,89),
+('off00003-5f9a-11e5-9d70-feff819cdc9f','Premium',8,6,119);
+
+
 -- # --- !Downs
 
 -- DELETE FROM studio;
