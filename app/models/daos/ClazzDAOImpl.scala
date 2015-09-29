@@ -15,7 +15,7 @@ trait ClazzDAO  {
   def insert(clazz: Clazz): Future[Clazz]
   //  def update(id: Long, clazz: Clazz): Future[Int]
   //  def delete(id: Long): Future[Int]
-  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Clazz]]
+  def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page]
   //  def findById(id: Long): Future[Clazz]
   def count: Future[Int]
 
@@ -29,15 +29,13 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
    * Count employees with a filter
    */
   private def count(filter: String): Future[Int] =
-    try db.run(slickClazzes.filter(_.name.toLowerCase like filter.toLowerCase).length.result)
-    finally db.close
+    db.run(slickClazzes.filter(_.name.toLowerCase like filter.toLowerCase).length.result)
 
   /**
    * Count clazzes
    */
   override def count: Future[Int] =
-    try db.run(slickClazzes.length.result)
-    finally db.close
+    db.run(slickClazzes.length.result)
 
 
   override def insert(clazz: Clazz): Future[Clazz] = {
@@ -54,21 +52,25 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
    * @param orderBy
    * @param filter
    */
-  override def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page[Clazz]] = {
-    try {
+  override def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page] = {
+    //try {
       val offset = pageSize * page
       val query =
         (for {
           clazz <- slickClazzes if clazz.name.toLowerCase like filter.toLowerCase
         } yield (clazz)).drop(offset).take(pageSize)
+      val querySorted = orderBy match {
+        case 1 => query.sortBy(_.id)
+        case -1 => query.sortBy(_.id.desc)
+      }
       val totalRows = count(filter)
-      val result = db.run(query.result)
+      val result = db.run(querySorted.result)
       result.map { clazz => //result is Seq[DBClazz]
         clazz.map { // go through all the DBClazzes and map them to Clazz
           case (clazz) => Clazz(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent, 2L)
         } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page(...)
       }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
-    } finally { db.close() }
+    //} finally { db.close() }
   }
 
 }

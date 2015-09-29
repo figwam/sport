@@ -4,6 +4,7 @@
 
 -- # --- !Downs
 
+DROP TABLE IF EXISTS public.logger CASCADE;
 DROP TABLE IF EXISTS public.registration CASCADE;
 DROP TABLE IF EXISTS public.clazz_definition CASCADE;
 DROP TABLE IF EXISTS public.clazz CASCADE;

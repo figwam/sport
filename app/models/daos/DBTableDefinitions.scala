@@ -1,29 +1,35 @@
 package models.daos
 
 import com.mohiva.play.silhouette.api.LoginInfo
+import models.Clazz
 import play.api.libs.json._
 import play.api.libs.json.Json._
 import slick.driver.JdbcProfile
 import slick.lifted.ProvenShape.proveShapeOf
 
-import models.Clazz
-
+/*
 case class Page[A](items: Seq[A], page: Int, offset: Long, total: Long) {
+  lazy val prev = Option(page - 1).filter(_ >= 0)
+  lazy val next = Option(page + 1).filter(_ => (offset + items.size) < total)
+}
+*/
+
+case class Page(items: Seq[Clazz], page: Int, offset: Long, total: Long){
   lazy val prev = Option(page - 1).filter(_ >= 0)
   lazy val next = Option(page + 1).filter(_ => (offset + items.size) < total)
 }
 
 object Page {
-  /*implicit def searchResultsReads[T](implicit fmt: Reads[T]): Reads[Page[T]] = new Reads[Page[T]] {
+  /*
+  implicit def searchResultsReads[T](implicit fmt: Reads[T]): Reads[Page[T]] = new Reads[Page[T]] {
     def reads(json: JsValue): Page[T] = new Page[T] (
-
       (json \ "items") match {
         case JsArray(ts) => ts.map(t => fromJson(t)(fmt))
         case _ => throw new RuntimeException("Elements MUST be a list")
       },
       (json \ "page").as[Int],
-      (json \ "offset").as[Int],
-      (json \ "total").as[Int]
+      (json \ "offset").as[Long],
+      (json \ "total").as[Long]
     )
   }
 
@@ -36,8 +42,27 @@ object Page {
     ))
   }
   */
+/*
+  implicit def fmt[T](implicit fmt: Format[T]): Format[Page[T]] = new Format[Page[T]] {
+    def reads(json: JsValue): Page[T] = new Page[T] (
+      (json \ "items") match {
+        case JsArray(ts) => ts.map(t => fromJson(t)(fmt))
+        case _ => throw new RuntimeException("Elements MUST be a list")
+      },
+      (json \ "page").as[Int],
+      (json \ "offset").as[Long],
+      (json \ "total").as[Long]
+    )
 
-  //implicit val jsonFormat = Json.format[Page]
+    def writes(ts: Page[T]) = JsObject(Seq(
+      "page" -> JsNumber(ts.page),
+      "offset" -> JsNumber(ts.offset),
+      "total" -> JsNumber(ts.total),
+      "items" -> JsArray(ts.items.map(toJson(_)))
+    ))
+  }
+*/
+  implicit val jsonFormat = Json.format[Page]
 }
 
 
@@ -592,6 +617,33 @@ trait DBTableDefinitions {
     val index1 = index("partner_password_info_partner_li_uq", idLoginInfo, unique=true)
   }
 
+  case class DBLogger(
+                        id: Option[Long],
+                        rootid: String,
+                        title: String,
+                        exception: String,
+                        stacktrace: String,
+                        req_header: String,
+                        req_method: String,
+                        req_address: String,
+                        req_uri: String,
+                        createdOn: java.sql.Timestamp
+                        )
+
+  class Loggers(_tableTag: Tag) extends Table[DBLogger](_tableTag, "logger") {
+    def * = (id.?, rootid, title, exception, stacktrace, reqHeader, reqMethod, reqAddress, reqUri, createdOn) <> (DBLogger.tupled, DBLogger.unapply)
+    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
+    val rootid: Rep[String] = column[String]("rootid")
+    val title: Rep[String] = column[String]("title")
+    val exception: Rep[String] = column[String]("exception")
+    val stacktrace: Rep[String] = column[String]("stacktrace")
+    val reqHeader: Rep[String] = column[String]("req_header")
+    val reqMethod: Rep[String] = column[String]("req_method")
+    val reqAddress: Rep[String] = column[String]("req_address")
+    val reqUri: Rep[String] = column[String]("req_uri")
+    val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
+  }
+
 
 
   // table query definitions
@@ -614,6 +666,7 @@ trait DBTableDefinitions {
   val slickSubscriptions = TableQuery[Subscriptions]
   val slickTimeStops = TableQuery[TimeStops]
   val slickAddresses = TableQuery[Addresses]
+  val slickLoggers = TableQuery[Loggers]
   val slickBills = TableQuery[Bills]
 
   // queries used in multiple places

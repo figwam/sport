@@ -39,6 +39,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
     .state('signUp', { url: '/signUp', templateUrl: '/views/signUp.html' })
     .state('index', { url: '/index', templateUrl: '/views/index.html' })
     .state('signIn', { url: '/signIn', templateUrl: '/views/signIn.html' })
+    .state('clazzes', { url: '/clazzes', templateUrl: '/views/clazzes.html' })
     .state('signOut', { url: '/signOut', template: null,  controller: 'SignOutCtrl' });
 
   //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/

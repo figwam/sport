@@ -1,6 +1,6 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
-<div ng-controller="ClazzCtrl">
+<div ng-controller="ClazzCtrl" ng-init="init()">
     <section id="signUp">
         <div class="container">
             <div class="row">
@@ -18,7 +18,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>"user.id"</td>
+                                    <td>{{clazzes.items}}</td>
                                     <td>"user.name"</td>
                                     <td><button></button></td>
                                     <td><button></button></td>

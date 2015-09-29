@@ -45,15 +45,16 @@ class ApplicationController @Inject() (
   }
 
 
-  def clazzes(page: Int, orderBy: Int, filter: String) = SecuredAction.async { implicit request =>
-    /*clazzDAO.list(page, 10, orderBy, "%" + filter + "%").map { pageClazzes =>
-      println("Clazzes:"+pageClazzes)
+  def clazzes(page: Int, orderBy: Int, filter: String) = UserAwareAction.async { implicit request =>
+    clazzDAO.list(page, 10, orderBy, "%" + filter + "%").flatMap { pageClazzes =>
+      val a = null
+      a.toString
+      Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>
         Logger.error("Problem found in employee list process")
         InternalServerError(ex.getMessage)
-    }*/
-    Future.successful(Ok(Json.toJson(request.identity)))
+    }
   }
 
   /**
@@ -76,7 +77,7 @@ class ApplicationController @Inject() (
       case "signUp" => Ok(views.html.signUp())
       case "signIn" => Ok(views.html.signIn(socialProviderRegistry))
       case "navigation" => Ok(views.html.navigation())
-      case "listClazz" => Ok(views.html.listClazz())
+      case "clazzes" => Ok(views.html.clazzes())
       case _ => NotFound
     }
   }

@@ -5,15 +5,15 @@
 /**
  * The clazz controller.
  */
-app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', function($rootScope, $scope, $alert, TraineeFactory) {
+app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', 'ClazzFactory', function($rootScope, $scope, $alert, ClazzFactory) {
 
   /**
    * Initializes the controller.
    */
   $scope.init = function() {
-    TraineeFactory.get()
+    ClazzFactory.get()
       .success(function(data) {
-        $rootScope.trainee = data;
+        $rootScope.clazzes = data;
       })
       .error(function(error) {
         /*$alert({ // Dont alert, we dont expect authorized trainee on home page

@@ -1,7 +1,7 @@
 package modules
 
 import com.google.inject.AbstractModule
-import models.daos.{ClazzDAOImpl, ClazzDAO}
+import models.daos._
 import net.codingwell.scalaguice.ScalaModule
 
 /**
@@ -14,5 +14,6 @@ class AppModule extends AbstractModule with ScalaModule {
    */
   def configure() {
     bind[ClazzDAO].to[ClazzDAOImpl]
+    bind[LoggerDAO].to[LoggerDAOImpl]
   }
 }

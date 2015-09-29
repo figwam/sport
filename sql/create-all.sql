@@ -1,5 +1,12 @@
 -- # --- !Ups
 
+-- DROP INDEX IF EXISTS public.address_extid_idx CASCADE;
+CREATE INDEX address_extid_idx ON public.address
+USING btree
+(
+	ext_id ASC NULLS LAST
+);
+
 --
 --         d8888      888      888
 --        d88888      888      888
@@ -758,8 +765,37 @@ REFERENCES public.login_info (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
 
+--  888
+--  888
+--  888
+--  888      .d88b.   .d88b.   .d88b.   .d88b.  888d888
+--  888     d88""88b d88P"88b d88P"88b d8P  Y8b 888P"
+--  888     888  888 888  888 888  888 88888888 888
+--  888     Y88..88P Y88b 888 Y88b 888 Y8b.     888
+--  88888888 "Y88P"   "Y88888  "Y88888  "Y8888  888
+--                        888      888
+--                   Y8b d88P Y8b d88P
+--                    "Y88P"   "Y88P"
+-- This Table is for error logging purpose. All errors will be logged here
+-- and can be analyzed afterwards. To make the system stable.
+CREATE TABLE public.logger(
+	id bigserial NOT NULL,
+	rootid text NOT NULL,
+	title text NOT NULL,
+	exception text NOT NULL,
+	stacktrace text NOT NULL,
+	req_header text NOT NULL,
+	req_method text NOT NULL,
+	req_address text NOT NULL,
+	req_uri text NOT NULL,
+	created_on timestamp NOT NULL DEFAULT NOW(),
+	CONSTRAINT logger_id_primary PRIMARY KEY (id)
+
+);
+
 -- # --- !Downs
 
+-- DROP TABLE IF EXISTS public.logger CASCADE;
 -- DROP TABLE IF EXISTS public.registration CASCADE;
 -- DROP TABLE IF EXISTS public.clazz CASCADE;
 -- DROP TABLE IF EXISTS public.studio CASCADE;
