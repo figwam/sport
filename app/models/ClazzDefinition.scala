@@ -1,19 +1,20 @@
 package models
 
-import java.util.UUID
-
-import com.mohiva.play.silhouette.api.{ Identity, LoginInfo }
-
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
+import java.util.UUID
+
 import play.api.libs.json._
 
 
-case class Clazz(
+case class ClazzDefinition(
                   id: Option[Long],
                   extId: UUID,
                   startFrom: java.sql.Timestamp,
                   endAt: java.sql.Timestamp,
+                  activeFrom: java.sql.Timestamp,
+                  activeTill: java.sql.Timestamp,
+                  recurrence: String,
                   name: String,
                   contingent: Short,
                   avatarurl: String,
@@ -24,7 +25,7 @@ case class Clazz(
 /**
  * The companion object.
  */
-object Clazz {
+object ClazzDefinition {
   implicit object timestampFormat extends Format[Timestamp] {
     val format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SS'Z'")
     def reads(json: JsValue) = {

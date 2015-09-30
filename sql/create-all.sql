@@ -1,12 +1,5 @@
 -- # --- !Ups
 
--- DROP INDEX IF EXISTS public.address_extid_idx CASCADE;
-CREATE INDEX address_extid_idx ON public.address
-USING btree
-(
-	ext_id ASC NULLS LAST
-);
-
 --
 --         d8888      888      888
 --        d88888      888      888
@@ -358,7 +351,10 @@ CREATE TABLE public.clazz(
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	id_studio bigint NOT NULL,
-	CONSTRAINT clazz_id_primary PRIMARY KEY (id)
+	avatarurl text,
+	description text,
+	CONSTRAINT clazz_id_primary PRIMARY KEY (id),
+	CONSTRAINT uniq_clazz UNIQUE (start_from,end_at,id_studio)
 
 );
 
@@ -398,6 +394,8 @@ CREATE TABLE public.clazz_definition(
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
 	id_studio bigint NOT NULL,
+	avatarurl text,
+	description text,
 	CONSTRAINT clazz_definition_id_primary PRIMARY KEY (id)
 
 );
@@ -792,6 +790,8 @@ CREATE TABLE public.logger(
 	CONSTRAINT logger_id_primary PRIMARY KEY (id)
 
 );
+
+CREATE EXTENSION "uuid-ossp";
 
 -- # --- !Downs
 

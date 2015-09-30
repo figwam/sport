@@ -47,8 +47,6 @@ class ApplicationController @Inject() (
 
   def clazzes(page: Int, orderBy: Int, filter: String) = UserAwareAction.async { implicit request =>
     clazzDAO.list(page, 10, orderBy, "%" + filter + "%").flatMap { pageClazzes =>
-      val a = null
-      a.toString
       Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>

@@ -11,6 +11,9 @@ $picture3: '../images/dance-4.jpg';
 $picture4: '../images/yoga-4.jpg';
 $picture5: '../images/zumba-4.jpg';
 
+$padding-top: 90px;
+$padding-bottom: 90px;
+
 
 $navbar-default-link-color:                #fff;
 $navbar-default-link-hover-color:          $brand-success;
@@ -112,14 +115,23 @@ form {
   color: $text-color2;
   margin-top: 50px;
   text-align: center;
-  padding-top: 90px;
-  padding-bottom: 90px;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
+}
+
+/* end home */
+#clazzes {
+  background: $body-bg;
+  margin-top: 50px;
+  text-align: center;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
 }
 
 /* start whoweare */
 #whoweare {
-  padding-top: 60px;
-  padding-bottom: 60px;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
 }
 
 #whoweare p {
@@ -135,8 +147,8 @@ form {
 /* start feature */
 #feature {
   background: $body-bg2;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
 }
 
 #feature p {
@@ -164,8 +176,8 @@ form {
 /* start studios */
 #studios {
   background: $body-bg;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
 }
 
 #studios p {
@@ -194,8 +206,8 @@ form {
 #pricing {
   background: $body-bg2;
   text-align: center;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: $padding-top;
+  padding-bottom: $padding-bottom;
 }
 
 #pricing h2 {
@@ -429,3 +441,24 @@ a {
     opacity: 1;
   }
 }
+
+
+
+
+
+hgroup { padding-top: $padding-top; padding-left: 15px; border-bottom: 1px solid $text-color2; }
+hgroup h1 { color: #2a3644; margin-top: 0; line-height: 1.15; }
+hgroup h2.lead { color: #2a3644; margin: 0; padding-bottom: 10px; }
+
+.search-result .thumbnail { border-radius: 0 !important; }
+.search-result:first-child { margin-top: 0 !important; }
+.search-result { margin-top: 20px; }
+.search-result .col-md-2 { border-right: 1px dotted $text-color2; min-height: 140px; }
+.search-result ul { padding-left: 0 !important; list-style: none;  }
+.search-result ul li { line-height: 30px; }
+.search-result ul li i { padding-right: 5px; }
+.search-result .col-md-7 { position: relative; }
+.search-result h3 { margin-top: 0 !important; margin-bottom: 10px !important; }
+.search-result h3 > a, .search-result i { text-align: left; }
+.search-result p { text-align: left;}
+.search-result span.border { display: block; width: 97%; margin: 0 15px; border-bottom: 1px dotted $text-color2; }

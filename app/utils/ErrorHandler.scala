@@ -4,7 +4,6 @@ import java.io.{StringWriter, PrintWriter}
 import javax.inject._
 
 import models.AppLogger
-import models.daos.LoggerDAO
 import play.api._
 import play.api.http.DefaultHttpErrorHandler
 import play.api.mvc.Results._
@@ -28,11 +27,10 @@ class ErrorHandler @Inject() (
     sw.toString
   }
 
-  override def onDevServerError(request: RequestHeader, exception: UsefulException) = {
+  override def onProdServerError(request: RequestHeader, exception: UsefulException) = {
     //http://doc.akka.io/docs/akka/snapshot/general/addressing.html
-    val logger = system.actorSelection("/user/DBLogAdmin")
-    logger ! AppLogger(exception.id,exception.title,exception.toString,getStackTraceAsString(exception.getCause),request.headers.toString(),request.method,request.remoteAddress,request.uri)
-
+    val loggerActor = system.actorSelection("/user/DBLogAdmin")
+    loggerActor ! AppLogger(exception.id,exception.title,exception.toString,getStackTraceAsString(exception.getCause),request.headers.toString(),request.method,request.remoteAddress,request.uri)
     super.onProdServerError(request,exception)
   }
 

@@ -29,7 +29,22 @@ app.run(function($rootScope) {
 /**
  * The application routing.
  */
-app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authProvider) {
+app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authProvider, $compileProvider ) {
+
+
+  /*
+   http://stackoverflow.com/questions/22754393/in-a-chrome-app-using-angularjs-can-i-use-the-ngsrc-directive-directly-for-inte
+
+    var currentImgSrcSanitizationWhitelist = $compileProvider.imgSrcSanitizationWhitelist();
+
+    var newImgSrcSanitizationWhiteList = currentImgSrcSanitizationWhitelist.toString().slice(0,-1)
+      + '|http:'
+      +currentImgSrcSanitizationWhitelist.toString().slice(-1);
+
+    console.log("Changing imgSrcSanitizationWhiteList from "+currentImgSrcSanitizationWhitelist+" to "+newImgSrcSanitizationWhiteList);
+  //$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|chrome-extension):/);
+  $compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
+  */
 
   $urlRouterProvider.otherwise('/home');
 
@@ -145,3 +160,5 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
     popupOptions: { width: 495, height: 500 }
   });
 });
+
+

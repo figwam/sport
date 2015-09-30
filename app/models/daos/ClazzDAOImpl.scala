@@ -1,10 +1,10 @@
 package models.daos
 
 import java.sql.Timestamp
-import java.util.UUID
+import java.util.{GregorianCalendar, Calendar, UUID}
 import javax.inject.Inject
 
-import models.Clazz
+import models.{ClazzDefinition, Clazz}
 import play.api.db.slick.DatabaseConfigProvider
 
 import scala.concurrent.Future
@@ -40,7 +40,7 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
   override def insert(clazz: Clazz): Future[Clazz] = {
     val insertQuery = slickClazzes.returning(slickClazzes.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = Some(id)))
-    val objToInsert = DBClazz(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis), 2L)
+    val objToInsert = DBClazz(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description, 2L)
     val action = insertQuery += objToInsert
     db.run(action).map(_ => clazz.copy(id = objToInsert.id))
   }
@@ -57,17 +57,18 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
       val offset = pageSize * page
       val query =
         (for {
-          clazz <- slickClazzes if clazz.name.toLowerCase like filter.toLowerCase
+          clazz <- slickClazzes if clazz.name.toLowerCase like filter.toLowerCase; if clazz.startFrom >= new Timestamp(System.currentTimeMillis())
         } yield (clazz)).drop(offset).take(pageSize)
       val querySorted = orderBy match {
         case 1 => query.sortBy(_.id)
         case -1 => query.sortBy(_.id.desc)
+        case _ => query.sortBy(_.id)
       }
       val totalRows = count(filter)
       val result = db.run(querySorted.result)
       result.map { clazz => //result is Seq[DBClazz]
         clazz.map { // go through all the DBClazzes and map them to Clazz
-          case (clazz) => Clazz(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent, 2L)
+          case (clazz) => Clazz(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent,clazz.avatarurl.get,clazz.description, clazz.idStudio)
         } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page(...)
       }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
     //} finally { db.close() }

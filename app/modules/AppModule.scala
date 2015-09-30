@@ -14,6 +14,7 @@ class AppModule extends AbstractModule with ScalaModule {
    */
   def configure() {
     bind[ClazzDAO].to[ClazzDAOImpl]
+    bind[ClazzDefinitionDAO].to[ClazzDefinitionDAOImpl]
     bind[LoggerDAO].to[LoggerDAOImpl]
   }
 }
