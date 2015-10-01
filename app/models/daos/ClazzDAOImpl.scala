@@ -29,7 +29,7 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
    * Count employees with a filter
    */
   private def count(filter: String): Future[Int] =
-    db.run(slickClazzes.filter(_.name.toLowerCase like filter.toLowerCase).length.result)
+    db.run(slickClazzes.filter(_.searchMeta.toLowerCase like filter.toLowerCase).length.result)
 
   /**
    * Count clazzes
@@ -39,8 +39,9 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
 
   override def insert(clazz: Clazz): Future[Clazz] = {
+    val searchMeta = clazz.name+" "+clazz.tags+" "+clazz.description
     val insertQuery = slickClazzes.returning(slickClazzes.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = Some(id)))
-    val objToInsert = DBClazz(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description, 2L)
+    val objToInsert = DBClazz(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),searchMeta, clazz.idClazzDef)
     val action = insertQuery += objToInsert
     db.run(action).map(_ => clazz.copy(id = objToInsert.id))
   }
@@ -57,19 +58,20 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
       val offset = pageSize * page
       val query =
         (for {
-          clazz <- slickClazzes if clazz.name.toLowerCase like filter.toLowerCase; if clazz.startFrom >= new Timestamp(System.currentTimeMillis())
-        } yield (clazz)).drop(offset).take(pageSize)
+          clazz <- slickClazzes if clazz.startFrom >= new Timestamp(System.currentTimeMillis()) if clazz.searchMeta.toLowerCase like filter.toLowerCase;
+          clazzDef <- slickClazzDefinitions if clazzDef.id === clazz.idClazzDef
+        } yield (clazz, clazzDef)).drop(offset).take(pageSize)
       val querySorted = orderBy match {
-        case 1 => query.sortBy(_.id)
-        case -1 => query.sortBy(_.id.desc)
-        case _ => query.sortBy(_.id)
+        case 1 => query.sortBy(r => r._1.id) // means first element from yield, sort by id
+        case -1 => query.sortBy(r => r._1.id.desc)
+        case _ => query.sortBy(r => r._1.id)
       }
       val totalRows = count(filter)
       val result = db.run(querySorted.result)
       result.map { clazz => //result is Seq[DBClazz]
         clazz.map { // go through all the DBClazzes and map them to Clazz
-          case (clazz) => Clazz(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.name, clazz.contingent,clazz.avatarurl.get,clazz.description, clazz.idStudio)
-        } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page(...)
+          case (clazz, clazzDef) => Clazz(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazzDef.name, clazz.contingent,clazzDef.avatarurl.get,clazzDef.description,clazzDef.tags.get,clazz.idClazzDef)
+        } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
       }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
     //} finally { db.close() }
   }

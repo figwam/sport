@@ -41,7 +41,7 @@ class ClazzDefinitionDAOImpl @Inject() (protected val dbConfigProvider: Database
 
   override def insert(clazz: ClazzDefinition): Future[ClazzDefinition] = {
     val insertQuery = slickClazzDefinitions.returning(slickClazzDefinitions.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = Some(id)))
-    val objToInsert = DBClazzDefinition(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.activeFrom,clazz.activeTill, clazz.name, clazz.recurrence, clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description, 2L)
+    val objToInsert = DBClazzDefinition(None, UUID.randomUUID().toString, clazz.startFrom, clazz.endAt, clazz.activeFrom,clazz.activeTill, clazz.name, clazz.recurrence+"", clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description,Some(clazz.tags), None, clazz.idStudio)
     val action = insertQuery += objToInsert
     db.run(action).map(_ => clazz.copy(id = objToInsert.id))
   }
@@ -54,12 +54,12 @@ class ClazzDefinitionDAOImpl @Inject() (protected val dbConfigProvider: Database
     val now = new Timestamp(nowRew.getTimeInMillis)
     val query =
       for {
-        clazz <- slickClazzDefinitions if clazz.activeFrom <= now
+        clazz <- slickClazzDefinitions if clazz.activeFrom <= now if clazz.activeTill >= now
       } yield (clazz)
     val result = db.run(query.result)
     result.map { clazz =>
       clazz.map {
-        case (clazz) => ClazzDefinition(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.activeFrom, clazz.activeTill, clazz.recurrence, clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.idStudio)
+        case (clazz) => ClazzDefinition(clazz.id, UUID.fromString(clazz.extId), clazz.startFrom, clazz.endAt, clazz.activeFrom, clazz.activeTill, Recurrence.withName(clazz.recurrence), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags.getOrElse(""), clazz.idStudio)
       }
     }
   }

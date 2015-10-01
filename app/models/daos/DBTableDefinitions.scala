@@ -145,12 +145,14 @@ trait DBTableDefinitions {
                       updatedOn: java.sql.Timestamp,
                       avatarurl: Option[String] = None,
                       description: String,
+                      tags: Option[String],
+                      deletedOn: Option[java.sql.Timestamp] = None,
                       idStudio: Long
                       )
 
 
   class ClazzDefinitions(_tableTag: Tag) extends Table[DBClazzDefinition](_tableTag, "clazz_definition") {
-    def * = (id.?, extId, startFrom, endAt, activeFrom, activeTill, name, recurrence, contingent, createdOn, updatedOn, avatarurl,description, idStudio) <>(DBClazzDefinition.tupled, DBClazzDefinition.unapply)
+    def * = (id.?, extId, startFrom, endAt, activeFrom, activeTill, name, recurrence, contingent, createdOn, updatedOn, avatarurl,description, tags, deletedOn, idStudio) <>(DBClazzDefinition.tupled, DBClazzDefinition.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
@@ -164,6 +166,8 @@ trait DBTableDefinitions {
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
     val description: Rep[String] = column[String]("description")
+    val tags: Rep[Option[String]] = column[Option[String]]("tags", O.Default(None))
+    val deletedOn: Rep[Option[java.sql.Timestamp]] = column[Option[java.sql.Timestamp]]("deleted_on")
     val idStudio: Rep[Long] = column[Long]("id_studio")
     lazy val studioFk = foreignKey("studio_fk", idStudio, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
     val index1 = index("training_ext_id_idx", extId)
@@ -174,31 +178,27 @@ trait DBTableDefinitions {
                       extId: String,
                       startFrom: java.sql.Timestamp,
                       endAt: java.sql.Timestamp,
-                      name: String,
                       contingent: Short,
                       createdOn: java.sql.Timestamp,
                       updatedOn: java.sql.Timestamp,
-                      avatarurl: Option[String] = None,
-                      description: String,
-                      idStudio: Long
+                      searchMeta: String,
+                      idClazzDef: Long
                       )
 
 
   class Clazzes(_tableTag: Tag) extends Table[DBClazz](_tableTag, "clazz") {
-    def * = (id.?, extId, startFrom, endAt, name, contingent, createdOn, updatedOn, avatarurl, description, idStudio) <>(DBClazz.tupled, DBClazz.unapply)
+    def * = (id.?, extId, startFrom, endAt, contingent, createdOn, updatedOn, searchMeta, idClazzDef) <>(DBClazz.tupled, DBClazz.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
-    val name: Rep[String] = column[String]("name")
     val contingent: Rep[Short] = column[Short]("contingent")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
-    val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
-    val description: Rep[String] = column[String]("description")
-    val idStudio: Rep[Long] = column[Long]("id_studio")
-    lazy val studioFk = foreignKey("studio_fk", idStudio, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
-    val index1 = index("training_ext_id_idx", extId)
+    val searchMeta: Rep[String] = column[String]("search_meta")
+    val idClazzDef: Rep[Long] = column[Long]("id_clazzdef")
+    lazy val studioFk = foreignKey("studio_fk", idClazzDef, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
+    val index1 = index("clazz_ext_id_idx", extId)
   }
 
   case class DBLoginInfo(

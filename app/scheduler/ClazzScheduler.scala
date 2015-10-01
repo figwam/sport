@@ -1,18 +1,19 @@
 package scheduler
 
-import java.sql.Timestamp
+import org.postgresql.util.PSQLException
+import play.Play
+import utils._
 import java.util.{GregorianCalendar, Calendar, Date, UUID}
 
 import akka.actor.{Cancellable, Actor}
 import javax.inject.{Inject, Singleton}
-import models._
 import models.daos.{ClazzDefinitionDAO, ClazzDAO}
 import play.api.Logger
 import play.libs.Json
 
-import scala.concurrent.Await
+import models.Recurrence._
+
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.Duration
 
 
 /**
@@ -42,40 +43,46 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO, clazzDefinitionDAO: ClazzDef
   def receive = {
     case CREATE_CLAZZES =>
       try {
-        def calculateNextClazz(recurrence: String, startFrom: Calendar, endAt: Calendar, clazzDef: ClazzDefinition) : Clazz = {
-          val now = new Timestamp(System.currentTimeMillis())
-            if (recurrence.equals("WEEKLY")
-              && startFrom.before(now)){
-              startFrom.add(Calendar.DAY_OF_YEAR,7)
-              endAt.add(Calendar.DAY_OF_YEAR,7)
-              calculateNextClazz("WEEKLY",startFrom,endAt, clazzDef)
-            } else Clazz(None, UUID.randomUUID(),new Timestamp(startFrom.getTimeInMillis), new Timestamp(endAt.getTimeInMillis), clazzDef.name,clazzDef.contingent,clazzDef.avatarurl,clazzDef.description,clazzDef.idStudio )
-        }
+        val seeInAdvanceDays = Play.application().configuration().getString("days.see.clazzes.in.advance").toInt
+        val clazzes =  clazzDefinitionDAO.listActive()
+        Logger.debug("Execute Cron "+CREATE_CLAZZES+":"+Json.toJson(clazzes))
+        clazzes.map { clazzDef =>
+          clazzDef.map { clazzDef =>
+            clazzDef.recurrence match {
+              case (WEEKLY) => {
+                Logger.debug("Create clazz"+Json.toJson(clazzDef))
+                val startFrom = new GregorianCalendar
+                startFrom.setTimeInMillis(clazzDef.startFrom.getTime)
+                val endAt = new GregorianCalendar
+                endAt.setTimeInMillis(clazzDef.endAt.getTime)
+                val activeFrom = new GregorianCalendar
+                activeFrom.setTimeInMillis(clazzDef.activeFrom.getTime)
+                val activeTill = new GregorianCalendar
+                activeTill.setTimeInMillis(clazzDef.activeTill.getTime)
 
-        clazzDefinitionDAO.listActive().map { clazzDef =>
-        clazzDef.map { clazzDef =>
-          clazzDef.recurrence match {
-            case ("WEEKLY") => {
-              println("Create clazz"+Json.toJson(clazzDef))
-              val startFrom = new GregorianCalendar
-              startFrom.setTimeInMillis(clazzDef.startFrom.getTime)
-              val endAt = new GregorianCalendar
-              endAt.setTimeInMillis(clazzDef.endAt.getTime)
-
-              clazzDAO.insert(calculateNextClazz(clazzDef.recurrence, startFrom, endAt,clazzDef))
-                .map(c => println("Create clazzes inserted, with id="+c.id))
-              println("Finally Create clazzes inserted")
+                Utils.calculateNextClazzes(clazzDef.recurrence, startFrom, endAt, seeInAdvanceDays, clazzDef) match {
+                  case Some(clazz) => {
+                    val future = clazzDAO.insert(clazz).map(c => Logger.debug("Create clazzes inserted, with id="+c.id))
+                    future.onSuccess { case a => Logger.debug(s"Class created: $a") }
+                    future.onFailure {
+                      case t: PSQLException => Logger.warn("Class already exists"+t.getMessage)
+                      case t: Throwable => Logger.error(t.getMessage,t)
+                    }
+                  }
+                  case _ => Logger.warn("outdated clazz definition found, id="+clazzDef.id)
+                }
+              }
+              case (ONETIME) => {}
+              case _ => Logger.warn("Recurrence type unknown: "+clazzDef.recurrence);
             }
-            case ("ONETIME") => {}
-            case _ => Logger.warn("Recurrence type unknown: "+clazzDef.recurrence)
           }
         }
-
-
-        }
+        Logger.debug("Finished Cron "+CREATE_CLAZZES+":"+Json.toJson(clazzes))
+        clazzes.onSuccess { case a => Logger.debug(s"Classes created: $a") }
+        clazzes.onFailure { case t: Throwable => Logger.error(t.getMessage,t) }
       } catch {
         case t: Throwable =>
-          t.printStackTrace()
+          Logger.error(t.getMessage,t)
       }
   }
 

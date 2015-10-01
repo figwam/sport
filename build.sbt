@@ -22,6 +22,7 @@ libraryDependencies ++= Seq(
   "com.adrianhurt" %% "play-bootstrap3" % "0.4.4-P24",
   "org.webjars" % "bootstrap" % "3.1.1",
   "com.mohiva" %% "play-silhouette-testkit" % "3.0.2" % "test",
+  "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test",
   "org.webjars.bower" % "font-awsome" % "4.4.0",
   specs2 % Test,
   "com.typesafe.play" %% "play-slick" % "1.0.1",

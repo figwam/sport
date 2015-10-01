@@ -330,6 +330,57 @@ USING btree
 	ext_id ASC NULLS LAST
 );
 
+
+--   .d8888b.  888                                 8888888b.            .d888 d8b          d8b 888    d8b
+--  d88P  Y88b 888                                 888  "Y88b          d88P"  Y8P          Y8P 888    Y8P
+--  888    888 888                                 888    888          888                     888
+--  888        888  8888b.  88888888 88888888      888    888  .d88b.  888888 888 88888b.  888 888888 888  .d88b.  88888b.
+--  888        888     "88b    d88P     d88P       888    888 d8P  Y8b 888    888 888 "88b 888 888    888 d88""88b 888 "88b
+--  888    888 888 .d888888   d88P     d88P        888    888 88888888 888    888 888  888 888 888    888 888  888 888  888
+--  Y88b  d88P 888 888  888  d88P     d88P         888  .d88P Y8b.     888    888 888  888 888 Y88b.  888 Y88..88P 888  888
+--   "Y8888P"  888 "Y888888 88888888 88888888      8888888P"   "Y8888  888    888 888  888 888  "Y888 888  "Y88P"  888  888
+--
+--
+--
+CREATE TABLE public.clazz_definition(
+  id bigserial NOT NULL,
+  ext_id text NOT NULL,
+  start_from timestamp NOT NULL,
+  end_at timestamp NOT NULL,
+  active_from timestamp NOT NULL DEFAULT NOW(),
+  active_till timestamp,
+  name text NOT NULL,
+  recurrence text NOT NULL,
+  contingent smallint NOT NULL,
+  created_on timestamp NOT NULL DEFAULT NOW(),
+  updated_on timestamp NOT NULL DEFAULT NOW(),
+  id_studio bigint NOT NULL,
+  avatarurl text,
+  description text,
+  tags text,
+  deleted_on timestamp,
+  CONSTRAINT clazz_definition_id_primary PRIMARY KEY (id)
+
+);
+
+-- ALTER TABLE public.clazz DROP CONSTRAINT IF EXISTS studio_fk CASCADE;
+ALTER TABLE public.clazz_definition ADD CONSTRAINT studio_fk FOREIGN KEY (id_studio)
+REFERENCES public.studio (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
+CREATE INDEX clazz_definition_ext_id_idx ON public.clazz_definition
+USING btree
+(
+  ext_id ASC NULLS LAST
+);
+-- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
+CREATE INDEX clazz_definition_isdel_idx ON public.clazz_definition
+USING btree
+(
+  is_deleted ASC NULLS LAST
+);
+
 --   .d8888b.  888
 --  d88P  Y88b 888
 --  888    888 888
@@ -346,70 +397,39 @@ CREATE TABLE public.clazz(
 	ext_id text NOT NULL,
 	start_from timestamp NOT NULL,
 	end_at timestamp NOT NULL,
-	name text NOT NULL,
 	contingent smallint NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
-	id_studio bigint NOT NULL,
-	avatarurl text,
-	description text,
+	search_meta text NOT NULL,
+	id_clazzdef bigint NOT NULL,
 	CONSTRAINT clazz_id_primary PRIMARY KEY (id),
-	CONSTRAINT uniq_clazz UNIQUE (start_from,end_at,id_studio)
+  CONSTRAINT uniq_clazz UNIQUE (start_from,end_at, id_clazzdef)
 
 );
 
--- ALTER TABLE public.clazz DROP CONSTRAINT IF EXISTS studio_fk CASCADE;
-ALTER TABLE public.clazz ADD CONSTRAINT studio_fk FOREIGN KEY (id_studio)
-REFERENCES public.studio (id) MATCH FULL
+-- ALTER TABLE public.clazz DROP CONSTRAINT IF EXISTS clazzdef_fk CASCADE;
+ALTER TABLE public.clazz ADD CONSTRAINT clazzdef_fk FOREIGN KEY (id_clazzdef)
+REFERENCES public.clazz_definition (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
 CREATE INDEX clazz_ext_id_idx ON public.clazz
 USING btree
 (
-	ext_id ASC NULLS LAST
+  ext_id ASC NULLS LAST
 );
-
---   .d8888b.  888                                 8888888b.            .d888 d8b          d8b 888    d8b
---  d88P  Y88b 888                                 888  "Y88b          d88P"  Y8P          Y8P 888    Y8P
---  888    888 888                                 888    888          888                     888
---  888        888  8888b.  88888888 88888888      888    888  .d88b.  888888 888 88888b.  888 888888 888  .d88b.  88888b.
---  888        888     "88b    d88P     d88P       888    888 d8P  Y8b 888    888 888 "88b 888 888    888 d88""88b 888 "88b
---  888    888 888 .d888888   d88P     d88P        888    888 88888888 888    888 888  888 888 888    888 888  888 888  888
---  Y88b  d88P 888 888  888  d88P     d88P         888  .d88P Y8b.     888    888 888  888 888 Y88b.  888 Y88..88P 888  888
---   "Y8888P"  888 "Y888888 88888888 88888888      8888888P"   "Y8888  888    888 888  888 888  "Y888 888  "Y88P"  888  888
---
---
---
-CREATE TABLE public.clazz_definition(
-	id bigserial NOT NULL,
-	ext_id text NOT NULL,
-	start_from timestamp NOT NULL,
-	end_at timestamp NOT NULL,
-	active_from timestamp NOT NULL DEFAULT NOW(),
-	active_till timestamp,
-	name text NOT NULL,
-	recurrence text NOT NULL,
-	contingent smallint NOT NULL,
-	created_on timestamp NOT NULL DEFAULT NOW(),
-	updated_on timestamp NOT NULL DEFAULT NOW(),
-	id_studio bigint NOT NULL,
-	avatarurl text,
-	description text,
-	CONSTRAINT clazz_definition_id_primary PRIMARY KEY (id)
-
-);
-
--- ALTER TABLE public.clazz DROP CONSTRAINT IF EXISTS studio_fk CASCADE;
-ALTER TABLE public.clazz_definition ADD CONSTRAINT studio_fk FOREIGN KEY (id_studio)
-REFERENCES public.studio (id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
-CREATE INDEX clazz_definition_ext_id_idx ON public.clazz_definition
+-- DROP INDEX IF EXISTS public.clazz_search_meta_idx CASCADE;
+CREATE INDEX clazz_search_meta_idx ON public.clazz
 USING btree
 (
-	ext_id ASC NULLS LAST
+  search_meta ASC NULLS LAST
+);
+
+-- DROP INDEX IF EXISTS public.clazz_clazz_def_id_idx CASCADE;
+CREATE INDEX clazz_clazz_def_id_idx ON public.clazz
+USING btree
+(
+  id_clazzdef ASC NULLS LAST
 );
 
 --  8888888b.                   d8b          888                    888    d8b

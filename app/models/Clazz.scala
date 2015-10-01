@@ -18,7 +18,8 @@ case class Clazz(
                   contingent: Short,
                   avatarurl: String,
                   description: String,
-                  idStudio: Long)
+                  tags: String,
+                  idClazzDef: Long)
 
 
 /**
