@@ -201,6 +201,38 @@ trait DBTableDefinitions {
     val index1 = index("clazz_ext_id_idx", extId)
   }
 
+  case class DBClazzView(
+                      id: Option[Long],
+                      extId: String,
+                      startFrom: java.sql.Timestamp,
+                      endAt: java.sql.Timestamp,
+                      name: String,
+                      contingent: Short,
+                      avatarurl: Option[String] = None,
+                      description: String,
+                      tags: Option[String],
+                      searchMeta: String,
+                      registrations: Short,
+                      idClazzDef: Long
+                      )
+
+  class ClazzViews(_tableTag: Tag) extends Table[DBClazzView](_tableTag, "clazz_view") {
+    def * = (id.?, extId, startFrom, endAt, name, contingent, avatarurl,description, tags, searchMeta, registrations, idClazzDef) <>(DBClazzView.tupled, DBClazzView.unapply)
+    val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
+    val extId: Rep[String] = column[String]("ext_id")
+    val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
+    val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
+    val name: Rep[String] = column[String]("name")
+    val contingent: Rep[Short] = column[Short]("contingent")
+    val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
+    val description: Rep[String] = column[String]("description")
+    val tags: Rep[Option[String]] = column[Option[String]]("tags", O.Default(None))
+    val searchMeta: Rep[String] = column[String]("search_meta")
+    val registrations: Rep[Short] = column[Short]("nr_of_regs")
+    val idClazzDef: Rep[Long] = column[Long]("id_clazzdef")
+
+  }
+
   case class DBLoginInfo(
     id: Option[Long],
     providerId: String,
@@ -671,6 +703,7 @@ trait DBTableDefinitions {
   val slickOpenIDInfos = TableQuery[OpenIDInfos]
   val slickOpenIDAttributes = TableQuery[OpenIDAttributes]
   val slickClazzes = TableQuery[Clazzes]
+  val slickClazzViews = TableQuery[ClazzViews]
   val slickClazzDefinitions = TableQuery[ClazzDefinitions]
   val slickOffers = TableQuery[Offers]
   val slickRegistrations = TableQuery[Registrations]

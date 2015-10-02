@@ -3,7 +3,7 @@
 <div ng-controller="ClazzCtrl" ng-init="init()">
     <hgroup class="mb20">
         <h1>Search Results</h1>
-        <h2 class="lead"><strong class="text-danger">3</strong> results were found for the search for <strong class="text-danger">Lorem</strong></h2>
+        <h2 class="lead"><strong class="text-danger">{{clazzes.total}}</strong> results were found</h2>
     </hgroup>
 
     <section id="clazzes" class="col-xs-12 col-sm-6 col-md-12">
@@ -15,7 +15,8 @@
                 <ul class="meta-search">
                     <li><i class="fa fa-calendar"></i> <span>{{item.startFrom  | date: 'EEE, dd MMM'}}</span></li>
                     <li><i class="fa fa-clock-o"></i> <span>{{item.startFrom  | date: 'HH:mm'}}-{{item.endAt | date: 'HH:mm'}}</span></li>
-                    <li><i class="fa fa-users"></i> <span>2 von {{item.contingent}} frei</span></li>
+                    <li ng-if="item.contingent - item.registrations > 0"><i class="fa fa-users"></i> <span>{{item.contingent - item.registrations}} von {{item.contingent}} frei</span></li>
+                    <li ng-if="item.contingent - item.registrations <= 0"><i class="fa fa-users"></i> <span><strong class="text-danger">Ausgebucht</strong></span></li>
                 </ul>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">

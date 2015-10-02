@@ -374,13 +374,6 @@ USING btree
 (
   ext_id ASC NULLS LAST
 );
--- DROP INDEX IF EXISTS public.clazz_ext_id_idx CASCADE;
-CREATE INDEX clazz_definition_isdel_idx ON public.clazz_definition
-USING btree
-(
-  is_deleted ASC NULLS LAST
-);
-
 --   .d8888b.  888
 --  d88P  Y88b 888
 --  888    888 888
@@ -464,7 +457,7 @@ REFERENCES public.clazz (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- ALTER TABLE public.registration DROP CONSTRAINT IF EXISTS registration_uq CASCADE;
-ALTER TABLE public.registration ADD CONSTRAINT registration_uq UNIQUE (id_clazz);
+ALTER TABLE public.registration ADD CONSTRAINT registration_uq UNIQUE (id_clazz, id_trainee);
 
 --  DROP INDEX IF EXISTS public.registration_ext_id_idx CASCADE;
 CREATE INDEX registration_ext_id_idx ON public.registration
@@ -812,6 +805,43 @@ CREATE TABLE public.logger(
 );
 
 CREATE EXTENSION "uuid-ossp";
+
+
+
+--  888     888 8888888 8888888888 888       888  .d8888b.
+--  888     888   888   888        888   o   888 d88P  Y88b
+--  888     888   888   888        888  d8b  888 Y88b.
+--  Y88b   d88P   888   8888888    888 d888b 888  "Y888b.
+--   Y88b d88P    888   888        888d88888b888     "Y88b.
+--    Y88o88P     888   888        88888P Y88888       "888
+--     Y888P      888   888        8888P   Y8888 Y88b  d88P
+--      Y8P     8888888 8888888888 888P     Y888  "Y8888P"
+--
+--
+--
+
+--   .d8888b.  888                                 888     888 d8b
+--  d88P  Y88b 888                                 888     888 Y8P
+--  888    888 888                                 888     888
+--  888        888  8888b.  88888888 88888888      Y88b   d88P 888  .d88b.  888  888  888
+--  888        888     "88b    d88P     d88P        Y88b d88P  888 d8P  Y8b 888  888  888
+--  888    888 888 .d888888   d88P     d88P          Y88o88P   888 88888888 888  888  888
+--  Y88b  d88P 888 888  888  d88P     d88P            Y888P    888 Y8b.     Y88b 888 d88P
+--   "Y8888P"  888 "Y888888 88888888 88888888          Y8P     888  "Y8888   "Y8888888P"
+--
+--
+--
+CREATE VIEW clazz_view AS
+	select c.id, c.ext_id, c.start_from, c.end_at, cd.name, c.contingent,
+		cd.avatarurl, cd.description, cd.tags, c.search_meta, nr_of_regs, c.id_clazzdef
+	from (
+				 select c.id, c.ext_id, c.start_from, c.end_at, c.contingent,
+					 c.created_on, c.updated_on, c.search_meta, c.id_clazzdef,
+					 count(r.id_clazz) as nr_of_regs
+				 from clazz c
+					 left join registration r on r.id_clazz = c.id
+				 group by c.id) as c, clazz_definition cd
+	where c.id_clazzdef = cd.id;
 
 -- # --- !Downs
 

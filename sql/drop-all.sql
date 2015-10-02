@@ -25,3 +25,5 @@ DROP TABLE IF EXISTS public.oauth2_info CASCADE;
 DROP TABLE IF EXISTS public.openidinfo CASCADE;
 DROP TABLE IF EXISTS public.openidattributes CASCADE;
 DROP TABLE IF EXISTS public.login_info CASCADE;
+DROP VIEW IF EXISTS public.clazz_view CASCADE;
+
