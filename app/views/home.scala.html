@@ -1,5 +1,6 @@
 @()(implicit messages: Messages)
-<div ng-controller="HomeCtrl" ng-init="init()">
+<div ng-controller="HomeCtrl"></div>
+<div ng-controller="ClazzCtrl"> <!-- ng-init="init()"-->
         <!-- start home -->
     <section id="home">
         <div class="overlay">
@@ -9,12 +10,19 @@
                         <h1 class="text-left">@Messages("welcome.title")</h1>
                         <h4 class="text-left">@Messages("welcome.subtext.1")</h4>
                         <h5 class="text-left">@Messages("welcome.subtext.2")</h5>
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Trainer suchen">
-                            <span class="input-group-btn">
-                                <button class="btn btn-success" type="button">Los!</button>
-                            </span>
-                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <form name="form" id="search-form" ng-submit="submitSearch()">
+                                <div class="input-group">
+                                    <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz")">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-success" type="submit" value="submitSearch" type="button">@Messages("search.go")</button>
+                                    </span>
+                                </div><!-- /input-group -->
+                                    </form>
+                            </div><!-- /.col-lg-6 -->
+                        </div><!-- /.row -->
                     </div>
                 </div>
             </div>

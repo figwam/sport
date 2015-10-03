@@ -390,10 +390,8 @@ CREATE TABLE public.clazz(
 	ext_id text NOT NULL,
 	start_from timestamp NOT NULL,
 	end_at timestamp NOT NULL,
-	contingent smallint NOT NULL,
 	created_on timestamp NOT NULL DEFAULT NOW(),
 	updated_on timestamp NOT NULL DEFAULT NOW(),
-	search_meta text NOT NULL,
 	id_clazzdef bigint NOT NULL,
 	CONSTRAINT clazz_id_primary PRIMARY KEY (id),
   CONSTRAINT uniq_clazz UNIQUE (start_from,end_at, id_clazzdef)
@@ -410,12 +408,6 @@ CREATE INDEX clazz_ext_id_idx ON public.clazz
 USING btree
 (
   ext_id ASC NULLS LAST
-);
--- DROP INDEX IF EXISTS public.clazz_search_meta_idx CASCADE;
-CREATE INDEX clazz_search_meta_idx ON public.clazz
-USING btree
-(
-  search_meta ASC NULLS LAST
 );
 
 -- DROP INDEX IF EXISTS public.clazz_clazz_def_id_idx CASCADE;
@@ -832,16 +824,22 @@ CREATE EXTENSION "uuid-ossp";
 --
 --
 CREATE VIEW clazz_view AS
-	select c.id, c.ext_id, c.start_from, c.end_at, cd.name, c.contingent,
-		cd.avatarurl, cd.description, cd.tags, c.search_meta, nr_of_regs, c.id_clazzdef
-	from (
-				 select c.id, c.ext_id, c.start_from, c.end_at, c.contingent,
-					 c.created_on, c.updated_on, c.search_meta, c.id_clazzdef,
-					 count(r.id_clazz) as nr_of_regs
-				 from clazz c
-					 left join registration r on r.id_clazz = c.id
-				 group by c.id) as c, clazz_definition cd
-	where c.id_clazzdef = cd.id;
+  select c.id, c.ext_id, c.start_from, c.end_at, cd.name, cd.contingent,
+    cd.avatarurl, cd.description, cd.tags,
+    concat('{',cd.name,'},',
+           '{',s.name,'},',
+           '{',cd.description,'},',
+           '{',cd.tags,'}') as search_meta, nr_of_regs,
+    c.id_clazzdef
+  from (
+         select c.id, c.ext_id, c.start_from, c.end_at,
+           c.created_on, c.updated_on, c.id_clazzdef,
+           count(r.id_clazz) as nr_of_regs
+         from clazz c
+           left join registration r on r.id_clazz = c.id
+         group by c.id) as c, clazz_definition cd, studio s
+  where c.id_clazzdef = cd.id
+        and cd.id_studio = s.id;
 
 -- # --- !Downs
 

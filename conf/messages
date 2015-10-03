@@ -74,6 +74,15 @@ trainee.exists=Benutzer mit dieser E-Mail Adresse ist bereits registriert
 word.welcome=Willkommen
 
 
+search.clazz=Training suchen
+search.clazz.filter=Trainings filtern
+search.go=Los!
+clazz.book=Anmelden
+clazz.booked.out=Ausgebucht
+search.result=Suchresultate
+#search.result.amount={0,choice,0#Keine Trainings|1#Ein Training|1<{0,number,integer} Trainings wurden} gefunden
+search.result.amount=Trainings wurden gefunden
+
 
 
 

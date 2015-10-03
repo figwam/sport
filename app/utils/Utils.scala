@@ -55,7 +55,7 @@ object Utils {
     }
 
 
-    val clazz = Clazz(None, UUID.randomUUID(), clazzDef.startFrom,clazzDef.endAt, clazzDef.name, clazzDef.contingent, clazzDef.avatarurl, clazzDef.description, clazzDef.tags, 0, clazzDef.idStudio)
+    val clazz = Clazz(None, UUID.randomUUID(), clazzDef.startFrom,clazzDef.endAt, clazzDef.name, clazzDef.contingent, clazzDef.avatarurl, clazzDef.description, clazzDef.tags, 0, "",clazzDef.idStudio)
     List(
     // activ bis muss in zukunft liegen ODER
     // activ von muss vor calculateTill

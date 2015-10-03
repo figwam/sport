@@ -178,24 +178,20 @@ trait DBTableDefinitions {
                       extId: String,
                       startFrom: java.sql.Timestamp,
                       endAt: java.sql.Timestamp,
-                      contingent: Short,
                       createdOn: java.sql.Timestamp,
                       updatedOn: java.sql.Timestamp,
-                      searchMeta: String,
                       idClazzDef: Long
                       )
 
 
   class Clazzes(_tableTag: Tag) extends Table[DBClazz](_tableTag, "clazz") {
-    def * = (id.?, extId, startFrom, endAt, contingent, createdOn, updatedOn, searchMeta, idClazzDef) <>(DBClazz.tupled, DBClazz.unapply)
+    def * = (id.?, extId, startFrom, endAt, createdOn, updatedOn, idClazzDef) <>(DBClazz.tupled, DBClazz.unapply)
     val id: Rep[Long] = column[Long]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
-    val contingent: Rep[Short] = column[Short]("contingent")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
-    val searchMeta: Rep[String] = column[String]("search_meta")
     val idClazzDef: Rep[Long] = column[Long]("id_clazzdef")
     lazy val studioFk = foreignKey("studio_fk", idClazzDef, slickStudios)(r => r.id.get, onUpdate = ForeignKeyAction.Cascade, onDelete = ForeignKeyAction.Restrict)
     val index1 = index("clazz_ext_id_idx", extId)

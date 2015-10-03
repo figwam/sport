@@ -110,9 +110,9 @@ VALUES (2, 'bcrypt', '$2a$10$IJsMs8yzNR4Twwh1JpQBUej8bKRUtnOLX2IVVU9JiGN06ru2key
 	(4, 'bcrypt', '$2a$10$IJsMs8yzNR4Twwh1JpQBUej8bKRUtnOLX2IVVU9JiGN06ru2keyLy');
 
 INSERT INTO clazz_definition (ext_id, active_from, active_till, start_from, end_at, name, recurrence,  contingent, avatarurl, description, id_studio)
-		VALUES (uuid_generate_v1(),'2015-09-28 17:00:00.000000','2016-09-27 17:45:00.000000','2015-09-28 17:00:00.000000','2016-09-28 17:45:00.000000',
+		VALUES (uuid_generate_v1(),'2015-09-28 17:00:00.000000','2217-09-27 17:45:00.000000','2015-09-28 17:00:00.000000','2016-09-28 17:45:00.000000',
 		'Sandsack','WEEKLY','3','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Trainiere am Sandsack bla bla Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',2),
-			(uuid_generate_v1(),'2015-10-05 17:00:00.000000','2016-09-27 17:45:00.000000','2015-09-25 16:00:00.000000','2015-09-25 17:30:00.000000',
+			(uuid_generate_v1(),'2015-10-05 17:00:00.000000','2218-09-27 17:45:00.000000','2015-09-25 16:00:00.000000','2015-09-25 17:30:00.000000',
 			 'Fitness','WEEKLY','3','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Fitnes Rocks, just do it. bla bla Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',3),
 			(uuid_generate_v1(),'2014-09-23 14:00:00.000000','2250-09-23 15:00:00.000000','2015-10-8 14:00:00.000000','2015-10-08 15:00:00.000000',
 			 'Calistenics 4 All','ONETIME','20','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Calistencis outdor ist eine vielseitige Sportart mit eigenem Körpergewicht. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',4);

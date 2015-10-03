@@ -1,21 +1,16 @@
 package controllers
 
-import java.sql.Timestamp
-import java.util.UUID
 import java.util.concurrent.TimeoutException
 import javax.inject.{Singleton, Inject}
 
-import akka.actor.Props
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.{Clazz, Trainee}
-import models.daos.{TraineeDAO, ClazzDAO}
+import models.{Trainee}
+import models.daos.{ClazzDAO}
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.libs.Akka
-import scheduler.ClazzScheduler
 import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
@@ -46,11 +41,11 @@ class ApplicationController @Inject() (
 
 
   def clazzes(page: Int, orderBy: Int, filter: String) = UserAwareAction.async { implicit request =>
-    clazzDAO.listView(page, 10, orderBy, "%" + filter + "%").flatMap { pageClazzes =>
+    clazzDAO.list(page, 10, orderBy, "%" + filter + "%").flatMap { pageClazzes =>
       Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>
-        Logger.error("Problem found in employee list process")
+        Logger.error("Problem found in clazz list process")
         InternalServerError(ex.getMessage)
     }
   }

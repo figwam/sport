@@ -1,32 +1,40 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
-<div ng-controller="ClazzCtrl" ng-init="init()">
+<div ng-controller="ClazzCtrl"><!-- ng-init="init()"-->
+
     <hgroup class="mb20">
-        <h1>Search Results</h1>
-        <h2 class="lead"><strong class="text-danger">{{clazzes.total}}</strong> results were found</h2>
+        <h1>@Messages("search.result")</h1>
+        <h2 class="lead"><strong class="text-danger">{{clazzes.total}}&nbsp;</strong>@Messages("search.result.amount")<!--<strong class="text-danger">&nbsp;{{clazzes.searchString}}</strong>--></h2>
+
+        <div class="row">
+            <div class="col-md-6">
+                <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz.filter")">
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
     </hgroup>
-
-    <section id="clazzes" class="col-xs-12 col-sm-6 col-md-12">
-        <article class="search-result row"  ng-repeat="(key, item) in clazzes.items">
-            <div class="col-xs-12 col-sm-12 col-md-3">
-                <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="Lorem ipsum" /></a>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2">
-                <ul class="meta-search">
-                    <li><i class="fa fa-calendar"></i> <span>{{item.startFrom  | date: 'EEE, dd MMM'}}</span></li>
-                    <li><i class="fa fa-clock-o"></i> <span>{{item.startFrom  | date: 'HH:mm'}}-{{item.endAt | date: 'HH:mm'}}</span></li>
-                    <li ng-if="item.contingent - item.registrations > 0"><i class="fa fa-users"></i> <span>{{item.contingent - item.registrations}} von {{item.contingent}} frei</span></li>
-                    <li ng-if="item.contingent - item.registrations <= 0"><i class="fa fa-users"></i> <span><strong class="text-danger">Ausgebucht</strong></span></li>
-                </ul>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
-                <h3><a href="#" title="">{{item.name}}</a></h3>
-                <p>{{item.description}}</p>
-                <button class="btn btn-success">Buchen</button>
-                <button class="btn btn-danger">Cancel</button>
-            </div>
-            <span class="clearfix borda"></span>
-        </article>
-
+    <section id="clazzes">
+        <div class="container">
+            <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+            <article class="search-result row"  dir-paginate="(key, item) in clazzes.items | searchFor:searchString | itemsPerPage: 10" total-items="totalClazzes" current-page="pagination.current">
+                <hr>
+                <div class="col-xs-12 col-sm-12 col-md-3">
+                    <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="Lorem ipsum" /></a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-2">
+                    <ul class="meta-search">
+                        <li><i class="fa fa-calendar"></i> <span>{{item.startFrom  | date: 'EEE, dd MMM'}}</span></li>
+                        <li><i class="fa fa-clock-o"></i> <span>{{item.startFrom  | date: 'HH:mm'}}-{{item.endAt | date: 'HH:mm'}}</span></li>
+                        <li ng-if="item.contingent - item.registrations > 0"><i class="fa fa-users"></i> <span>{{item.contingent - item.registrations}} von {{item.contingent}} frei</span></li>
+                        <li ng-if="item.contingent - item.registrations <= 0"><i class="fa fa-users"></i> <span><strong class="text-danger">@Messages("clazz.booked.out")</strong></span></li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                    <h3><a href="#" title="">{{item.name}}</a></h3>
+                    <p>{{item.description}}</p>
+                    <button class="btn btn-success">@Messages("clazz.book")</button>
+                        <!--<button class="btn btn-danger">Cancel</button>-->
+                </div>
+            </article>
+        </div>
     </section>
 </div>

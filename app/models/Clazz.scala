@@ -16,6 +16,7 @@ case class Clazz(
                   description: String,
                   tags: Option[String],
                   registrations: Short = 0,
+                  searchMeta: String,
                   idClazzDef: Long)
 
 

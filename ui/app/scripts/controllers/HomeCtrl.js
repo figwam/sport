@@ -5,7 +5,7 @@
 /**
  * The home controller.
  */
-app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', 'TraineeFactory', function($rootScope, $scope, $alert, TraineeFactory) {
+app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', '$http', '$location','TraineeFactory', function($rootScope, $scope, $alert, $http, $location, TraineeFactory) {
 
   /**
    * Initializes the controller.
@@ -24,4 +24,5 @@ app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', 'TraineeFactory', 
         });*/
       });
   };
+
 }]);

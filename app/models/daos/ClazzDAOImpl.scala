@@ -19,7 +19,6 @@ trait ClazzDAO  {
   //  def update(id: Long, clazz: Clazz): Future[Int]
   //  def delete(id: Long): Future[Int]
   def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page]
-  def listView(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page]
   //  def findById(id: Long): Future[Clazz]
   def count: Future[Int]
 
@@ -31,9 +30,6 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
 
   private def count(filter: String): Future[Int] =
-    db.run(slickClazzes.filter(_.searchMeta.toLowerCase like filter.toLowerCase).length.result)
-
-  private def countView(filter: String): Future[Int] =
     db.run(slickClazzViews.filter(_.searchMeta.toLowerCase like filter.toLowerCase).length.result)
 
   /**
@@ -44,9 +40,8 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
 
   override def insert(clazz: Clazz): Future[Clazz] = {
-    val searchMeta = clazz.name+" "+clazz.tags+" "+clazz.description
     val insertQuery = slickClazzes.returning(slickClazzes.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = Some(id)))
-    val objToInsert = DBClazz(None, UUID.randomUUID().toString, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),searchMeta, clazz.idClazzDef)
+    val objToInsert = DBClazz(None, UUID.randomUUID().toString, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis), clazz.idClazzDef)
     val action = insertQuery += objToInsert
     db.run(action).map(_ => clazz.copy(id = objToInsert.id))
   }
@@ -58,6 +53,7 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
    * @param orderBy
    * @param filter
    */
+  /*
   override def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page] = {
     val offset = pageSize * page
     val clazzAction = (for {
@@ -77,32 +73,29 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
         // go through all the DBClazzes and map them to Clazz
         case (clazz, clazzDef) => {
           //Logger.info(clazzDef.name+"("+clazz.id+")-->"+registrations._2)
-          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazzDef.name, clazz.contingent, clazzDef.avatarurl.get, clazzDef.description, clazzDef.tags, 0, clazz.idClazzDef)
+          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazzDef.name, clazz.contingent, clazzDef.avatarurl.get, clazzDef.description, clazzDef.tags, 0, clazz.searchMeta, clazz.idClazzDef)
         }
       } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
     }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
   }
+  */
 
 
-  override def listView(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page] = {
-    val offset = pageSize * page
+  override def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page] = {
+    val offset = if (page > -1) pageSize * page else 0
     val clazzAction = (for {
-      clazz <- slickClazzViews if clazz.startFrom >= new Timestamp(System.currentTimeMillis()) if clazz.searchMeta.toLowerCase like filter.toLowerCase
-    } yield (clazz)).drop(offset).take(pageSize)
-    val querySorted = orderBy match {
-      case 1 => clazzAction.sortBy(r => r.startFrom) // means first element from yield, sort by date
-      case -1 => clazzAction.sortBy(r => r.startFrom.desc)
-      case _ => clazzAction.sortBy(r => r.startFrom)
-    }
-    val totalRows = countView(filter)
+      clazz <- slickClazzViews.sortBy(r => orderBy match {case 1 => r.startFrom case _ => r.startFrom}) if clazz.startFrom >= new Timestamp(System.currentTimeMillis()) if clazz.searchMeta.toLowerCase like filter.toLowerCase
 
-    val result = db.run(querySorted.result)
+    } yield (clazz)).drop(offset).take(pageSize)
+    val totalRows = count(filter)
+
+    val result = db.run(clazzAction.result)
     result.map { clazz => //result is Seq[DBClazz]
       clazz.map {
         // go through all the DBClazzes and map them to Clazz
         case clazz => {
           //Logger.info(clazzDef.name+"("+clazz.id+")-->"+registrations._2)
-          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags, clazz.registrations, clazz.idClazzDef)
+          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef)
         }
       } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
     }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))

@@ -10,7 +10,8 @@ var app = angular.module('uiApp', [
   'ui.router',
   'mgcrea.ngStrap',
   'satellizer',
-  'validation.match'
+  'validation.match',
+  'angularUtils.directives.dirPagination'
 ]);
 
 /**
@@ -24,6 +25,8 @@ app.run(function($rootScope) {
    * @type {{}}
    */
   $rootScope.trainee = {};
+  $rootScope.clazzes = {};
+
 });
 
 /**
@@ -44,8 +47,8 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
   $compileProvider.imgSrcSanitizationWhitelist(newImgSrcSanitizationWhiteList);
 */
 
-  $urlRouterProvider.otherwise('/home');
-
+  $urlRouterProvider
+    .otherwise('/home');
 
   $stateProvider
     .state('home', { url: '/home', templateUrl: '/views/home.html'})
@@ -54,6 +57,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
     .state('signIn', { url: '/signIn', templateUrl: '/views/signIn.html' })
     .state('clazzes', { url: '/clazzes', templateUrl: '/views/clazzes.html' })
     .state('signOut', { url: '/signOut', template: null,  controller: 'SignOutCtrl' });
+
 
   //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
   $httpProvider.interceptors.push(function($q, $injector) {
