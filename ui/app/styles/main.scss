@@ -1,7 +1,33 @@
-@import "theme";
+@import "bs-theme/theme";
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap-compass";
 @import "../bower_components/bootstrap-sass-official/assets/stylesheets/bootstrap";
-@import "theme-bw";
+@import "bs-theme/theme-bw";
+
+
+/** RDash **/
+/* Sidebar background color */
+$sidebarBaseColor: $brand-primary;
+/* Sidebar header and footer color */
+$sidebarHeaderColor: darken($sidebarBaseColor, 2%);
+/* Sidebar title text colour */
+$sidebarTitleColor:  lighten($sidebarBaseColor, 30%);
+/* Sidebar menu item hover color */
+$sidebarMenuItemHover: $brand-warning;
+
+@import "rdash-ui/content";
+@import "rdash-ui/hamburg";
+@import "rdash-ui/header";
+@import "rdash-ui/loading";
+@import "rdash-ui/main";
+@import "rdash-ui/mixins";
+@import "rdash-ui/sidebar";
+@import "rdash-ui/widgets";
+
+
+/** OVERRIDE the value $icon-font-path directly in theme.css !!! **/
+///$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../../bower_components/bootstrap/fonts/") !default;
+$icon-font-path: if($bootstrap-sass-asset-helper, "bootstrap/", "../../bower_components/bootstrap/fonts/") !default;
+
 
 $body-bg2: darken($body-bg, 10%);
 $text-color2: lighten($text-color, 90%);
@@ -350,13 +376,6 @@ a {
 .not-a-member {
   text-align: center;
   margin-top: 20px;
-}
-
-.user {
-  margin-top: 50px;
-}
-.user .data {
-  margin-top: 10px;
 }
 
 .form-control {

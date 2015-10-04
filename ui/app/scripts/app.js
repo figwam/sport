@@ -8,7 +8,7 @@ var app = angular.module('uiApp', [
   'ngMessages',
   'ngCookies',
   'ui.router',
-  'mgcrea.ngStrap',
+  'ui.bootstrap',
   'satellizer',
   'validation.match',
   'angularUtils.directives.dirPagination'
@@ -107,14 +107,16 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
           controller: 'ClazzCtrl'
         }
       }})
-    .state('trainee', { url: '/trainee',
+    .state('me', { url: '/me',
       views: {
         'header': {
-          templateUrl: '/views/header.html'
+          templateUrl: '/views/me/header.html'
+        },
+        'sidebar': {
+          templateUrl: '/views/me/sidebar.html'
         },
         'content': {
-          templateUrl: '/views/me/dashboard.html',
-          controller: 'ClazzCtrl'
+          templateUrl: '/views/me/dashboard.html'
         },
         'footer': {
           templateUrl: '/views/footer.html'
@@ -157,20 +159,35 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
   });
 
   // Auth config
+  //$authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
+  //$authProvider.loginOnSignup = true;
+  //$authProvider.loginRedirect = '/me';
+  //$authProvider.logoutRedirect = '/';
+  //$authProvider.signupRedirect = '/me';
+  //$authProvider.loginUrl = '/signIn';
+  //$authProvider.signupUrl = '/signUp';
+  //$authProvider.loginRoute = '/signIn';
+  //$authProvider.signupRoute = '/signUp';
+  //$authProvider.tokenName = 'token';
+  //$authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
+  //$authProvider.authHeader = 'X-Auth-Token';
+  //$authProvider.platform = 'browser';
+  //$authProvider.storageType = 'localStorage';
+  //$authProvider.storageType = 'localStorage';
+
   $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
-  $authProvider.loginOnSignup = true;
-  $authProvider.loginRedirect = '/trainee';
-  $authProvider.logoutRedirect = '/';
-  $authProvider.signupRedirect = '/signIn';
-  $authProvider.loginUrl = '/signIn';
-  $authProvider.signupUrl = '/signUp';
-  $authProvider.loginRoute = '/signIn';
-  $authProvider.signupRoute = '/signUp';
-  $authProvider.tokenName = 'token';
-  $authProvider.tokenPrefix = 'satellizer'; // Local Storage name prefix
-  $authProvider.authHeader = 'X-Auth-Token';
-  $authProvider.platform = 'browser';
-  $authProvider.storage = 'localStorage';
+  $authProvider.withCredentials = true;
+  $authProvider.tokenRoot = null ;
+  $authProvider.cordova = false ;
+  $authProvider.baseUrl = '/' ;
+  $authProvider.loginUrl = '/signIn' ;
+  $authProvider.signupUrl = '/signUp' ;
+  $authProvider.unlinkUrl = '/auth/unlink/' ;
+  $authProvider.tokenName = 'token' ;
+  $authProvider.tokenPrefix = 'satellizer' ; // Local Storage name prefix
+  $authProvider.authHeader = 'X-Auth-Token' ;
+  $authProvider.authToken = 'Bearer';
+  $authProvider.storageType = 'localStorage' ;
 
   // Facebook
   $authProvider.facebook({

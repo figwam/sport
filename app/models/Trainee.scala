@@ -22,13 +22,9 @@ case class Trainee(
    createdOn: java.sql.Timestamp,
    updatedOn: java.sql.Timestamp,
    ptoken: Option[String] = None,
-   isDeleted: Boolean = false,
-   deleteReason: Option[String] = None,
    isActive: Boolean = true,
    inactiveReason: Option[String] = None,
    username: Option[String] = None,
-   profiles: String,
-   roles: String,
    fullname: Option[String] = None,
    avatarurl: Option[String] = None,
    address: Address) extends Identity

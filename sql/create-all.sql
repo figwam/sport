@@ -67,8 +67,6 @@ CREATE TABLE public.trainee(
 	inactive_reason text,
 	id_address bigint,
 	username text,
-	profiles text NOT NULL,
-	roles text NOT NULL,
 	fullname text,
 	avatarurl text,
 	CONSTRAINT trainee_id_primary PRIMARY KEY (id)
@@ -86,12 +84,6 @@ CREATE INDEX trainee_username_idx ON public.trainee
 USING btree
 (
 	username ASC NULLS LAST
-);
--- DROP INDEX IF EXISTS public.trainee_roles_idx CASCADE;
-CREATE INDEX trainee_roles_idx ON public.trainee
-USING btree
-(
-	roles ASC NULLS LAST
 );
 
 -- ALTER TABLE public.trainee DROP CONSTRAINT IF EXISTS trainee_uq CASCADE;

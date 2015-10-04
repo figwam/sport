@@ -2,7 +2,7 @@ package models.daos
 
 
 import com.mohiva.play.silhouette.api.LoginInfo
-import models.Trainee
+import models._
 
 import scala.concurrent.Future
 
@@ -34,4 +34,6 @@ trait TraineeDAO {
    * @return The saved trainee.
    */
   def save(trainee: Trainee): Future[Trainee]
+
+  def book(idTrainee: Long, idClazz: Long)
 }

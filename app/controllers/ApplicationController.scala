@@ -7,7 +7,8 @@ import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import models.{Trainee}
-import models.daos.{ClazzDAO}
+import models.daos.{TraineeDAO, ClazzDAO}
+import org.postgresql.util.PSQLException
 import play.api.Logger
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
@@ -27,7 +28,8 @@ class ApplicationController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[Trainee, JWTAuthenticator],
   socialProviderRegistry: SocialProviderRegistry,
-  clazzDAO: ClazzDAO)
+  clazzDAO: ClazzDAO,
+  traineeDAO: TraineeDAO)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
   /**
@@ -37,6 +39,29 @@ class ApplicationController @Inject() (
    */
   def trainee = SecuredAction.async { implicit request =>
     Future.successful(Ok(Json.toJson(request.identity)))
+  }
+
+  def book(idClazz: Long) = SecuredAction.async(parse.json) { implicit request =>
+    try {
+      (request.body \ "idTrainee").asOpt[Long].map { idTrainee =>
+        val future: Future = traineeDAO.book(idTrainee, idClazz)
+        future.onSuccess { Future.successful(Ok)}
+        future.onFailure {
+          case t: PSQLException => {
+            if (t.getMessage.contains("duplicate key value violates unique constraint")) Logger.info("Class already exists")
+            else Logger.error("Something bad happened", t)
+          }
+          case t: Throwable => Logger.error(t.getMessage,t)
+        }
+
+      }.getOrElse {
+        Future.successful(BadRequest("Missing parameter [idTrainee]"))
+      }
+    } catch {
+      case t: Throwable =>
+        Logger.error(t.getMessage,t)
+        Future.successful(InternalServerError("Something bad happened"))
+    }
   }
 
 
@@ -66,9 +91,10 @@ class ApplicationController @Inject() (
    */
 
   def viewRestricted(template: String) = SecuredAction.async { implicit request =>
-    print("ddssadjslkljdlsls")
     template match {
-      case "dashboard" => Future.successful(Ok(views.html.dashboard()))
+      case "dashboard" => Future.successful(Ok(views.html.me.dashboard()))
+      case "header" => Future.successful(Ok(views.html.me.header()))
+      case "sidebar" => Future.successful(Ok(views.html.me.sidebar()))
       case _ => Future.successful(NotFound)
     }
   }
@@ -81,7 +107,6 @@ class ApplicationController @Inject() (
       case "clazzes" => Ok(views.html.clazzes())
       case "header" => Ok(views.html.header())
       case "footer" => Ok(views.html.footer())
-      case "dashboard" => Ok(views.html.dashboard())
       case _ => NotFound
     }
   }

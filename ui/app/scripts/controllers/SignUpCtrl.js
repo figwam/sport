@@ -5,7 +5,7 @@
 /**
  * The sign up controller.
  */
-app.controller('SignUpCtrl', ['$scope', '$alert', '$auth', function($scope, $alert, $auth) {
+app.controller('SignUpCtrl', ['$scope', '$auth', '$location', function($scope, $auth, $location) {
 
   /**
    * The submit method.
@@ -22,12 +22,11 @@ app.controller('SignUpCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
       email: $scope.email,
       password: $scope.password
     }).then(function() {
-      $alert({
-        content: 'Sie haben sich erfolgreich registriert',
-        animation: 'fadeZoomFadeDown',
-        type: 'material',
-        duration: 3
-      });
+      /*DO AUTOLOGIN AFTER SIGN UP*/
+      $auth.login({ email: $scope.email, password: $scope.password, rememberMe: true })
+        .then(function() {
+          $location.path("/me")
+        })
     }).catch(function(response) {
       $scope.errorMessage = {};
       angular.forEach(response.data.message, function(message, field) {
@@ -35,14 +34,6 @@ app.controller('SignUpCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
         // response.data.message -> Message ist trainee.exists
         $scope.form.email.$setValidity('trainee.exists', false);
       });
-      /*
-      $alert({
-        content: response.data.message,
-        animation: 'fadeZoomFadeDown',
-        type: 'material',
-        duration: 3
-      });
-      */
     });
   };
 }]);

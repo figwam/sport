@@ -1,3 +1,6 @@
+@()(implicit messages: Messages)
+
+
 <section id="contact">
   <div class="container navbar-default">
     <div class="row">
@@ -9,22 +12,22 @@
       </div>
       <div class="col-xs-6 col-md-3 column">
         <ul class="nav navbar navbar-nav">
-          <li><a href="about-us.html">Kontakt</a></li>
+          <li><a href="about-us.html">@Messages("contact")</a></li>
         </ul>
       </div>
       <div class="col-xs-6 col-md-3 column">
         <ul class="nav navbar navbar-nav">
-          <li><a href="#">AGB</a></li>
+          <li><a href="#">@Messages("agb")</a></li>
         </ul>
       </div>
       <div class="col-xs-6 col-md-3 column">
         <ul class="nav navbar navbar-nav">
-          <li><a href="#">Disclaimer</a></li>
+          <li><a href="#">@Messages("disclaimer")</a></li>
         </ul>
       </div>
       <div class="col-xs-6 col-md-3 column">
         <ul class="nav navbar navbar-nav">
-          <li><a href="#">Impressum</a></li>
+          <li><a href="#">@Messages("impressum")</a></li>
         </ul>
       </div>
     </div>

@@ -5,17 +5,16 @@
 /**
  * The sign out controller.
  */
-app.controller('SignOutCtrl', ['$auth', '$alert', function($auth, $alert) {
+app.controller('SignOutCtrl', ['$auth', '$location', function($auth, $location) {
   if (!$auth.isAuthenticated()) {
     return;
   }
   $auth.logout()
     .then(function() {
-      $alert({
-        content: 'Sie haben sich ausgeloggt',
-        animation: 'fadeZoomFadeDown',
-        type: 'material',
-        duration: 3
-      });
+      $location.path("/")
+      /*
+       An alert could be placed here with some message like "Some message to user"
+       see: https://angular-ui.github.io/bootstrap/#/alert
+       */
     });
 }]);

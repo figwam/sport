@@ -29,9 +29,10 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO, clazzDefinitionDAO: ClazzDef
 
   override def preStart(): Unit = {
     import scala.concurrent.duration._
+    val refreshInterval:Int = Play.application().configuration().getString("clazz.definition.refresh.intervall").toInt
     scheduler = context.system.scheduler.schedule(
-      initialDelay = 5.seconds,
-      interval = 5.seconds,
+      initialDelay = refreshInterval.seconds,
+      interval = refreshInterval.seconds,
       receiver = self,
       message = CREATE_CLAZZES
     )

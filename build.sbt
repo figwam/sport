@@ -84,3 +84,5 @@ herokuConfigVars in Compile := Map(
   "PLAY_PROD_CONF_FILE" -> "application.prod.conf",
   "JAVA_OPTS" -> "-XX:+UseCompressedOops"
 )
+
+fork in run := true

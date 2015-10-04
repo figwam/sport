@@ -39,7 +39,7 @@
             <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
                 <h3><a href="#" title="">{{item.name}}</a></h3>
                 <p>{{item.description}}</p>
-                <button ng-disabled="item.contingent - item.registrations <= 0" class="btn btn-success">@Messages("clazz.book")</button>
+                <a  ui-sref="home.signUp" ng-disabled="item.contingent - item.registrations <= 0" class="btn btn-success">@Messages("clazz.book")</a>
                     <!--<button class="btn btn-danger">Cancel</button>-->
             </div>
         </article>

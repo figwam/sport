@@ -4,8 +4,9 @@
 
 GET         /                                com.tuplejump.playYeoman.Yeoman.index
 
-GET         /trainee                            controllers.ApplicationController.trainee
-GET         /clazzes                            controllers.ApplicationController.clazzes(p:Int ?= 0, s:Int ?= 1, f ?= "")
+GET         /trainee                         controllers.ApplicationController.trainee
+GET         /clazzes                         controllers.ApplicationController.clazzes(p:Int ?= 0, s:Int ?= 1, f ?= "")
+POST        /clazzes/:id/trainees            controllers.ApplicationController.book(id: Long)
 GET         /signOut                         controllers.ApplicationController.signOut
 POST        /signIn                          controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp
@@ -16,9 +17,8 @@ POST        /authenticate/:provider          controllers.SocialAuthController.au
 GET         /generate/map                    controllers.Callouts.getStaticGoogleMap
 
 # Dynamic part of the url
-GET         /views/$template<.+>.html        controllers.ApplicationController.view(template)
-#GET         /views/me/$template<.+>.html         controllers.ApplicationController.viewRestricted(template)
-GET         /views/me/dashboard.html         controllers.ApplicationController.viewRestricted(template)
+GET         /views/$template<[^/]+>.html        controllers.ApplicationController.view(template)
+GET         /views/me/$template<[^/]+>.html         controllers.ApplicationController.viewRestricted(template)
 
 
 # Map static resources from the /public folder to the /assets URL path

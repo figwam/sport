@@ -5,22 +5,21 @@
 /**
  * The sign in controller.
  */
-app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $alert, $auth) {
+app.controller('SignInCtrl', ['$scope', '$auth', '$location', function($scope, $auth, $location) {
 
   /**
    * Submits the login form.
    */
 
   $scope.submit = function() {
-    $auth.setStorage($scope.rememberMe ? 'localStorage' : 'sessionStorage');
+    $auth.setStorageType($scope.rememberMe ? 'localStorage' : 'sessionStorage');
     $auth.login({ email: $scope.email, password: $scope.password, rememberMe: $scope.rememberMe })
       .then(function() {
-        $alert({
-          content: 'Sie haben sich erfolgreich eingeloggt',
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
+        $location.path("/me")
+        /*
+        An alert could be placed here with some message like "Some message to user"
+        see: https://angular-ui.github.io/bootstrap/#/alert
+        */
       })
       .catch(function(response) {
         $scope.errorMessage = {};
@@ -33,30 +32,6 @@ app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
       });
   };
 
-  /*
-  $scope.submit = function() {
-    $auth.setStorage($scope.rememberMe ? 'localStorage' : 'sessionStorage');
-    $auth.login({ email: $scope.email, password: $scope.password, rememberMe: $scope.rememberMe })
-      .then(function() {
-        $alert({
-          content: 'Sie haben sich erfolgreich eingeloggt',
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
-      })
-      .catch(function(response) {
-        console.log(response);
-        $alert({
-          content: response.data.message,
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
-      });
-  };
-  */
-
   /**
    * Authenticate with a social provider.
    *
@@ -65,20 +40,16 @@ app.controller('SignInCtrl', ['$scope', '$alert', '$auth', function($scope, $ale
   $scope.authenticate = function(provider) {
     $auth.authenticate(provider)
       .then(function() {
-        $alert({
-          content: 'Sie haben sich erfolgreich eingeloggt',
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
+        /*
+         An alert could be placed here with some message like "Some message to user"
+         see: https://angular-ui.github.io/bootstrap/#/alert
+         */
       })
       .catch(function(response) {
-        $alert({
-          content: response.data.message,
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });
+        /*
+         An alert could be placed here with some message like "Some message to user"
+         see: https://angular-ui.github.io/bootstrap/#/alert
+         */
       });
   };
 }]);

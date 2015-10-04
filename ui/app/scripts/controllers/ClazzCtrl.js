@@ -4,28 +4,10 @@
 
 /**
  * The clazz controller.
+ *
  */
-app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', '$http', '$location', 'ClazzFactory', function($rootScope, $scope, $alert, $http, $location, ClazzFactory) {
+app.controller('ClazzCtrl', ['$rootScope', '$scope', '$http', '$location', '$templateCache','ClazzFactory', function($rootScope, $scope, $http, $templateCache, $location, ClazzFactory) {
 
-  /**
-   * Initializes the controller.
-   */
-  /*
-  $scope.init = function() {
-    ClazzFactory.get()
-      .success(function(data) {
-        $rootScope.clazzes = data;
-      })
-      .error(function(error) {
-        /*$alert({ // Dont alert, we dont expect authorized trainee on home page
-          content: error.message,
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        }); /
-      });
-  };
-  */
 
   $scope.totalClazzes = 0;
   $scope.clazzesPerPage = 10;
@@ -40,13 +22,34 @@ app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', '$http', '$locati
 
   function getResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
-    console.log('---->p'+$rootScope.clazzesSearchString)
     $http.get('/clazzes?p='+(pageNumber-1)+'&s=1&f='+($rootScope.clazzesSearchString == null ? '':$rootScope.clazzesSearchString))
       .then(function(result) {
         $rootScope.clazzes = result.data
         $scope.totalClazzes = result.data.total
       });
   }
+
+  $scope.book = function(idClazz) {
+    console.log($rootScope.trainee.id)
+    console.log(idClazz)
+
+    var body={"idTrainee":$rootScope.trainee.id};
+
+    $http({
+      method: "POST",
+      url: "/clazzes/"+idClazz+"/trainees",
+      data: body,
+      headers: { 'Content-Type': 'application/json; charset=UTF-8'},
+      cache: $templateCache}).
+      then(function(response) {
+        $scope.status = response.status;
+        $scope.data = response.data;
+      }, function(response) {
+        $scope.data = response.data || "Request failed";
+        $scope.status = response.status;
+      });
+  };
+
 
   // calling our submit function.
   $scope.submitSearch = function () {

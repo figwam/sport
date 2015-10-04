@@ -10,7 +10,7 @@ menu.advantages=Ihre Vorteile
 menu.pricing=Preise
 menu.studios=Studios
 menu.followus=Folge uns
-welcome.get.member=Training beginnen
+welcome.get.member=Sportkurs beginnen
 section.whoweare.title=Was ist Gymix?
 
 section.whoweare.text=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
@@ -74,15 +74,30 @@ trainee.exists=Benutzer mit dieser E-Mail Adresse ist bereits registriert
 word.welcome=Willkommen
 
 
-search.clazz=Training suchen
-search.clazz.filter=Trainings filtern
+search.clazz=Sportkurs suchen
+search.clazz.filter=Sportkurse filtern
 search.go=Los!
 clazz.book=Anmelden
 clazz.booked.out=Ausgebucht
 search.result=Suchresultate
-#search.result.amount={0,choice,0#Keine Trainings|1#Ein Training|1<{0,number,integer} Trainings wurden} gefunden
-search.result.amount=Trainings wurden gefunden
+#search.result.amount={0,choice,0#Keine Sportkurse|1#Ein Sportkurs|1<{0,number,integer} Sportkurse wurden} gefunden
+search.result.amount=Sportkurse wurden gefunden
 
+######
+# Footer
+contact=Kontakt
+agb=AGB
+disclaimer=Disclaimer
+impressum=Impressum
+
+######
+# Dashboard
+my.dashboard=Mein Gymix
+my.dashboard.breadcrumb=Eingeloggt als
+my.profile=Profil
+my.clazzes=Meine Sportkurse
+all.clazzes=Sportkurse suchen
+my.bill=Rechnungen
 
 
 

@@ -479,15 +479,13 @@ trait DBTableDefinitions {
     inactiveReason: Option[String] = None,
     idAddress: Long,
     username: Option[String] = None,
-    profiles: String,
-    roles: String,
     fullname: Option[String] = None,
     avatarurl: Option[String] = None
     )
 
 
   class Trainees(_tableTag: Tag) extends Table[DBTrainee](_tableTag, "trainee") {
-    def * = (id, extId, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, profiles, roles, fullname, avatarurl) <> (DBTrainee.tupled, DBTrainee.unapply)
+    def * = (id, extId, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, fullname, avatarurl) <> (DBTrainee.tupled, DBTrainee.unapply)
     val id: Rep[Option[Long]] = column[Option[Long]]("id", O.AutoInc, O.PrimaryKey)
     val extId: Rep[String] = column[String]("ext_id")
     val firstname: Rep[Option[String]] = column[Option[String]]("firstname")
@@ -505,14 +503,11 @@ trait DBTableDefinitions {
     val inactiveReason: Rep[Option[String]] = column[Option[String]]("inactive_reason", O.Default(None))
     val idAddress: Rep[Long] = column[Long]("id_address")
     val username: Rep[Option[String]] = column[Option[String]]("username", O.Default(None))
-    val profiles: Rep[String] = column[String]("profiles")
-    val roles: Rep[String] = column[String]("roles")
     val fullname: Rep[Option[String]] = column[Option[String]]("fullname", O.Default(None))
     val avatarurl: Rep[Option[String]] = column[Option[String]]("avatarurl", O.Default(None))
     lazy val addressFk = foreignKey("address_fk", idAddress, slickAddresses)(r => r.id, onUpdate=ForeignKeyAction.Cascade, onDelete=ForeignKeyAction.Restrict)
     val index1 = index("trainee_extid_idx", extId)
     val index2 = index("trainee_uq", idAddress, unique=true)
-    val index3 = index("trainee_roles_idx", roles)
     val index4 = index("trainee_username_idx", username)
   }
 

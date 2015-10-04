@@ -11,6 +11,7 @@ import com.mohiva.play.silhouette.api.util.PasswordHasher
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
 import forms.SignUpForm
+import models.daos.TraineeDAO
 import models.{Address, Trainee}
 import models.services.TraineeService
 import play.api.i18n.{ MessagesApi, Messages }
@@ -34,6 +35,7 @@ class SignUpController @Inject() (
   val messagesApi: MessagesApi,
   val env: Environment[Trainee, JWTAuthenticator],
   traineeService: TraineeService,
+  traineeDAO: TraineeDAO,
   authInfoRepository: AuthInfoRepository,
   avatarService: AvatarService,
   passwordHasher: PasswordHasher)
@@ -74,13 +76,9 @@ class SignUpController @Inject() (
             createdOn = new Timestamp(System.currentTimeMillis()),
             updatedOn = new Timestamp(System.currentTimeMillis()),
             ptoken = None,
-            isDeleted = false,
-            deleteReason = None,
             isActive = true,
             inactiveReason = None,
             username = Some (data.email),
-            profiles = "None",
-            roles = "None",
             fullname = Some(data.firstname + " " + data.lastname),
             avatarurl = None,
             address = addr

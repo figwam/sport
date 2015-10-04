@@ -68,13 +68,9 @@ class TraineeServiceImpl @Inject() (traineeDAO: TraineeDAO) extends TraineeServi
           createdOn = new Timestamp(System.currentTimeMillis()),
           updatedOn = new Timestamp(System.currentTimeMillis()),
           ptoken = None,
-          isDeleted = false,
-          deleteReason = None,
           isActive = true,
           inactiveReason = None,
           username = profile.email,
-          profiles = "None",
-          roles = "None",
           fullname = profile.fullName,
           avatarurl = profile.avatarURL,
           null

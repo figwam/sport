@@ -5,25 +5,7 @@
 /**
  * The home controller.
  */
-app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', '$http', '$location','TraineeFactory', function($rootScope, $scope, $alert, $http, $location, TraineeFactory) {
-
-  /**
-   * Initializes the controller.
-   */
-  $scope.init = function() {
-    TraineeFactory.get()
-      .success(function(data) {
-        $rootScope.trainee = data;
-      })
-      .error(function(error) {
-        /*$alert({ // Dont alert, we dont expect authorized trainee on home page
-          content: error.message,
-          animation: 'fadeZoomFadeDown',
-          type: 'material',
-          duration: 3
-        });*/
-      });
-  };
+app.controller('HomeCtrl', ['$rootScope', '$scope', '$http', '$location', function($rootScope, $scope, $http, $location) {
 
   // calling our submit function.
   $scope.submitSearchRedirect = function () {

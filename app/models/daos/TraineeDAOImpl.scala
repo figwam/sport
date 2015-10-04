@@ -48,13 +48,9 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
             trainee.createdOn,
             trainee.updatedOn,
             trainee.ptoken,
-            trainee.isDeleted,
-            trainee.deleteReason,
             trainee.isActive,
             trainee.inactiveReason,
             trainee.username,
-            trainee.profiles,
-            trainee.roles,
             trainee.fullname,
             trainee.avatarurl,
             Address(
@@ -98,13 +94,9 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
             trainee.createdOn,
             trainee.updatedOn,
             trainee.ptoken,
-            trainee.isDeleted,
-            trainee.deleteReason,
             trainee.isActive,
             trainee.inactiveReason,
             trainee.username,
-            trainee.profiles,
-            trainee.roles,
             trainee.fullname,
             trainee.avatarurl,
             Address(
@@ -140,13 +132,11 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
       new Timestamp(System.currentTimeMillis),
       trainee.ptoken,
       false,
-      trainee.deleteReason,
+      None,
       true,
       trainee.inactiveReason,
       -1L,
       trainee.username,
-      "None",
-      "None",
       trainee.fullname,
       trainee.avatarurl)
 
@@ -204,4 +194,8 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     // run actions and return trainee afterwards
     db.run(actions).map(_ => trainee)
   }
+
+
+  def book(idTrainee: Long, idClazz: Long) = db.run(slickRegistrations += DBRegistration(None,UUID.randomUUID().toString, new Timestamp(System.currentTimeMillis()),idTrainee,idClazz))
+
 }
