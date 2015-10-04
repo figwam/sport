@@ -196,6 +196,9 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   }
 
 
-  def book(idTrainee: Long, idClazz: Long) = db.run(slickRegistrations += DBRegistration(None,UUID.randomUUID().toString, new Timestamp(System.currentTimeMillis()),idTrainee,idClazz))
+  def book(registration: Registration): Future[Registration] = {
+    db.run(slickRegistrations += DBRegistration(None,registration.extId.toString, new Timestamp(System.currentTimeMillis()),registration.idTrainee,registration.idClazz))
+        .map(_ => registration)
+  }
 
 }

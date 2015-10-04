@@ -1,12 +1,13 @@
 package controllers
 
+import java.util.UUID
 import java.util.concurrent.TimeoutException
 import javax.inject.{Singleton, Inject}
 
 import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
-import models.{Trainee}
+import models._
 import models.daos.{TraineeDAO, ClazzDAO}
 import org.postgresql.util.PSQLException
 import play.api.Logger
@@ -42,18 +43,35 @@ class ApplicationController @Inject() (
   }
 
   def book(idClazz: Long) = SecuredAction.async(parse.json) { implicit request =>
+    (request.body \ "idTrainee").asOpt[Long].map { idTrainee =>
+      traineeDAO.book(Registration(None, UUID.randomUUID(), idTrainee, idClazz))
+        .onFailure{case t => Logger.warn(t.getMessage)}
+      Future.successful(Ok)
+    }.getOrElse {
+      Future.successful(BadRequest("Missing parameter [idTrainee]"))
+  }
+    /*
     try {
       (request.body \ "idTrainee").asOpt[Long].map { idTrainee =>
-        val future: Future = traineeDAO.book(idTrainee, idClazz)
-        future.onSuccess { Future.successful(Ok)}
+        val future = traineeDAO.book(Registration(None, UUID.randomUUID(), idTrainee, idClazz))
+        future.onSuccess { case a => Logger.debug(s"Registration created: $a"); Future.successful(Ok)}
         future.onFailure {
           case t: PSQLException => {
-            if (t.getMessage.contains("duplicate key value violates unique constraint")) Logger.info("Class already exists")
-            else Logger.error("Something bad happened", t)
+            if (t.getMessage.contains("duplicate key value violates unique constraint")) {
+              Logger.info("Registration already exists")
+              Future.successful(BadRequest("registration already exists"))
+            }
+            else {
+              Logger.error("Something bad happened", t)
+              Future.successful(InternalServerError("Something bad happened"))
+            }
           }
-          case t: Throwable => Logger.error(t.getMessage,t)
+          case t: Throwable => {
+            Logger.error(t.getMessage,t)
+            Future.successful(InternalServerError("Something bad happened"))
+          }
+          case _ => Future.successful(BadRequest("Missing parameter [idTrainee]"))
         }
-
       }.getOrElse {
         Future.successful(BadRequest("Missing parameter [idTrainee]"))
       }
@@ -62,6 +80,7 @@ class ApplicationController @Inject() (
         Logger.error(t.getMessage,t)
         Future.successful(InternalServerError("Something bad happened"))
     }
+    */
   }
 
 

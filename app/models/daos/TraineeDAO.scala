@@ -35,5 +35,5 @@ trait TraineeDAO {
    */
   def save(trainee: Trainee): Future[Trainee]
 
-  def book(idTrainee: Long, idClazz: Long)
+  def book(registration: Registration): Future[Registration]
 }
