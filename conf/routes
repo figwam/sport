@@ -17,6 +17,9 @@ GET         /generate/map                    controllers.Callouts.getStaticGoogl
 
 # Dynamic part of the url
 GET         /views/$template<.+>.html        controllers.ApplicationController.view(template)
+#GET         /views/me/$template<.+>.html         controllers.ApplicationController.viewRestricted(template)
+GET         /views/me/dashboard.html         controllers.ApplicationController.viewRestricted(template)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                    controllers.Assets.at(path="/public", file)

@@ -17,7 +17,7 @@ var app = angular.module('uiApp', [
 /**
  * The run configuration.
  */
-app.run(function($rootScope) {
+app.run(function($state,$rootScope) {
 
   /**
    * The trainee data.
@@ -26,6 +26,8 @@ app.run(function($rootScope) {
    */
   $rootScope.trainee = {};
   $rootScope.clazzes = {};
+  $rootScope.clazzesSearchString = '';
+  $rootScope.$state = $state;
 
 });
 
@@ -48,15 +50,76 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
 */
 
   $urlRouterProvider
-    .otherwise('/home');
+    .otherwise('/');
 
   $stateProvider
-    .state('home', { url: '/home', templateUrl: '/views/home.html'})
-    .state('signUp', { url: '/signUp', templateUrl: '/views/signUp.html' })
-    .state('index', { url: '/index', templateUrl: '/views/index.html' })
-    .state('signIn', { url: '/signIn', templateUrl: '/views/signIn.html' })
-    .state('clazzes', { url: '/clazzes', templateUrl: '/views/clazzes.html' })
-    .state('signOut', { url: '/signOut', template: null,  controller: 'SignOutCtrl' });
+    .state('index', {url:'/index',
+      views: {
+        'header': {
+          templateUrl: '/views/header.html'
+        },
+        'content': {
+          templateUrl: '/views/home.html',
+          controller: 'ClazzCtrl'
+        },
+        'footer': {
+          templateUrl: '/views/footer.html'
+        }
+      }})
+    .state('home', {url:'/',
+      views: {
+        'header': {
+          templateUrl: '/views/header.html'
+        },
+        'content': {
+          templateUrl: '/views/home.html',
+          controller: 'HomeCtrl'
+        },
+        'footer': {
+          templateUrl: '/views/footer.html'
+        }
+      }})
+    .state('home.signUp', {url:'signUp',
+      views: {
+        'content@': {
+          templateUrl: '/views/signUp.html',
+          controller: 'SignUpCtrl'
+        }
+      }})
+    .state('home.signIn', {url:'signIn',
+      views: {
+        'content@': {
+          templateUrl: '/views/signIn.html',
+          controller: 'SignInCtrl'
+        }
+      }})
+    .state('home.signOut', { url:'signOut',
+      views: {
+        'content@': {
+          templateUrl: '/views/home.html',
+          controller: 'SignOutCtrl'
+        }
+      }})
+    .state('home.clazzes', { url: 'clazzes',
+      views: {
+        'content@': {
+          templateUrl: '/views/clazzes.html',
+          controller: 'ClazzCtrl'
+        }
+      }})
+    .state('trainee', { url: '/trainee',
+      views: {
+        'header': {
+          templateUrl: '/views/header.html'
+        },
+        'content': {
+          templateUrl: '/views/me/dashboard.html',
+          controller: 'ClazzCtrl'
+        },
+        'footer': {
+          templateUrl: '/views/footer.html'
+        }
+      }})
 
 
   //http://www.webdeveasy.com/interceptors-in-angularjs-and-useful-examples/
@@ -96,7 +159,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
   // Auth config
   $authProvider.httpInterceptor = true; // Add Authorization header to HTTP request
   $authProvider.loginOnSignup = true;
-  $authProvider.loginRedirect = '/';
+  $authProvider.loginRedirect = '/trainee';
   $authProvider.logoutRedirect = '/';
   $authProvider.signupRedirect = '/signIn';
   $authProvider.loginUrl = '/signIn';

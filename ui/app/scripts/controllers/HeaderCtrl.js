@@ -5,7 +5,7 @@
 /**
  * The navigation controller.
  */
-app.controller('NavigationCtrl', ['$scope', '$auth', function($scope, $auth) {
+app.controller('HeaderCtrl', ['$scope', '$auth', '$location', '$anchorScroll', function($scope, $auth, $location, $anchorScroll) {
 
   /**
    * Indicates if the trainee is authenticated or not.
@@ -15,4 +15,11 @@ app.controller('NavigationCtrl', ['$scope', '$auth', function($scope, $auth) {
   $scope.isAuthenticated = function() {
     return $auth.isAuthenticated();
   };
+
+
+  $scope.scrollTo = function(id) {
+    $location.hash(id);
+    $anchorScroll();
+  };
+
 }]);

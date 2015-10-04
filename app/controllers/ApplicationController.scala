@@ -64,13 +64,24 @@ class ApplicationController @Inject() (
    * @param template The template to provide.
    * @return The template.
    */
+
+  def viewRestricted(template: String) = SecuredAction.async { implicit request =>
+    print("ddssadjslkljdlsls")
+    template match {
+      case "dashboard" => Future.successful(Ok(views.html.dashboard()))
+      case _ => Future.successful(NotFound)
+    }
+  }
+
   def view(template: String) = UserAwareAction { implicit request =>
     template match {
       case "home" => Ok(views.html.home())
       case "signUp" => Ok(views.html.signUp())
       case "signIn" => Ok(views.html.signIn(socialProviderRegistry))
-      case "navigation" => Ok(views.html.navigation())
       case "clazzes" => Ok(views.html.clazzes())
+      case "header" => Ok(views.html.header())
+      case "footer" => Ok(views.html.footer())
+      case "dashboard" => Ok(views.html.dashboard())
       case _ => NotFound
     }
   }

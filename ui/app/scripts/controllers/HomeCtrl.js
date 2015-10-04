@@ -25,4 +25,11 @@ app.controller('HomeCtrl', ['$rootScope', '$scope', '$alert', '$http', '$locatio
       });
   };
 
+  // calling our submit function.
+  $scope.submitSearchRedirect = function () {
+    $rootScope.clazzesSearchString = $scope.searchString
+    $location.path('/clazzes');
+  };
+
+
 }]);

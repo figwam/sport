@@ -40,7 +40,8 @@ app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', '$http', '$locati
 
   function getResultsPage(pageNumber) {
     //play start paging from 0 --> (pageNumber-1)
-    $http.get('/clazzes?p='+(pageNumber-1)+'&s=1&f='+($scope.searchString == null ? '':$scope.searchString))
+    console.log('---->p'+$rootScope.clazzesSearchString)
+    $http.get('/clazzes?p='+(pageNumber-1)+'&s=1&f='+($rootScope.clazzesSearchString == null ? '':$rootScope.clazzesSearchString))
       .then(function(result) {
         $rootScope.clazzes = result.data
         $scope.totalClazzes = result.data.total
@@ -49,8 +50,8 @@ app.controller('ClazzCtrl', ['$rootScope', '$scope', '$alert', '$http', '$locati
 
   // calling our submit function.
   $scope.submitSearch = function () {
+    $rootScope.clazzesSearchString = $scope.searchString
     getResultsPage(1);
-    $location.path('/clazzes');
   };
 }]);
 

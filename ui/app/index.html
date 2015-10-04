@@ -26,43 +26,10 @@
   </head>
   <body>
     <!-- Add your site or application content here -->
-    <div ng-include="'views/navigation.html'"></div>
     <div ui-view></div>
-    <section id="contact">
-      <div class="container navbar-default">
-        <div class="row">
-          <div class="text-center">
-            <a href="#"><i class="fa facebook fa-facebook fa-2x"></i></a>
-            <a href="#"><i class="fa google fa-google fa-2x"></i></a>
-            <a href="#"><i class="fa twitter fa-twitter fa-2x"></i></a>
-            <a href="#"><i class="fa instagramm fa-instagram fa-2x"></i></a>
-          </div>
-          <div class="col-xs-6 col-md-3 column">
-            <ul class="nav navbar navbar-nav">
-              <li><a href="about-us.html">Kontakt</a></li>
-            </ul>
-          </div>
-          <div class="col-xs-6 col-md-3 column">
-            <ul class="nav navbar navbar-nav">
-              <li><a href="#">AGB</a></li>
-            </ul>
-          </div>
-          <div class="col-xs-6 col-md-3 column">
-            <ul class="nav navbar navbar-nav">
-              <li><a href="#">Disclaimer</a></li>
-            </ul>
-          </div>
-          <div class="col-xs-6 col-md-3 column">
-            <ul class="nav navbar navbar-nav">
-              <li><a href="#">Impressum</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-    <footer id="footer">
-      <p>Copyright © 2015 Gymix GmbH</p>
-    </footer>
+    <div ui-view="header"></div>
+    <div ui-view="content"></div>
+    <div ui-view="footer"></div>
 
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
@@ -100,7 +67,7 @@
     <script src="scripts/controllers/SignUpCtrl.js"></script>
     <script src="scripts/controllers/SignInCtrl.js"></script>
     <script src="scripts/controllers/SignOutCtrl.js"></script>
-    <script src="scripts/controllers/NavigationCtrl.js"></script>
+    <script src="scripts/controllers/HeaderCtrl.js"></script>
     <script src="scripts/services/ClazzFactory.js"></script>
     <script src="scripts/services/TraineeFactory.js"></script>
     <!-- endbuild -->
