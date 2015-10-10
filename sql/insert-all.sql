@@ -82,18 +82,17 @@ INSERT INTO partner_password_info (id_login_info, hasher, password)
 		(4, 'bcrypt', '$2a$10$IJsMs8yzNR4Twwh1JpQBUej8bKRUtnOLX2IVVU9JiGN06ru2keyLy');
 
 INSERT INTO trainee (ext_id, firstname, lastname, mobile, phone, email,
-										 id_address, username,
-										 profiles, roles, fullname, avatarurl) VALUES (
+										 id_address, username, fullname, avatarurl) VALUES (
 	uuid_generate_v1(),'Stefan','Waldner','0791112233','0312223333',
-	'stefan@leone.ch',8,'stefan@leone.ch','None','None','Stefan Waldner',
+	'stefan@leone.ch',8,'stefan@leone.ch','Stefan Waldner',
 	'http://www.leoneacademy.ch/wp-content/uploads/2013/02/stefu_001.jpg'),
 
 	(	uuid_generate_v1(),'Alexander','Schamne','0791112233','0312223333',
-		 'alexander.schamne@gmail.com',9,'alexander.schamne@gmail.com','None','None','Alexander Schamne',
+		 'alexander.schamne@gmail.com',9,'alexander.schamne@gmail.com','Alexander Schamne',
 		 'https://lh3.googleusercontent.com/-tIf-c0HRvWo/AAAAAAAAAAI/AAAAAAAAAHc/sgaIELQzwcQ/photo.jpg'),
 
 	(uuid_generate_v1(),'Andreas','Bolt','0791112233','0312223333',
-	 'andreas.bolt@gmail.com',10,'andreas.bolt@gmail.com','None','None','Andreas Bolt',
+	 'andreas.bolt@gmail.com',10,'andreas.bolt@gmail.com','Andreas Bolt',
 	 'https://bern.emchberger.ch/sites/default/files/styles/132x174sc/public/bolt_andreas_web.jpg');
 
 INSERT INTO login_info (provider_id, provider_key)
@@ -110,11 +109,11 @@ VALUES (2, 'bcrypt', '$2a$10$IJsMs8yzNR4Twwh1JpQBUej8bKRUtnOLX2IVVU9JiGN06ru2key
 	(4, 'bcrypt', '$2a$10$IJsMs8yzNR4Twwh1JpQBUej8bKRUtnOLX2IVVU9JiGN06ru2keyLy');
 
 INSERT INTO clazz_definition (ext_id, active_from, active_till, start_from, end_at, name, recurrence,  contingent, avatarurl, description, id_studio)
-		VALUES (uuid_generate_v1(),'2015-09-28 17:00:00.000000','2217-09-27 17:45:00.000000','2015-09-28 17:00:00.000000','2016-09-28 17:45:00.000000',
+		VALUES (uuid_generate_v1(),'2015-09-28 17:00:00.000000','2217-09-27 17:45:00.000000','2015-09-28 17:00:00.000000','2015-09-28 17:45:00.000000',
 		'Sandsack','WEEKLY','3','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Trainiere am Sandsack bla bla Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',2),
 			(uuid_generate_v1(),'2015-10-05 17:00:00.000000','2218-09-27 17:45:00.000000','2015-09-25 16:00:00.000000','2015-09-25 17:30:00.000000',
 			 'Fitness','WEEKLY','3','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Fitnes Rocks, just do it. bla bla Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',3),
-			(uuid_generate_v1(),'2014-09-23 14:00:00.000000','2250-09-23 15:00:00.000000','2015-10-8 14:00:00.000000','2015-10-08 15:00:00.000000',
+			(uuid_generate_v1(),'2014-09-23 14:00:00.000000','2250-09-23 15:00:00.000000','2015-10-10 14:00:00.000000','2015-10-10 15:00:00.000000',
 			 'Calistenics 4 All','ONETIME','20','https://www.ywcampls.org/_asset/x953xn/Fitness-page-image.jpg','Calistencis outdor ist eine vielseitige Sportart mit eigenem Körpergewicht. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.',4);
 
 --INSERT INTO clazz (ext_id, start_from, end_at, name, contingent,id_clazzdef)
@@ -131,11 +130,11 @@ INSERT INTO offer(
 	nr_access,
 	nr_access_same,
 	price
-) VALUES (uuid_generate_v1(),'Basis',4,2,59),
-(uuid_generate_v1(),'Standard',6,4,89),
-(uuid_generate_v1(),'Premium',8,6,119);
+) VALUES (uuid_generate_v1(),'small',4,2,59),
+(uuid_generate_v1(),'medium',6,4,89),
+(uuid_generate_v1(),'large',8,6,119);
 
--- Registrierungen
+-- Registrierungen (Classen müssen est erstellt werden)
 Insert INTO registration (ext_id, id_trainee, id_clazz) VALUES
 	(uuid_generate_v1(),2,2),
 	(uuid_generate_v1(),2,3),

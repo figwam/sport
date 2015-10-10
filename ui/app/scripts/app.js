@@ -11,7 +11,8 @@ var app = angular.module('uiApp', [
   'ui.bootstrap',
   'satellizer',
   'validation.match',
-  'angularUtils.directives.dirPagination'
+  'angularUtils.directives.dirPagination',
+  'ngAnimate'
 ]);
 
 /**
@@ -27,7 +28,11 @@ app.run(function($state,$rootScope) {
   $rootScope.trainee = {};
   $rootScope.clazzes = {};
   $rootScope.clazzesSearchString = '';
+  $rootScope.formData = {};;
+
+  // for the state handling
   $rootScope.$state = $state;
+
 
 });
 
@@ -69,7 +74,8 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
     .state('home', {url:'/',
       views: {
         'header': {
-          templateUrl: '/views/header.html'
+          templateUrl: '/views/header.html',
+          controller: 'HomeCtrl'
         },
         'content': {
           templateUrl: '/views/home.html',
@@ -83,7 +89,28 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
       views: {
         'content@': {
           templateUrl: '/views/signUp.html',
-          controller: 'SignUpCtrl'
+          controller: 'SignUpCtrl',
+        }
+      }})
+    .state('home.signUp.profile', {
+      parent:'home.signUp',
+      views: {
+        'signUp': {
+          templateUrl: '/views/signUpProfile.html'
+        }
+      }})
+    .state('home.signUp.abo', {
+      parent:'home.signUp',
+      views: {
+        'signUp': {
+          templateUrl: '/views/signUpAbo.html'
+        }
+      }})
+    .state('home.signUp.payment', {
+      parent:'home.signUp',
+      views: {
+        'signUp': {
+          templateUrl: '/views/signUpPayment.html'
         }
       }})
     .state('home.signIn', {url:'signIn',
@@ -120,6 +147,12 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
         },
         'footer': {
           templateUrl: '/views/footer.html'
+        }
+      }})
+    .state('me.clazzes', {
+      views: {
+        'content@': {
+          templateUrl: '/views/me/clazzes.html'
         }
       }})
 

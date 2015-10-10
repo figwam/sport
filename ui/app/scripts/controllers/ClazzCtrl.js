@@ -29,33 +29,13 @@ app.controller('ClazzCtrl', ['$rootScope', '$scope', '$http', '$location', '$tem
       });
   }
 
-  $scope.book = function(idClazz) {
-    console.log($rootScope.trainee.id)
-    console.log(idClazz)
-
-    var body={"idTrainee":$rootScope.trainee.id};
-
-    $http({
-      method: "POST",
-      url: "/clazzes/"+idClazz+"/trainees",
-      data: body,
-      headers: { 'Content-Type': 'application/json; charset=UTF-8'},
-      cache: $templateCache}).
-      then(function(response) {
-        $scope.status = response.status;
-        $scope.data = response.data;
-      }, function(response) {
-        $scope.data = response.data || "Request failed";
-        $scope.status = response.status;
-      });
-  };
-
-
   // calling our submit function.
   $scope.submitSearch = function () {
     $rootScope.clazzesSearchString = $scope.searchString
     getResultsPage(1);
   };
+
+
 }]);
 
 

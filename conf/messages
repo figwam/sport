@@ -24,23 +24,32 @@ section.advantages.2=Lorem ipsum dolor sit amet, consetetur sadipscing elitr, se
 section.studios.title=Sportstudios
 section.studios.text=Im Moment kooperieren wir mit den Sportstudios der Region Bern. Das Angebot wird stets erweitert. 
 
+##############
+# Angebote
 section.pricing.title=Unsere Preise
-section.pricing.signup=Anmelden
-section.pricing.basic=Basis
-section.pricing.basic.price=CHF 59000
-section.pricing.business=Standard
-section.pricing.business.price=CHF 89000
-section.pricing.pro=Premium
-section.pricing.pro.price=CHF 119000
+section.pricing.signup=Auswählen
+section.pricing.signup.title=Abo wählen
+section.pricing.small=Basis
+section.pricing.small.price=CHF 59
+section.pricing.medium=Standard
+section.pricing.medium.price=CHF 89
+section.pricing.large=Premium
+section.pricing.large.price=CHF 119
+section.pricing.selected=Ausgewähltes Abo
 
 section.pricing.basic.1=Eintritte
-section.pricing.basic.2=Eintritte im selben Studio
+#section.pricing.basic.2=Eintritte im selben Studio
 section.pricing.basic.3=Jederzeit Abostop möglich
 section.pricing.basic.4=Jederzeit kündbar
 #4,2 6,4 8,6
 
+###########
+# Simple words
 word.monthly=monatlich
-employees.list.title={0,choice,0#No employees|1#One employee|1<{0,number,integer} employees} found
+word.change=ändern
+word.next=Weiter
+word.back=Zurück
+
 
 view.index.title=Gymix
 sign.up=Registrieren
@@ -50,11 +59,11 @@ sign.in.credentials=Logge dich mit deinem Account ein
 remember.me=Eingeloggt bleiben
 not.a.member=Noch nicht angemeldet?
 sign.up.now=Registrieren
-sign.up.account=Registriere dich jetzt bei Gymix
+sign.up.account=Bei Gymix registrieren
 firstname=Vorname
 lastname=Nachname
 street=Strasse und Hausnummer
-zip=Postleitzahl
+zip=PLZ
 state=Kanton
 city=Stadt
 email=E-Mail
@@ -64,7 +73,7 @@ already.a.member=Bereits registriert?
 sign.in.now=Logge dich jetzt ein
 
 #overide messages
-error.required=Bitte füllen Sie alle Felder aus
+error.required=Bitte füllen Sie alle Felder richtig aus
 error.email=Bitte valide E-Mail Adresse eingeben
 error.pattern=Ungültige Eingabe
 password.not.match=Bitte geben Sie zwei mal dasselbe Passwort ein
@@ -78,6 +87,7 @@ search.clazz=Sportkurs suchen
 search.clazz.filter=Sportkurse filtern
 search.go=Los!
 clazz.book=Anmelden
+clazz.cancel=Abmelden
 clazz.booked.out=Ausgebucht
 search.result=Suchresultate
 #search.result.amount={0,choice,0#Keine Sportkurse|1#Ein Sportkurs|1<{0,number,integer} Sportkurse wurden} gefunden
@@ -94,10 +104,12 @@ impressum=Impressum
 # Dashboard
 my.dashboard=Mein Gymix
 my.dashboard.breadcrumb=Eingeloggt als
-my.profile=Profil
+my.profile=Mein Profil
 my.clazzes=Meine Sportkurse
+my.home=Meine Startseite
+my.abo=Mein Abo
 all.clazzes=Sportkurse suchen
-my.bill=Rechnungen
+my.bill=Meine Rechnungen
 
 
 

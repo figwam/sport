@@ -1,10 +1,10 @@
 @()(implicit messages: Messages)
 
-<div class="row" ng-controller="DashboardCtrl">
+<div class="row" ng-controller="ClazzMeCtrl" >
     <div class="col-lg-12">
         <div class="row">
             <div class="col-md-12">
-                <form name="form" id="search-form" ng-submit="submitSearchRedirect()">
+                <form name="form" id="search-form" ng-submit="submitSearch()">
                     <div class="input-group">
                         <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz")">
                         <span class="input-group-btn">
@@ -13,53 +13,39 @@
                     </div><!-- /input-group -->
                 </form>
             </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-6 col-md-6 col-xs-12">
-        <rd-widget>
-            <rd-widget-body>
-                <div class="widget-icon blue pull-left">
-                    <i class="fa fa-calendar"></i>
-                </div>
-                <div class="title">Nächster Kurs</div>
-                <div class="comment">Di, 20.09, 17:00-17:30, Zumba</div>
-            </rd-widget-body>
-        </rd-widget>
-    </div>
-    <div class="col-lg-6 col-md-6 col-xs-12">
-        <rd-widget>
-            <rd-widget-body>
-                <div class="widget-icon green pull-left">
-                    <i class="fa fa-users"></i>
-                </div>
-                <div class="title">160</div>
-                <div class="comment">Sportkurse sind derzeit online</div>
-            </rd-widget-body>
-        </rd-widget>
-    </div>
-    <div class="col-lg-6 col-md-6 col-xs-12">
-        <rd-widget>
-            <rd-widget-body>
-                <div class="widget-icon red pull-left">
-                    <i class="fa fa-thumbs-up"></i>
-                </div>
-                <div class="title">34</div>
-                <div class="comment">Kurse bereits besucht</div>
-            </rd-widget-body>
-        </rd-widget>
-    </div>
-    <div class="col-lg-6 col-md-6 col-xs-12">
-        <rd-widget>
-            <rd-widget-body>
-                <div class="widget-icon orange pull-left">
-                    <i class="fa fa-sitemap"></i>
-                </div>
-                <div class="title">3 von 4</div>
-                <div class="comment">verbleibende Eintritte diesen Monat</div>
-            </rd-widget-body>
-        </rd-widget>
+            <div class="col-md-12">
+                <h2 class="lead"><strong class="text-danger">
+                    {{clazzes.total}}&nbsp;</strong>@Messages("search.result.amount")</h2>
+            </div>
+        </div><!-- /.row -->
+
+
+        <article class="search-result row" dir-paginate="(key, item) in clazzes.items | itemsPerPage: 10" total-items="totalClazzes" current-page="pagination.current">
+            <hr>
+            <div class="col-xs-12 col-sm-12 col-md-3">
+                <a href="#" title="{{item.name}}" class="thumbnail"><img src="{{item.avatarurl}}" alt="Lorem ipsum" /></a>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-2">
+                <ul class="meta-search">
+                    <li><i class="fa fa-calendar"></i> <span>{{item.startFrom  | date: 'EEE, dd MMM'}}</span></li>
+                    <li><i class="fa fa-clock-o"></i> <span>
+                        {{item.startFrom  | date: 'HH:mm'}}-{{item.endAt | date: 'HH:mm'}}</span></li>
+                    <li ng-if="item.contingent - item.registrations > 0"><i class="fa fa-users"></i> <span>
+                        {{item.contingent - item.registrations}} von {{item.contingent}} frei</span></li>
+                    <li ng-if="item.contingent - item.registrations <= 0"><i class="fa fa-users"></i> <span><strong class="text-danger">@Messages("clazz.booked.out")</strong></span></li>
+                </ul>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-7 excerpet">
+                <h3><a href="#" title="">{{item.name}}</a></h3>
+                <p>{{item.description}}</p>
+
+                <button ng-if="!item.idTrainee" ng-disabled="item.contingent - item.registrations <= 0" class="btn btn-success" ng-click="book(item.id)">@Messages("clazz.book")</button>
+                    <!--<button class="btn btn-danger">Cancel</button>-->
+                <button ng-if="item.idTrainee == trainee.id" class="btn btn-danger" ng-click="bookDelete(item.id)">@Messages("clazz.cancel")</button>
+
+            </div>
+        </article>
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber,trainee.id)" template-url="bower_components/angular-utils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
     </div>
 </div>
 

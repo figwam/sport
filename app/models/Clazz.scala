@@ -12,12 +12,15 @@ case class Clazz(
                   endAt: Calendar,
                   name: String,
                   contingent: Short,
-                  avatarurl: String,
+                  avatarurl: Option[String],
                   description: String,
                   tags: Option[String],
                   registrations: Short = 0,
                   searchMeta: String,
-                  idClazzDef: Long)
+                  idClazzDef: Long,
+                  idStudio: Long,
+                  idTrainee: Option[Long],
+                  idRegistration: Option[Long])
 
 
 /**

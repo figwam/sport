@@ -198,7 +198,11 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
 
   def book(registration: Registration): Future[Registration] = {
     db.run(slickRegistrations += DBRegistration(None,registration.extId.toString, new Timestamp(System.currentTimeMillis()),registration.idTrainee,registration.idClazz))
-        .map(_ => registration)
+      .map(_ => registration)
+  }
+
+  def bookDelete(registration: Registration): Future[Int] = {
+    db.run(slickRegistrations.filter(_.idClazz === registration.idClazz).filter(_.idTrainee === registration.idTrainee).delete)
   }
 
 }

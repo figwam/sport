@@ -231,7 +231,6 @@ CREATE TABLE public.offer(
 	price decimal(5,2) NOT NULL,
 	is_deleted bool NOT NULL DEFAULT false,
 	CONSTRAINT offer_id_idx PRIMARY KEY (id)
-
 );
 
 -- DROP INDEX IF EXISTS public.offer_ext_id_idx CASCADE;
@@ -815,6 +814,7 @@ CREATE EXTENSION "uuid-ossp";
 --
 --
 --
+
 CREATE VIEW clazz_view AS
   select c.id, c.ext_id, c.start_from, c.end_at, cd.name, cd.contingent,
     cd.avatarurl, cd.description, cd.tags,
@@ -822,7 +822,7 @@ CREATE VIEW clazz_view AS
            '{',s.name,'},',
            '{',cd.description,'},',
            '{',cd.tags,'}') as search_meta, nr_of_regs,
-    c.id_clazzdef
+    c.id_clazzdef, s.id AS id_studio
   from (
          select c.id, c.ext_id, c.start_from, c.end_at,
            c.created_on, c.updated_on, c.id_clazzdef,
@@ -832,6 +832,7 @@ CREATE VIEW clazz_view AS
          group by c.id) as c, clazz_definition cd, studio s
   where c.id_clazzdef = cd.id
         and cd.id_studio = s.id;
+
 
 -- # --- !Downs
 

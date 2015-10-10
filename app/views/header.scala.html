@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="#home" class="navbar-brand text-uppercase">@Messages("brand")</a>
+                <a href="/#/#home" class="navbar-brand text-uppercase">@Messages("brand")</a>
             </div>
             <div class="collapse navbar-collapse" ng-class="{ in: !navCollapsed }" ng-click="navCollapsed = !navCollapsed">
                 <ul class="nav navbar-nav navbar-left">
@@ -20,7 +20,7 @@
                         <li><a ui-sref-active="active" href="/#/#feature">@Messages("menu.advantages")</a></li>
                         <li><a ui-sref-active="active" href="/#/#studios">@Messages("menu.studios")</a></li>
                         <li><a ui-sref-active="active" href="/#/#pricing">@Messages("menu.pricing")</a></li>
-                            <!--<li><a href="/#/home#feature" OR ng-click="scrollTo('feature')">this scrolling works too!</a></li>-->
+                        <!--<li><a href="/#/#feature" OR ng-click="scrollTo('feature')">this scrolling works too!</a></li>-->
                 </ul>
                 <form class="navbar-form navbar-right">
                         <!-- Trainee is logged in -->
@@ -29,7 +29,7 @@
 
                         <!-- Trainee is logged out -->
                     <a ng-if="!isAuthenticated()" class="btn btn-primary" ui-sref="home.signIn">@Messages("sign.in")</a>
-                    <a ng-if="!isAuthenticated()" class="btn btn-success" ui-sref="home.signUp">@Messages("sign.up")</a>
+                    <a ng-if="!isAuthenticated()" class="btn btn-success" ng-click="submitOfferRedirect('@Messages("section.pricing.medium")',2, false)">@Messages("sign.up")</a>
                 </form>
             </div>
         </div>

@@ -19,6 +19,7 @@ trait ClazzDAO  {
   //  def update(id: Long, clazz: Clazz): Future[Int]
   //  def delete(id: Long): Future[Int]
   def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page]
+  def listPersonalized(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: Long): Future[Page]
   //  def findById(id: Long): Future[Clazz]
   def count: Future[Int]
 
@@ -30,7 +31,7 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
 
   private def count(filter: String): Future[Int] =
-    db.run(slickClazzViews.filter(_.searchMeta.toLowerCase like filter.toLowerCase).length.result)
+    db.run(slickClazzViews.filter(_.startFrom >= new Timestamp(System.currentTimeMillis())).filter(_.searchMeta.toLowerCase like filter.toLowerCase).length.result)
 
   /**
    * Count clazzes
@@ -95,10 +96,58 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
         // go through all the DBClazzes and map them to Clazz
         case clazz => {
           //Logger.info(clazzDef.name+"("+clazz.id+")-->"+registrations._2)
-          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef)
+          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef, clazz.idStudio, None, None)
         }
       } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
     }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
   }
 
+
+  override def listPersonalized(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%", idTrainee: Long): Future[Page] = {
+    val offset = if (page > -1) pageSize * page else 0
+    /*
+    The following query is executed, which returns all personalized clazzes and additionally the reservation id.
+
+        SELECT id, ext_id, start_from, end_at, name, contingent,
+          avatarurl, description, tags, search_meta, nr_of_regs, id_clazzdef, id_studio, id_trainee, id_registration
+        FROM (SELECT
+                c.id AS cid,
+                t.id AS id_trainee,
+                r.id AS id_registration
+              FROM clazz c, registration r, trainee t
+              WHERE r.id_trainee = t.id AND r.id_clazz = c.id) a
+          RIGHT OUTER JOIN clazz_view b
+            ON b.id = a.cid and id_trainee = 4;
+     */
+
+    val regAction = (for {
+      trainee <- slickTrainees
+      reg <- slickRegistrations.filter(_.idTrainee === trainee.id).filter(_.idTrainee === idTrainee)
+      clazz1 <- slickClazzes.filter(_.id === reg.idClazz)
+    } yield (reg))
+
+
+    val clazzAction = (for {
+      (registration, clazz) <- regAction joinRight slickClazzViews
+        .sortBy(r => orderBy match {case 1 => r.startFrom case _ => r.startFrom})
+        .filter(_.searchMeta.toLowerCase like filter.toLowerCase) on (_.idClazz === _.id)
+
+      //(clazz, registrations) <- slickClazzViews.sortBy(r => orderBy match {case 1 => r.startFrom case _ => r.startFrom}) joinRight slickRegistrations on (_.id === _.idClazz)
+      //if clazz.startFrom >= new Timestamp(System.currentTimeMillis()) if clazz.searchMeta.toLowerCase like filter.toLowerCase
+    } yield (clazz, registration)).drop(offset).take(pageSize)
+    val totalRows = count(filter)
+
+    val result = db.run(clazzAction.result)
+    result.map { clazz =>
+      clazz.map {
+        // go through all the DBClazzes and map them to Clazz
+        case (clazz, registration) => {
+          //Logger.info(clazzDef.name+"("+clazz.id+")-->"+registrations._2)
+          val idTrainee: Option[Long] = registration.map{reg => reg match {case DBRegistration(_,_,_,_,_) => reg.idTrainee} }
+          val idReg: Option[Long] = registration.flatMap{reg => reg match {case DBRegistration(_,_,_,_,_) => reg.id} }
+          Clazz(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef, clazz.idStudio, idTrainee,idReg)
+        }
+      } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
+    }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))
+  }
 }

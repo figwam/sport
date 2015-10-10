@@ -36,4 +36,6 @@ trait TraineeDAO {
   def save(trainee: Trainee): Future[Trainee]
 
   def book(registration: Registration): Future[Registration]
+
+  def bookDelete(registration: Registration): Future[Int]
 }

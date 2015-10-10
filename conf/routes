@@ -6,7 +6,10 @@ GET         /                                com.tuplejump.playYeoman.Yeoman.ind
 
 GET         /trainee                         controllers.ApplicationController.trainee
 GET         /clazzes                         controllers.ApplicationController.clazzes(p:Int ?= 0, s:Int ?= 1, f ?= "")
-POST        /clazzes/:id/trainees            controllers.ApplicationController.book(id: Long)
+GET         /clazzes/trainees/me            controllers.ApplicationController.clazzesPersonalized(p:Int ?= 0, s:Int ?= 1, f ?= "")
+POST        /trainees/me/clazzes            controllers.ApplicationController.book
+DELETE      /trainees/me/clazzes/:id        controllers.ApplicationController.bookDelete(id: Long)
+
 GET         /signOut                         controllers.ApplicationController.signOut
 POST        /signIn                          controllers.CredentialsAuthController.authenticate
 POST        /signUp                          controllers.SignUpController.signUp

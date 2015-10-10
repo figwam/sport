@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat
 import java.util.{GregorianCalendar, UUID, Calendar}
 
 import models.Recurrence.Recurrence
-import models.{Recurrence, Clazz, ClazzDefinition}
+import models.{Bill, Recurrence, Clazz, ClazzDefinition}
 import play.Logger
 import play.api.libs.json.{JsString, JsSuccess, JsValue, Format}
 
@@ -43,6 +43,15 @@ object Utils {
   final def asCalendar (ts: Timestamp): Calendar = {val c = new GregorianCalendar(); c.setTime(ts);c}
   final def asTimestamp (c: Calendar): Timestamp = new Timestamp(c.getTimeInMillis)
 
+  /**
+   * This method calculates the next classes from class definition. Class definition are usually
+   * configured by partners and can be recurrent and onetime. In both cases the calculator will go
+   * through the class definitions and generate next classes accordingly to their recurrence.
+   *
+   * @param clazzDef The man class definition created by partner
+   * @param seeInAdvanceDays The amount of days to calculate the classes in advance
+   * @return The list of classes which can e.g be created in the database
+   */
   final def calculateNextClazzes(clazzDef: ClazzDefinition, seeInAdvanceDays: Int) : List[Clazz] = {
     /*Transform to gregorian calendar, for easier calculation*/
     val calculateTill = new GregorianCalendar();calculateTill.add(Calendar.DAY_OF_YEAR, seeInAdvanceDays)
@@ -55,7 +64,7 @@ object Utils {
     }
 
 
-    val clazz = Clazz(None, UUID.randomUUID(), clazzDef.startFrom,clazzDef.endAt, clazzDef.name, clazzDef.contingent, clazzDef.avatarurl, clazzDef.description, clazzDef.tags, 0, "",clazzDef.idStudio)
+    val clazz = Clazz(None, UUID.randomUUID(), clazzDef.startFrom,clazzDef.endAt, clazzDef.name, clazzDef.contingent, Some(clazzDef.avatarurl), clazzDef.description, clazzDef.tags, 0, "",clazzDef.id.get, clazzDef.idStudio, None, None)
     List(
     // activ bis muss in zukunft liegen ODER
     // activ von muss vor calculateTill
@@ -88,5 +97,10 @@ object Utils {
   }
 
 
+  //final def calculateNextBills() : List[Bill] = {
 
-}
+  //}
+
+
+
+  }

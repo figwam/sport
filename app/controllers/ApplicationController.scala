@@ -42,13 +42,20 @@ class ApplicationController @Inject() (
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 
-  def book(idClazz: Long) = SecuredAction.async(parse.json) { implicit request =>
-    (request.body \ "idTrainee").asOpt[Long].map { idTrainee =>
-      traineeDAO.book(Registration(None, UUID.randomUUID(), idTrainee, idClazz))
-        .onFailure{case t => Logger.warn(t.getMessage)}
+  def book() = SecuredAction.async(parse.json) { implicit request =>
+    (request.body \ "idClazz").asOpt[Long].map { idClazz =>
+      traineeDAO.book(Registration(None, UUID.randomUUID(), request.identity.id.getOrElse(-1L), idClazz))
+        .onFailure { case t => Logger.warn(t.getMessage) }
       Future.successful(Ok)
     }.getOrElse {
-      Future.successful(BadRequest("Missing parameter [idTrainee]"))
+      Future.successful(BadRequest("Missing parameter [idClazz]"))
+    }
+  }
+
+  def bookDelete(idClazz: Long) = SecuredAction.async { implicit request =>
+      traineeDAO.bookDelete(Registration(None, UUID.randomUUID(), request.identity.id.getOrElse(-1L), idClazz))
+        .onFailure { case t => Logger.warn(t.getMessage) }
+      Future.successful(Ok)
   }
     /*
     try {
@@ -81,11 +88,22 @@ class ApplicationController @Inject() (
         Future.successful(InternalServerError("Something bad happened"))
     }
     */
-  }
+
 
 
   def clazzes(page: Int, orderBy: Int, filter: String) = UserAwareAction.async { implicit request =>
     clazzDAO.list(page, 10, orderBy, "%" + filter + "%").flatMap { pageClazzes =>
+      Future.successful(Ok(Json.toJson(pageClazzes)))
+    }.recover {
+      case ex: TimeoutException =>
+        Logger.error("Problem found in clazz list process")
+        InternalServerError(ex.getMessage)
+    }
+  }
+
+
+  def clazzesPersonalized(page: Int, orderBy: Int, filter: String) = SecuredAction.async { implicit request =>
+    clazzDAO.listPersonalized(page, 10, orderBy, "%" + filter + "%", request.identity.id.getOrElse(-1L)).flatMap { pageClazzes =>
       Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>
@@ -111,6 +129,7 @@ class ApplicationController @Inject() (
 
   def viewRestricted(template: String) = SecuredAction.async { implicit request =>
     template match {
+      case "clazzes" => Future.successful(Ok(views.html.me.clazzes()))
       case "dashboard" => Future.successful(Ok(views.html.me.dashboard()))
       case "header" => Future.successful(Ok(views.html.me.header()))
       case "sidebar" => Future.successful(Ok(views.html.me.sidebar()))
@@ -122,6 +141,9 @@ class ApplicationController @Inject() (
     template match {
       case "home" => Ok(views.html.home())
       case "signUp" => Ok(views.html.signUp())
+      case "signUpAbo" => Ok(views.html.signUpAbo())
+      case "signUpProfile" => Ok(views.html.signUpProfile())
+      case "signUpPayment" => Ok(views.html.signUpPayment())
       case "signIn" => Ok(views.html.signIn(socialProviderRegistry))
       case "clazzes" => Ok(views.html.clazzes())
       case "header" => Ok(views.html.header())

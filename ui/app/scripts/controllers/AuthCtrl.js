@@ -40,8 +40,8 @@ app.controller('AuthCtrl', ['$rootScope', '$scope', '$auth', '$location', '$anch
           // do logout on client side and redirect to root
           $auth.logout().then(function() {$location.path("/")});
         } else {
-          // Also in other error cases do client siede logout
-          // TODO: improve!!
+          // Also in other error cases do client side logout
+          // TODO: improve! Distinguish between error cases
           $auth.logout().then(function() {$location.path("/")});
         }
     });
@@ -54,12 +54,6 @@ app.controller('AuthCtrl', ['$rootScope', '$scope', '$auth', '$location', '$anch
    */
   $scope.isAuthenticated = function () {
     return $auth.isAuthenticated();
-  };
-
-
-  $scope.scrollTo = function (id) {
-    $location.hash(id);
-    $anchorScroll();
   };
 
 }]);
