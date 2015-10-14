@@ -6,10 +6,9 @@ import play.api.libs.json._
 
 
 case class Registration(
-                         id: Option[Long],
-                         extId: UUID,
-                         idTrainee: Long,
-                         idClazz: Long)
+                         id: Option[UUID],
+                         idTrainee: UUID,
+                         idClazz: UUID)
 
 
 /**

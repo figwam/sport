@@ -10,13 +10,13 @@ import com.mohiva.play.silhouette.api.services.AvatarService
 import com.mohiva.play.silhouette.api.util.PasswordHasher
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.CredentialsProvider
-import forms.SignUpForm
+import forms.{SignUpForm}
 import models.daos.TraineeDAO
 import models.{Address, Trainee}
 import models.services.TraineeService
-import play.api.i18n.{ MessagesApi, Messages }
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json.Json
+import play.api.i18n.{ MessagesApi }
+import play.api.libs.json._
+import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.mvc.Action
 
 import scala.concurrent.Future
@@ -51,22 +51,13 @@ class SignUpController @Inject() (
       val loginInfo = LoginInfo(CredentialsProvider.ID, data.email)
       traineeService.retrieve(loginInfo).flatMap {
         case Some(trainee) =>
-          Future.successful(BadRequest(Json.obj("message" -> Messages("trainee.exists"))))
+          Future.successful(Unauthorized(Json.obj("message" -> "trainee.exists")))
         case None =>
           val authInfo = passwordHasher.hash(data.password)
-          val addr = Address(
-            None,
-            UUID.randomUUID(),
-            data.street,
-            data.city,
-            data.zip,
-            data.state,
-            "Switzerland"
-          )
+          val addr = Address(None, data.street, data.city, data.zip, data.state, "Switzerland")
           val trainee = Trainee(
             None,
             loginInfo = loginInfo,
-            extId = UUID.randomUUID(),
             firstname = Some(data.firstname),
             lastname = Some(data.lastname),
             mobile = None,
@@ -81,7 +72,8 @@ class SignUpController @Inject() (
             username = Some (data.email),
             fullname = Some(data.firstname + " " + data.lastname),
             avatarurl = None,
-            address = addr
+            address = addr,
+            selectedOfferId = Some(UUID.fromString(data.aboId))
           )
           for {
             avatar <- avatarService.retrieveURL(data.email)
@@ -97,7 +89,7 @@ class SignUpController @Inject() (
       }
     }.recoverTotal {
       case error =>
-        Future.successful(Unauthorized(Json.obj("message" -> Messages("invalid.data"))))
+        Future.successful(Unauthorized(Json.obj("message" -> "invalid.data", "detail" -> JsError.toJson(error))))
     }
   }
 }

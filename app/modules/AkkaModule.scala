@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule
 import models.daos.{ClazzDAO, ClazzDAOImpl}
 import net.codingwell.scalaguice.ScalaModule
 import play.api.libs.concurrent.AkkaGuiceSupport
-import scheduler.ClazzScheduler
+import scheduler.{ClazzScheduler}
 import workers.DBLogAdmin
 
 /**

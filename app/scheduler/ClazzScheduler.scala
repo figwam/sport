@@ -56,15 +56,20 @@ class ClazzScheduler @Inject() (clazzDAO: ClazzDAO, clazzDefinitionDAO: ClazzDef
             Utils.calculateNextClazzes(clazzDef, seeInAdvanceDays).map( clazz =>
               clazz match {
                 case clazz: Clazz => {
-                  val future = clazzDAO.insert(clazz).map(c => Logger.debug("Create clazzes inserted, with id="+c.id))
-                  future.onSuccess { case a => Logger.debug(s"Class created: $a") }
-                  future.onFailure {
-                    case t: PSQLException => {
-                      if (t.getMessage.contains("duplicate key value violates unique constraint")) Logger.info("Class already exists")
-                      else Logger.error("Something bad happened", t)
+                  clazzDef.id match {
+                    case idClazzDef:Some[UUID] => {
+                      val future = clazzDAO.insert(clazz, idClazzDef.get).map(c => Logger.debug("Create clazzes inserted, with id="+c.id))
+                      future.onSuccess { case a => Logger.debug(s"Class created: $a") }
+                      future.onFailure {
+                        case t: PSQLException => {
+                          if (t.getMessage.contains("duplicate key value violates unique constraint")) Logger.info("Class already exists")
+                          else Logger.error("Something bad happened", t)
+                        }
+                        case t: Throwable => Logger.error(t.getMessage,t)
+                      }
                     }
-                    case t: Throwable => Logger.error(t.getMessage,t)
-                  }
+                    case _ => UUID.randomUUID()}
+
                 }
                 case _ => Logger.warn("outdated clazz definition found, id="+clazzDef.id)
               }

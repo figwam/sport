@@ -20,14 +20,6 @@ trait TraineeDAO {
   def find(loginInfo: LoginInfo): Future[Option[Trainee]]
 
   /**
-   * Finds a trainee by its trainee ID.
-   *
-   * @param traineeID The ID of the trainee to find.
-   * @return The found trainee or None if no trainee for the given ID could be found.
-   */
-  def find(traineeID: Long): Future[Option[Trainee]]
-
-  /**
    * Saves a trainee.
    *
    * @param trainee The trainee to save.

@@ -8,14 +8,19 @@ import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import models._
-import models.daos.{TraineeDAO, ClazzDAO}
+import models.daos.{OfferDAO, TraineeDAO, ClazzDAO}
 import org.postgresql.util.PSQLException
+import play.Play
 import play.api.Logger
+import play.api.cache.Cache
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
+import play.cache.Cached
 import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.Play.current
+import scala.concurrent.duration._
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
 
 /**
  * The basic application controller.
@@ -30,9 +35,20 @@ class ApplicationController @Inject() (
   val env: Environment[Trainee, JWTAuthenticator],
   socialProviderRegistry: SocialProviderRegistry,
   clazzDAO: ClazzDAO,
-  traineeDAO: TraineeDAO)
+  traineeDAO: TraineeDAO,
+  offerDAO: OfferDAO)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
+
+  def offers = UserAwareAction.async { implicit request =>
+    lazy val cacheExpire = Play.application().configuration().getString("cache.expire.get.offers").toInt
+    val offers:List[Offer] = Cache.getAs[List[Offer]]("offers").getOrElse{
+      val offers:List[Offer] = Await.result(offerDAO.list(), 5.seconds)
+      Cache.set("offers", offers, cacheExpire.seconds)
+      offers
+    }
+    Future.successful(Ok(Json.toJson(offers)))
+  }
   /**
    * Returns the trainee.
    *
@@ -43,8 +59,8 @@ class ApplicationController @Inject() (
   }
 
   def book() = SecuredAction.async(parse.json) { implicit request =>
-    (request.body \ "idClazz").asOpt[Long].map { idClazz =>
-      traineeDAO.book(Registration(None, UUID.randomUUID(), request.identity.id.getOrElse(-1L), idClazz))
+    (request.body \ "idClazz").asOpt[String].map { idClazz =>
+      traineeDAO.book(Registration(None, request.identity.id.getOrElse(UUID.randomUUID()), UUID.fromString(idClazz)))
         .onFailure { case t => Logger.warn(t.getMessage) }
       Future.successful(Ok)
     }.getOrElse {
@@ -52,8 +68,8 @@ class ApplicationController @Inject() (
     }
   }
 
-  def bookDelete(idClazz: Long) = SecuredAction.async { implicit request =>
-      traineeDAO.bookDelete(Registration(None, UUID.randomUUID(), request.identity.id.getOrElse(-1L), idClazz))
+  def bookDelete(idClazz: String) = SecuredAction.async { implicit request =>
+      traineeDAO.bookDelete(Registration(None, request.identity.id.getOrElse(UUID.randomUUID()), UUID.fromString(idClazz)))
         .onFailure { case t => Logger.warn(t.getMessage) }
       Future.successful(Ok)
   }
@@ -101,9 +117,15 @@ class ApplicationController @Inject() (
     }
   }
 
+  def clazzesCount = UserAwareAction.async { implicit request =>
+    clazzDAO.count.flatMap{ count =>
+      Future.successful(Ok(Json.toJson(count)))
+    }
+  }
+
 
   def clazzesPersonalized(page: Int, orderBy: Int, filter: String) = SecuredAction.async { implicit request =>
-    clazzDAO.listPersonalized(page, 10, orderBy, "%" + filter + "%", request.identity.id.getOrElse(-1L)).flatMap { pageClazzes =>
+    clazzDAO.listPersonalized(page, 10, orderBy, "%" + filter + "%", request.identity.id.getOrElse(UUID.randomUUID())).flatMap { pageClazzes =>
       Future.successful(Ok(Json.toJson(pageClazzes)))
     }.recover {
       case ex: TimeoutException =>

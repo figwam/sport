@@ -1,10 +1,5 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
-@import b3.inline.fieldConstructor
-
-@import forms.SignUpForm.form
-
-
 
 <div class="row">
     <div class="col-md-12">
@@ -47,7 +42,7 @@
 
 <div class="form-group row">
     <div class="col-lg-12">
-        <a ui-sref="home.signUp.profile" class="btn btn-block btn-success">
+        <a ui-sref="home.signUp.profile" class="btn btn-lg btn-block btn-success">
             @Messages("word.next")&nbsp;<span class="fa fa-arrow-circle-right"></span>
         </a>
     </div>

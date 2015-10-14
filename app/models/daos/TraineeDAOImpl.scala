@@ -6,10 +6,12 @@ import java.util.UUID
 import com.mohiva.play.silhouette.api.LoginInfo
 import models._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import slick.dbio.DBIOAction
 import javax.inject.Inject
 import play.api.db.slick.DatabaseConfigProvider
 import scala.concurrent.Future
+
+
+import utils.Utils.asCalendar
 
 /**
  * Give access to the trainee object using Slick
@@ -25,66 +27,20 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
    * @param loginInfo The login info of the trainee to find.
    * @return The found trainee or None if no trainee for the given login info could be found.
    */
-  def find(loginInfo: LoginInfo)= {
-    val traineeQuery = for {
+  def find(loginInfo: LoginInfo) = {
+    val query = for {
       dbLoginInfo <- loginInfoQuery(loginInfo)
       dbTraineeLoginInfo <- slickTraineeLoginInfos.filter(_.idLoginInfo === dbLoginInfo.id)
       dbTrainee <- slickTrainees.filter(_.id === dbTraineeLoginInfo.idTrainee)
       dbAddress <- slickAddresses.filter(_.id === dbTrainee.idAddress)
-    } yield (dbTrainee, dbAddress)
-
-    db.run(traineeQuery.result.headOption).map { dbTraineeAddressOption =>
-      dbTraineeAddressOption.map {
-        case (trainee, address) =>
-          Trainee(trainee.id,
-            loginInfo,
-            UUID.fromString(trainee.extId),
-            trainee.firstname,
-            trainee.lastname,
-            trainee.mobile,
-            trainee.phone,
-            trainee.email,
-            trainee.emailVerified,
-            trainee.createdOn,
-            trainee.updatedOn,
-            trainee.ptoken,
-            trainee.isActive,
-            trainee.inactiveReason,
-            trainee.username,
-            trainee.fullname,
-            trainee.avatarurl,
-            Address(
-              address.id,
-              UUID.fromString(address.extId),
-              address.street,
-              address.city,
-              address.zip,
-              address.state,
-              address.country)
-          )
-      }
-    }
-  }
-
-  /**
-   * Finds a trainee by its trainee ID.
-   *
-   * @param traineeID The ID of the trainee to find.
-   * @return The found trainee or None if no trainee for the given ID could be found.
-   */
-  def find(traineeID: Long) = {
-    val query = for {
-      dbTrainee <- slickTrainees.filter(_.id === traineeID)
-      dbTraineeLoginInfo <- slickTraineeLoginInfos.filter(_.idLoginInfo === dbTrainee.id)
-      dbLoginInfo <- slickLoginInfos.filter(_.id === dbTraineeLoginInfo.idLoginInfo)
-      dbAddress <- slickAddresses.filter(_.id === dbTrainee.idAddress)
-    } yield (dbTrainee, dbLoginInfo, dbAddress)
+      dbSubscription <- slickSubscriptions.filter(_.idTrainee === dbTrainee.id)
+      dbOffer <- slickOffers.filter(_.id === dbSubscription.idOffer)
+    } yield (dbTrainee, dbLoginInfo, dbAddress, dbSubscription, dbOffer)
     db.run(query.result.headOption).map { resultOption =>
       resultOption.map {
-        case (trainee, loginInfo, address) =>
-          Trainee(trainee.id,
+        case (trainee, loginInfo, address, subscription, offer) =>
+          Trainee(None,
             LoginInfo(loginInfo.providerId, loginInfo.providerKey),
-            UUID.fromString(trainee.extId),
             trainee.firstname,
             trainee.lastname,
             trainee.mobile,
@@ -100,13 +56,24 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
             trainee.fullname,
             trainee.avatarurl,
             Address(
-              address.id,
-              UUID.fromString(address.extId),
+              None,
               address.street,
               address.city,
               address.zip,
               address.state,
-              address.country)
+              address.country),
+          None,
+            Some(Subscription(
+              None,
+              subscription.isActive,
+              subscription.canceledOn match { case Some(c) => Some(asCalendar(c)) case _ => None},
+              Offer(
+                None,
+                offer.name,
+                offer.nrAccess,
+                offer.nrAccessSame,
+                offer.price)
+            ))
           )
       }
     }
@@ -121,7 +88,6 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
   def save(trainee: Trainee) = {
     val dbTrainee = DBTrainee(
       trainee.id,
-      UUID.randomUUID().toString,
       trainee.firstname,
       trainee.lastname,
       trainee.mobile,
@@ -135,14 +101,13 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
       None,
       true,
       trainee.inactiveReason,
-      -1L,
+      UUID.randomUUID(), // Will be set later
       trainee.username,
       trainee.fullname,
       trainee.avatarurl)
 
     val dbAddress = DBAddress(
       None,
-      UUID.randomUUID().toString,
       trainee.address.street,
       trainee.address.zip,
       trainee.address.city,
@@ -165,7 +130,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
       val retrieveAddress = slickAddresses.filter(
         address => address.id === trainee.address.id).result.headOption
       val insertAddress = slickAddresses.returning(slickAddresses.map(_.id)).
-        into((address, id) => address.copy(id = Some(id))) += dbAddress
+        into((address, id) => address.copy(id = id)) += dbAddress
       for {
         addressOption <- retrieveAddress
         address <- addressOption.map(DBIO.successful(_)).getOrElse(insertAddress)
@@ -184,12 +149,14 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
         loginInfo <- loginInfoOption.map(DBIO.successful(_)).getOrElse(insertLoginInfo)
       } yield loginInfo
     }
+
     // combine database actions to be run sequentially
     val actions = (for {
       address <- addressAction
       dbTraineeP <- slickTrainees.returning(slickTrainees.map(_.id)).insertOrUpdate(dbTrainee.copy(idAddress = address.id.get))
       loginInfo <- loginInfoAction
-      _ <- slickTraineeLoginInfos += DBTraineeLoginInfo(new Timestamp(System.currentTimeMillis), dbTraineeP.head.get , loginInfo.id.get)
+      _ <- slickTraineeLoginInfos += DBTraineeLoginInfo(new Timestamp(System.currentTimeMillis), dbTraineeP.head.get, loginInfo.id.get)
+      _ <- slickSubscriptions += DBSubscription(None, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis), true, None, trainee.selectedOfferId.get, dbTraineeP.head.get)
     } yield ()).transactionally
     // run actions and return trainee afterwards
     db.run(actions).map(_ => trainee)
@@ -197,7 +164,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
 
 
   def book(registration: Registration): Future[Registration] = {
-    db.run(slickRegistrations += DBRegistration(None,registration.extId.toString, new Timestamp(System.currentTimeMillis()),registration.idTrainee,registration.idClazz))
+    db.run(slickRegistrations += DBRegistration(None, new Timestamp(System.currentTimeMillis()), registration.idTrainee, registration.idClazz))
       .map(_ => registration)
   }
 

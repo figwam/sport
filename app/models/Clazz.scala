@@ -6,8 +6,7 @@ import play.api.libs.json._
 
 
 case class Clazz(
-                  id: Option[Long],
-                  extId: UUID,
+                  id: Option[UUID],
                   startFrom: Calendar,
                   endAt: Calendar,
                   name: String,
@@ -17,10 +16,9 @@ case class Clazz(
                   tags: Option[String],
                   registrations: Short = 0,
                   searchMeta: String,
-                  idClazzDef: Long,
-                  idStudio: Long,
-                  idTrainee: Option[Long],
-                  idRegistration: Option[Long])
+                  idClazzDef: UUID,
+                  idStudio: UUID,
+                  idRegistration: Option[UUID])
 
 
 /**

@@ -12,7 +12,8 @@ var app = angular.module('uiApp', [
   'satellizer',
   'validation.match',
   'angularUtils.directives.dirPagination',
-  'ngAnimate'
+  'ngAnimate',
+  'ngLoadingSpinner'
 ]);
 
 /**

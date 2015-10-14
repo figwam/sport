@@ -6,8 +6,7 @@ import play.api.libs.json.Json
 
 
 case class Address(
-                    id: Option[Long],
-                    extId: UUID,
+                    id: Option[UUID],
                     street: String,
                     city: String,
                     zip: String,

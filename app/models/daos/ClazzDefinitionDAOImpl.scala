@@ -42,8 +42,8 @@ class ClazzDefinitionDAOImpl @Inject() (protected val dbConfigProvider: Database
 
 
   override def insert(clazz: ClazzDefinition): Future[ClazzDefinition] = {
-    val insertQuery = slickClazzDefinitions.returning(slickClazzDefinitions.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = Some(id)))
-    val objToInsert = DBClazzDefinition(None, UUID.randomUUID().toString, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), asTimestamp(clazz.activeFrom),asTimestamp(clazz.activeTill), clazz.name, clazz.recurrence+"", clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description,clazz.tags, None, clazz.idStudio)
+    val insertQuery = slickClazzDefinitions.returning(slickClazzDefinitions.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = id))
+    val objToInsert = DBClazzDefinition(None, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), asTimestamp(clazz.activeFrom),asTimestamp(clazz.activeTill), clazz.name, clazz.recurrence+"", clazz.contingent, new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis),Some(clazz.avatarurl),clazz.description,clazz.tags, None, clazz.idStudio)
     val action = insertQuery += objToInsert
     db.run(action).map(_ => clazz.copy(id = objToInsert.id))
   }
@@ -61,7 +61,7 @@ class ClazzDefinitionDAOImpl @Inject() (protected val dbConfigProvider: Database
     val result = db.run(query.result)
     result.map { clazz =>
       clazz.map {
-        case (clazz) => ClazzDefinition(clazz.id, UUID.fromString(clazz.extId), asCalendar(clazz.startFrom), asCalendar(clazz.endAt), asCalendar(clazz.activeFrom), asCalendar(clazz.activeTill), Recurrence.withName(clazz.recurrence), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags, clazz.idStudio)
+        case (clazz) => ClazzDefinition(clazz.id, asCalendar(clazz.startFrom), asCalendar(clazz.endAt), asCalendar(clazz.activeFrom), asCalendar(clazz.activeTill), Recurrence.withName(clazz.recurrence), clazz.name, clazz.contingent, clazz.avatarurl.get, clazz.description, clazz.tags, clazz.idStudio)
       }
     }
   }

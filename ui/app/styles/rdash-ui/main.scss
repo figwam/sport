@@ -1,11 +1,13 @@
 /* Base */
+@import "variables";
+
 html {
     overflow-y: scroll;
 }
 body {
-    background: #f3f3f3;
+    background: $body-bg;
     font-family: "Montserrat";
-    color: #333333 !important;
+    color: $text-color !important;
 }
 .row {
     margin-left: 0 !important;

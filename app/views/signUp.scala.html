@@ -1,10 +1,7 @@
 @()(implicit request: RequestHeader, messages: Messages)
 
-@import b3.inline.fieldConstructor
-
-@import forms.SignUpForm.form
-
 <section id="signUp">
+    <span us-spinner="{radius:30, width:8, length: 20}"></span>
     <div class="container">
         <div class="row">
             <div class="col-sm-8 col-sm-offset-2">
@@ -32,6 +29,8 @@
                 </div>
 
                     <!-- show our formData as it is being typed -->
+
+
                 <pre>
                     {{ formData }}
 
@@ -39,7 +38,9 @@
                     {{ form.lastname.$dirty }}
                     {{ form.email.$dirty }}
                     {{ form.email.$touched }}
+                    {{ form.email.$valid }}
                 </pre>
+
 
 
             </div>

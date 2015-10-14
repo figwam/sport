@@ -35,7 +35,13 @@ class TraineeServiceImpl @Inject() (traineeDAO: TraineeDAO) extends TraineeServi
    */
   def save(trainee: Trainee) = traineeDAO.save(trainee)
 
+
+  /*
   /**
+   * NOTE: We dont need it: this is login with some social provider
+   *
+   *
+   *
    * Saves the social profile for a trainee.
    *
    * If a trainee exists for this profile then update the trainee, otherwise create a new trainee with the given profile.
@@ -43,7 +49,6 @@ class TraineeServiceImpl @Inject() (traineeDAO: TraineeDAO) extends TraineeServi
    * @param profile The social profile to save.
    * @return The trainee for whom the profile was saved.
    */
-
   def save(profile: CommonSocialProfile) = {
     traineeDAO.find(profile.loginInfo).flatMap {
       case Some(trainee) => // Update trainee with profile
@@ -77,5 +82,6 @@ class TraineeServiceImpl @Inject() (traineeDAO: TraineeDAO) extends TraineeServi
         ))
     }
   }
+  */
 
 }

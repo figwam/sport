@@ -28,7 +28,10 @@ trait TraineeService extends IdentityService[Trainee] {
    */
   def save(trainee: Trainee): Future[Trainee]
 
+  /*
   /**
+   * NOTE: We dont need it: this is login with some social provider
+   *
    * Saves the social profile for a trainee.
    *
    * If a trainee exists for this profile then update the trainee, otherwise create a new trainee with the given profile.
@@ -37,4 +40,5 @@ trait TraineeService extends IdentityService[Trainee] {
    * @return The trainee for whom the profile was saved.
    */
   def save(profile: CommonSocialProfile): Future[Trainee]
+  */
 }

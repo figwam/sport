@@ -1,13 +1,12 @@
 package models
 
-import java.util.Calendar
+import java.util.{UUID, Calendar}
 
 import play.api.libs.json._
 
 
 case class Bill(
-                  id: Option[Long],
-                  extId: String,
+                  id: Option[UUID],
                   amount: scala.math.BigDecimal,
                   createdOn: Calendar,
                   vat: Short,

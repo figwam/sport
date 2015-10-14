@@ -11,8 +11,7 @@ object Recurrence extends Enumeration {
 }
 
 case class ClazzDefinition(
-                  id: Option[Long],
-                  extId: UUID,
+                  id: Option[UUID],
                   startFrom: Calendar,
                   endAt: Calendar,
                   activeFrom: Calendar,
@@ -23,7 +22,7 @@ case class ClazzDefinition(
                   avatarurl: String,
                   description: String,
                   tags: Option[String],
-                  idStudio: Long)
+                  idStudio: UUID)
 
 
 /**
