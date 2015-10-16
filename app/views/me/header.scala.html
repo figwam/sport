@@ -31,9 +31,24 @@
     </div>
 </div>
 <!-- End Header Bar -->
-
+<div class="row" ng-controller="ClazzMeCtrl">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-md-12">
+                <form name="form" id="search-form" ng-submit="submitSearch()">
+                    <div class="input-group">
+                        <input ng-model="searchString" type="text" class="form-control" placeholder="@Messages("search.clazz")">
+                        <span class="input-group-btn">
+                            <button class="btn btn-success" type="submit" value="submitSearch" type="button">@Messages("search.go")</button>
+                        </span>
+                    </div><!-- /input-group -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row alerts-container" data-ng-controller="AlertsCtrl" data-ng-show="alerts.length">
     <div class="col-xs-12">
-        <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+        <alert data-ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="3000">{{alert.msg}}</alert>
     </div>
 </div>

@@ -12,7 +12,7 @@
                 <p>@Messages("section.pricing.small.price")</p>
                 <small class="text-lowercase">@Messages("word.monthly")</small>
             </div>
-            <input ng-checked="formData.aboId==1" type="radio" ng-model="formData.aboId" value="1">
+            <input ng-checked="formData.aboId=='@Messages("section.pricing.small.id")'" type="radio" ng-model="formData.aboId" value="@Messages("section.pricing.small.id")">
             <!--<button class="btn btn-success" ng-click="submitOfferRedirect('Messages("section.pricing.small")',1)">Messages("section.pricing.signup")</button>-->
         </div>
     </div>
@@ -23,7 +23,7 @@
                 <p>@Messages("section.pricing.medium.price")</p>
                 <small class="text-lowercase">@Messages("word.monthly")</small>
             </div>
-            <input ng-checked="formData.aboId != 1 && formData.aboId != 3" type="radio" ng-model="formData.aboId" value="2">
+            <input ng-checked="formData.aboId != '@Messages("section.pricing.small.id")' && formData.aboId != '@Messages("section.pricing.large.id")'" type="radio" ng-model="formData.aboId" value="@Messages("section.pricing.medium.id")">
             <!--<button class="btn btn-success" ng-click="submitOfferRedirect('Messages("section.pricing.medium")',2)">Messages("section.pricing.signup")</button>-->
         </div>
     </div>
@@ -34,7 +34,7 @@
                 <p>@Messages("section.pricing.large.price")</p>
                 <small class="text-lowercase">@Messages("word.monthly")</small>
             </div>
-            <input ng-checked="formData.aboId==3" type="radio" ng-model="formData.aboId" value="3">
+            <input ng-checked="formData.aboId=='@Messages("section.pricing.large.id")'" type="radio" ng-model="formData.aboId" value="@Messages("section.pricing.large.id")">
             <!--<button class="btn btn-success" ng-click="submitOfferRedirect('Messages("section.pricing.large")',3)">Messages("section.pricing.signup")</button>-->
         </div>
     </div>

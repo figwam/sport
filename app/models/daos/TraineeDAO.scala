@@ -1,6 +1,8 @@
 package models.daos
 
 
+import java.util.UUID
+
 import com.mohiva.play.silhouette.api.LoginInfo
 import models._
 
@@ -26,8 +28,4 @@ trait TraineeDAO {
    * @return The saved trainee.
    */
   def save(trainee: Trainee): Future[Trainee]
-
-  def book(registration: Registration): Future[Registration]
-
-  def bookDelete(registration: Registration): Future[Int]
 }

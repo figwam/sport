@@ -8,14 +8,12 @@ import com.mohiva.play.silhouette.api.{ Environment, LogoutEvent, Silhouette }
 import com.mohiva.play.silhouette.impl.authenticators.JWTAuthenticator
 import com.mohiva.play.silhouette.impl.providers.SocialProviderRegistry
 import models._
-import models.daos.{OfferDAO, TraineeDAO, ClazzDAO}
-import org.postgresql.util.PSQLException
+import models.daos.{RegistrationDAO, OfferDAO, TraineeDAO, ClazzDAO}
 import play.Play
 import play.api.Logger
 import play.api.cache.Cache
 import play.api.i18n.MessagesApi
 import play.api.libs.json.Json
-import play.cache.Cached
 import scala.concurrent.ExecutionContext.Implicits.global
 import play.api.Play.current
 import scala.concurrent.duration._
@@ -30,13 +28,13 @@ import scala.concurrent.{Await, Future}
  * @param socialProviderRegistry The social provider registry.
  */
 @Singleton
-class ApplicationController @Inject() (
-  val messagesApi: MessagesApi,
-  val env: Environment[Trainee, JWTAuthenticator],
-  socialProviderRegistry: SocialProviderRegistry,
-  clazzDAO: ClazzDAO,
-  traineeDAO: TraineeDAO,
-  offerDAO: OfferDAO)
+class ApplicationController @Inject()(
+                                       val messagesApi: MessagesApi,
+                                       val env: Environment[Trainee, JWTAuthenticator],
+                                       socialProviderRegistry: SocialProviderRegistry,
+                                       clazzDAO: ClazzDAO,
+                                       traineeDAO: TraineeDAO,
+                                       offerDAO: OfferDAO)
   extends Silhouette[Trainee, JWTAuthenticator] {
 
 
@@ -58,21 +56,6 @@ class ApplicationController @Inject() (
     Future.successful(Ok(Json.toJson(request.identity)))
   }
 
-  def book() = SecuredAction.async(parse.json) { implicit request =>
-    (request.body \ "idClazz").asOpt[String].map { idClazz =>
-      traineeDAO.book(Registration(None, request.identity.id.getOrElse(UUID.randomUUID()), UUID.fromString(idClazz)))
-        .onFailure { case t => Logger.warn(t.getMessage) }
-      Future.successful(Ok)
-    }.getOrElse {
-      Future.successful(BadRequest("Missing parameter [idClazz]"))
-    }
-  }
-
-  def bookDelete(idClazz: String) = SecuredAction.async { implicit request =>
-      traineeDAO.bookDelete(Registration(None, request.identity.id.getOrElse(UUID.randomUUID()), UUID.fromString(idClazz)))
-        .onFailure { case t => Logger.warn(t.getMessage) }
-      Future.successful(Ok)
-  }
     /*
     try {
       (request.body \ "idTrainee").asOpt[Long].map { idTrainee =>

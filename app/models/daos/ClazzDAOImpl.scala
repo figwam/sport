@@ -41,10 +41,8 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
 
 
   override def insert(clazz: Clazz, idClazzDef: UUID): Future[Clazz] = {
-    val insertQuery = slickClazzes.returning(slickClazzes.map(_.id)).into((clazzDB, id) => clazzDB.copy(id = id))
-    val objToInsert = DBClazz(None, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis), idClazzDef)
-    val action = insertQuery += objToInsert
-    db.run(action).map(_ => clazz.copy(id = objToInsert.id))
+    db.run(slickClazzes += DBClazz(None, asTimestamp(clazz.startFrom), asTimestamp(clazz.endAt), new Timestamp(System.currentTimeMillis), new Timestamp(System.currentTimeMillis), idClazzDef))
+      .map(_ => clazz)
   }
 
   override def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Future[Page] = {
@@ -109,7 +107,7 @@ class ClazzDAOImpl @Inject() (protected val dbConfigProvider: DatabaseConfigProv
         // go through all the DBClazzes and map them to Clazz
         case (clazz, registration) => {
           val idReg: Option[UUID] = registration.flatMap{reg => reg match {case DBRegistration(_,_,_,_) => reg.id case _ => None} }
-          Clazz(clazz.id, asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef, clazz.idStudio, None)
+          Clazz(clazz.id, asCalendar(clazz.startFrom), asCalendar(clazz.endAt), clazz.name, clazz.contingent, clazz.avatarurl, clazz.description, clazz.tags, clazz.registrations, clazz.searchMeta, clazz.idClazzDef, clazz.idStudio, idReg)
         }
       } // The result is Seq[Clazz] flapMap (works with Clazz) these to Page
     }.flatMap (c3 => totalRows.map (rows => Page(c3, page, offset.toLong, rows.toLong)))

@@ -12,8 +12,9 @@ GET           /clazzesCount                          controllers.ApplicationCont
 
 # Secured rsources
 GET           /clazzes/trainees/me                   controllers.ApplicationController.clazzesPersonalized(p:Int ?= 0, s:Int ?= 1, f ?= "")
-POST          /trainees/me/clazzes                   controllers.ApplicationController.book
-DELETE        /trainees/me/clazzes/:id               controllers.ApplicationController.bookDelete(id: String)
+GET          /trainees/me/registrationsCount       controllers.RegistrationController.countByTrainee
+POST          /trainees/me/registrations             controllers.RegistrationController.create
+DELETE        /trainees/me/registrations/:id         controllers.RegistrationController.delete(id: String)
 
 GET           /signOut                               controllers.ApplicationController.signOut
 POST          /signIn                                controllers.CredentialsAuthController.authenticate

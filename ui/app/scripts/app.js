@@ -150,7 +150,7 @@ app.config(function ($urlRouterProvider, $stateProvider, $httpProvider, $authPro
           templateUrl: '/views/footer.html'
         }
       }})
-    .state('me.clazzes', {
+    .state('me.clazzes', { url:'/me/clazzes',
       views: {
         'content@': {
           templateUrl: '/views/me/clazzes.html'

@@ -29,7 +29,7 @@
 
                         <!-- Trainee is logged out -->
                     <a ng-if="!isAuthenticated()" class="btn btn-primary" ui-sref="home.signIn">@Messages("sign.in")</a>
-                    <a ng-if="!isAuthenticated()" class="btn btn-success" ng-click="submitOfferRedirect('@Messages("section.pricing.medium")',2, false)">@Messages("sign.up")</a>
+                    <a ng-if="!isAuthenticated()" class="btn btn-success" ng-click="submitOfferRedirect('@Messages("section.pricing.medium")','@Messages("section.pricing.medium.id")', false)">@Messages("sign.up")</a>
                 </form>
             </div>
         </div>

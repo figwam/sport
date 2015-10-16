@@ -39,7 +39,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     db.run(query.result.headOption).map { resultOption =>
       resultOption.map {
         case (trainee, loginInfo, address, subscription, offer) =>
-          Trainee(None,
+          Trainee(trainee.id,
             LoginInfo(loginInfo.providerId, loginInfo.providerKey),
             trainee.firstname,
             trainee.lastname,
@@ -56,7 +56,7 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
             trainee.fullname,
             trainee.avatarurl,
             Address(
-              None,
+              address.id,
               address.street,
               address.city,
               address.zip,
@@ -64,11 +64,11 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
               address.country),
           None,
             Some(Subscription(
-              None,
+              subscription.id,
               subscription.isActive,
               subscription.canceledOn match { case Some(c) => Some(asCalendar(c)) case _ => None},
               Offer(
-                None,
+                offer.id,
                 offer.name,
                 offer.nrAccess,
                 offer.nrAccessSame,
@@ -161,15 +161,4 @@ class TraineeDAOImpl @Inject()(protected val dbConfigProvider: DatabaseConfigPro
     // run actions and return trainee afterwards
     db.run(actions).map(_ => trainee)
   }
-
-
-  def book(registration: Registration): Future[Registration] = {
-    db.run(slickRegistrations += DBRegistration(None, new Timestamp(System.currentTimeMillis()), registration.idTrainee, registration.idClazz))
-      .map(_ => registration)
-  }
-
-  def bookDelete(registration: Registration): Future[Int] = {
-    db.run(slickRegistrations.filter(_.idClazz === registration.idClazz).filter(_.idTrainee === registration.idTrainee).delete)
-  }
-
 }

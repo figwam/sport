@@ -93,7 +93,7 @@ trait DBTableDefinitions {
 
   class Addresses(_tableTag: Tag) extends Table[DBAddress](_tableTag, "address") {
     def * = (id, street, zip, city, state, country, createdOn, updatedOn, isDeleted, longitude, latitude) <> (DBAddress.tupled, DBAddress.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val street: Rep[String] = column[String]("street")
     val zip: Rep[String] = column[String]("zip")
     val city: Rep[String] = column[String]("city")
@@ -117,7 +117,7 @@ trait DBTableDefinitions {
 
   class Bills(_tableTag: Tag) extends Table[DBBill](_tableTag, "bill") {
     def * = (id, amount, createdOn, vat, idTrainee) <> (DBBill.tupled, DBBill.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val amount: Rep[scala.math.BigDecimal] = column[scala.math.BigDecimal]("amount")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val vat: Rep[Short] = column[Short]("vat")
@@ -148,7 +148,7 @@ trait DBTableDefinitions {
 
   class ClazzDefinitions(_tableTag: Tag) extends Table[DBClazzDefinition](_tableTag, "clazz_definition") {
     def * = (id, startFrom, endAt, activeFrom, activeTill, name, recurrence, contingent, createdOn, updatedOn, avatarurl,description, tags, deletedOn, idStudio) <>(DBClazzDefinition.tupled, DBClazzDefinition.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
     val activeFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("active_from")
@@ -178,7 +178,7 @@ trait DBTableDefinitions {
 
   class Clazzes(_tableTag: Tag) extends Table[DBClazz](_tableTag, "clazz") {
     def * = (id, startFrom, endAt, createdOn, updatedOn, idClazzDef) <>(DBClazz.tupled, DBClazz.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
@@ -204,7 +204,7 @@ trait DBTableDefinitions {
 
   class ClazzViews(_tableTag: Tag) extends Table[DBClazzView](_tableTag, "clazz_view") {
     def * = (id, startFrom, endAt, name, contingent, avatarurl,description, tags, searchMeta, registrations, idClazzDef, idStudio) <>(DBClazzView.tupled, DBClazzView.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
     val name: Rep[String] = column[String]("name")
@@ -238,7 +238,7 @@ trait DBTableDefinitions {
 
   class ClazzTraineeViews(_tableTag: Tag) extends Table[DBClazzTraineeView](_tableTag, "clazz_trainee_view") {
     def * = (id, startFrom, endAt, name, contingent, avatarurl,description, tags, searchMeta, registrations, idClazzDef, idStudio, idTrainee, idRegistration) <>(DBClazzTraineeView.tupled, DBClazzTraineeView.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val startFrom: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("start_from")
     val endAt: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("end_at")
     val name: Rep[String] = column[String]("name")
@@ -266,7 +266,7 @@ trait DBTableDefinitions {
 
   class LoginInfos(_tableTag: Tag) extends Table[DBLoginInfo](_tableTag, "login_info") {
     def * = (id, providerId, providerKey, lastUsed, expiration, fingerprint, createdOn) <> (DBLoginInfo.tupled, DBLoginInfo.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val providerId: Rep[String] = column[String]("provider_id")
     val providerKey: Rep[String] = column[String]("provider_key")
     val lastUsed: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("last_used")
@@ -287,7 +287,7 @@ trait DBTableDefinitions {
 
   class OAuth1Infos(_tableTag: Tag) extends Table[DBOAuth1Info](_tableTag, "oauth1_info") {
     def * = (id, token, secret, idLoginInfo, createdOn) <> (DBOAuth1Info.tupled, DBOAuth1Info.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val token: Rep[String] = column[String]("token")
     val secret: Rep[String] = column[String]("secret")
     val idLoginInfo: Rep[UUID] = column[UUID]("id_login_info")
@@ -309,7 +309,7 @@ trait DBTableDefinitions {
 
   class OAuth2Infos(_tableTag: Tag) extends Table[DBOAuth2Info](_tableTag, "oauth2_info") {
     def * = (id, idLoginInfo, accessToken, tokenType, expiresIn, refreshToken, createdOn) <> (DBOAuth2Info.tupled, DBOAuth2Info.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val idLoginInfo: Rep[UUID] = column[UUID]("id_login_info")
     val accessToken: Rep[String] = column[String]("access_token")
     val tokenType: Rep[Option[String]] = column[Option[String]]("token_type", O.Default(None))
@@ -333,7 +333,7 @@ trait DBTableDefinitions {
 
   class Offers(_tableTag: Tag) extends Table[DBOffer](_tableTag, "offer") {
     def * = (id, createdOn, updatedOn, name, nrAccess, nrAccessSame, price, isDeleted) <> (DBOffer.tupled, DBOffer.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val name: Rep[String] = column[String]("name")
@@ -378,7 +378,7 @@ trait DBTableDefinitions {
 
   class Registrations(_tableTag: Tag) extends Table[DBRegistration](_tableTag, "registration") {
     def * = (id, createdOn, idTrainee, idClazz) <> (DBRegistration.tupled, DBRegistration.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val idTrainee: Rep[UUID] = column[UUID]("id_trainee")
     val idClazz: Rep[UUID] = column[UUID]("id_clazz")
@@ -407,7 +407,7 @@ trait DBTableDefinitions {
 
   class Studios(_tableTag: Tag) extends Table[DBStudio](_tableTag, "studio") {
     def * = (id, name, mobile, phone, email, avatarurl, description, sporttype, createdOn, updatedOn, isDeleted, deletedReason, idAddress, idPartner) <> (DBStudio.tupled, DBStudio.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val name: Rep[String] = column[String]("name")
     val mobile: Rep[Option[String]] = column[Option[String]]("mobile", O.Default(None))
     val phone: Rep[Option[String]] = column[Option[String]]("phone", O.Default(None))
@@ -439,7 +439,7 @@ trait DBTableDefinitions {
 
   class Subscriptions(_tableTag: Tag) extends Table[DBSubscription](_tableTag, "subscription") {
     def * = (id, createdOn, updatedOn, isActive, canceledOn, idOffer, idTrainee) <> (DBSubscription.tupled, DBSubscription.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
     val updatedOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("updated_on")
     val isActive: Rep[Boolean] = column[Boolean]("is_active", O.Default(true))
@@ -463,7 +463,7 @@ trait DBTableDefinitions {
 
   class TimeStops(_tableTag: Tag) extends Table[DBTimeStop](_tableTag, "time_stop") {
     def * = (id, stopOn, reason, createdOn, idSubscription) <> (DBTimeStop.tupled, DBTimeStop.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val stopOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("stop_on")
     val reason: Rep[String] = column[String]("reason")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
@@ -495,7 +495,7 @@ trait DBTableDefinitions {
 
   class Trainees(_tableTag: Tag) extends Table[DBTrainee](_tableTag, "trainee") {
     def * = (id, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, fullname, avatarurl) <> (DBTrainee.tupled, DBTrainee.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val firstname: Rep[Option[String]] = column[Option[String]]("firstname")
     val lastname: Rep[Option[String]] = column[Option[String]]("lastname")
     val mobile: Rep[Option[String]] = column[Option[String]]("mobile", O.Default(None))
@@ -549,7 +549,7 @@ trait DBTableDefinitions {
 
   class TraineePasswordInfos(_tableTag: Tag) extends Table[DBTraineePasswordInfo](_tableTag, "trainee_password_info") {
     def * = (id, idLoginInfo, hasher, password, salt, createdOn) <> (DBTraineePasswordInfo.tupled, DBTraineePasswordInfo.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val idLoginInfo: Rep[UUID] = column[UUID]("id_login_info")
     val hasher: Rep[String] = column[String]("hasher")
     val password: Rep[String] = column[String]("password")
@@ -587,7 +587,7 @@ trait DBTableDefinitions {
 
   class Partners(_tableTag: Tag) extends Table[DBPartner](_tableTag, "partner") {
     def * = (id, firstname, lastname, mobile, phone, email, emailVerified, createdOn, updatedOn, ptoken, isDeleted, deleteReason, isActive, inactiveReason, idAddress, username, fullname, avatarurl) <> (DBPartner.tupled, DBPartner.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val firstname: Rep[Option[String]] = column[Option[String]]("firstname")
     val lastname: Rep[Option[String]] = column[Option[String]]("lastname")
     val mobile: Rep[Option[String]] = column[Option[String]]("mobile", O.Default(None))
@@ -641,7 +641,7 @@ trait DBTableDefinitions {
 
   class PartnerPasswordInfos(_tableTag: Tag) extends Table[DBPartnerPasswordInfo](_tableTag, "partner_password_info") {
     def * = (id, idLoginInfo, hasher, password, salt, createdOn) <> (DBPartnerPasswordInfo.tupled, DBPartnerPasswordInfo.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val idLoginInfo: Rep[UUID] = column[UUID]("id_login_info")
     val hasher: Rep[String] = column[String]("hasher")
     val password: Rep[String] = column[String]("password")
@@ -666,7 +666,7 @@ trait DBTableDefinitions {
 
   class Loggers(_tableTag: Tag) extends Table[DBLogger](_tableTag, "logger") {
     def * = (id, rootid, title, exception, stacktrace, reqHeader, reqMethod, reqAddress, reqUri, createdOn) <> (DBLogger.tupled, DBLogger.unapply)
-    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey)
+    val id: Rep[Option[UUID]] = column[Option[UUID]]("id", O.PrimaryKey, O.AutoInc)
     val rootid: Rep[String] = column[String]("rootid")
     val title: Rep[String] = column[String]("title")
     val exception: Rep[String] = column[String]("exception")
@@ -677,8 +677,6 @@ trait DBTableDefinitions {
     val reqUri: Rep[String] = column[String]("req_uri")
     val createdOn: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("created_on")
   }
-
-
 
   // table query definitions
   val slickTrainees = TableQuery[Trainees]

@@ -6,7 +6,7 @@
  * The clazz controller.
  *
  */
-app.controller('ClazzMeCtrl', ['$rootScope', '$scope', '$http', '$templateCache', function($rootScope, $scope, $http, $templateCache) {
+app.controller('ClazzMeCtrl', ['$rootScope', '$state', '$scope', '$http', '$templateCache', 'AlertFactory', function($rootScope, $state, $scope, $http, $templateCache, AlertFactory) {
 
 
   $scope.totalClazzes = 0;
@@ -33,7 +33,7 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$scope', '$http', '$templateCache'
     var body={"idClazz":idClazz};
     $http({
       method: "POST",
-      url: "/trainees/me/clazzes",
+      url: "/trainees/me/registrations",
       data: body,
       headers: { 'Content-Type': 'application/json; charset=UTF-8'},
       cache: $templateCache}).
@@ -41,21 +41,23 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$scope', '$http', '$templateCache'
         $scope.status = response.status;
         $scope.data = response.data;
         getResultsPage($scope.pagination.current)
+        AlertFactory.addAlert("jdsgkfdakhjfgslk","success")
       }, function(response) {
         $scope.data = response.data || "Request failed";
         $scope.status = response.status;
       });
   };
 
-  $scope.bookDelete = function(idClazz) {
+  $scope.bookDelete = function(idRegistration) {
     $http({
       method: "DELETE",
-      url: "/trainees/me/clazzes/"+idClazz,
+      url: "/trainees/me/registrations/"+idRegistration,
       cache: $templateCache}).
       then(function(response) {
         $scope.status = response.status;
         $scope.data = response.data;
         getResultsPage($scope.pagination.current)
+        AlertFactory.addAlert("jdsgkfdakhjfgslk","danger")
       }, function(response) {
         $scope.data = response.data || "Request failed";
         $scope.status = response.status;
@@ -65,6 +67,7 @@ app.controller('ClazzMeCtrl', ['$rootScope', '$scope', '$http', '$templateCache'
 
   $scope.submitSearch = function(idTrainee){
     $rootScope.clazzesSearchString = $scope.searchString
+    if ($state.current.name != 'me.clazzes') $state.go('me.clazzes')
     getResultsPage(1);
   };
 }]);

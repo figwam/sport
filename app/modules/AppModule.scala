@@ -17,6 +17,7 @@ class AppModule extends AbstractModule with ScalaModule {
     bind[TraineeDAO].to[TraineeDAOImpl]
     bind[ClazzDefinitionDAO].to[ClazzDefinitionDAOImpl]
     bind[OfferDAO].to[OfferDAOImpl]
+    bind[RegistrationDAO].to[RegistrationDAOImpl]
     bind[LoggerDAO].to[LoggerDAOImpl]
   }
 }

@@ -38,9 +38,9 @@ CREATE TABLE public.temp(
 DO $$
 DECLARE
   tables varchar[] := ARRAY[
-  'registration','clazz','clazz_definition', 'studio','partner_password_info','partner_login_info',
+  'subscription','registration','clazz','clazz_definition', 'studio','partner_password_info','partner_login_info',
   'partner','trainee_password_info','trainee_login_info','trainee','address','login_info',
-  'bill', 'offer','subscription'];
+  'bill', 'offer'];
   t varchar;
 
   lorem_ipsum varchar := 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.';
@@ -53,7 +53,7 @@ BEGIN
   INSERT INTO temp (firstname, lastname, mobile, phone, email, partner_avatarurl,
                     street, zip, state, city, country, longitude, latitude,
                     studio_name, sporttype, studio_description, studio_avatarurl,
-                    start_from, end_at, active_from, active_till, clazzdef_name, recurrence, contingent, clazz_def_avatarurl, clazzdef_description)
+                    active_from, active_till, start_from, end_at, clazzdef_name, recurrence, contingent, clazz_def_avatarurl, clazzdef_description)
     VALUES (
       'Alexander','Schamne', '0791112233','0312223333','alexander.schamne@gmail.com','https://lh3.googleusercontent.com/-tIf-c0HRvWo/AAAAAAAAAAI/AAAAAAAAAHc/sgaIELQzwcQ/photo.jpg',
       'Gesellschaftsstrasse 73','3012','Bern','Bern','Switzerland','46.954995','7.432121',

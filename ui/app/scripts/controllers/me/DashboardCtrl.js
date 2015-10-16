@@ -6,21 +6,9 @@
  * The clazz controller.
  *
  */
-app.controller('DashboardCtrl', ['$rootScope', '$scope', '$state', '$http', function($rootScope, $scope, $state, $http) {
+app.controller('DashboardCtrl', ['$rootScope', '$scope', '$http', 'ClazzFactory', 'RegistrationFactory', function($rootScope, $scope, $http, ClazzFactory, RegistrationFactory) {
 
-  getClazzCount();
-
-  // calling our submit function.
-  $scope.submitSearchRedirect = function () {
-    $rootScope.clazzesSearchString = $scope.searchString
-    $state.go('me.clazzes')
-  };
-
-  function getClazzCount() {
-    $http.get('/clazzesCount')
-      .then(function(result) {
-        $rootScope.totalClazzes = result.data
-      });
-  }
+  RegistrationFactory.getRegistrationsCount();
+  ClazzFactory.getClazzCount();
 
 }]);
